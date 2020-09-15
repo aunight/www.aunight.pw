@@ -1774,7 +1774,7 @@ input, select, textarea {
 				content: '';
 				display: block;
 				position: absolute;
-				left: 50%;
+				left: 110%;
 				bottom: -0.75em;
 				margin-left: -0.5em;
 				border-bottom: solid 0em #ffffff;
@@ -1784,6 +1784,7 @@ input, select, textarea {
 				-webkit-transition: border-bottom-width .25s ease-in-out;
 				-ms-transition: border-bottom-width .25s ease-in-out;
 				transition: border-bottom-width .25s ease-in-out;
+				opacity: 0
 			}
 
 			#nav a span {
@@ -1795,27 +1796,17 @@ input, select, textarea {
 				font-size: 0.3em;
 				height: 2.25em;
 				line-height: 2.25em;
-				left: 50%;
+				left: 0%;
 				opacity: 0;
 				-moz-transition: opacity .25s ease-in-out;
 				-webkit-transition: opacity .25s ease-in-out;
 				-ms-transition: opacity .25s ease-in-out;
 				transition: opacity .25s ease-in-out;
 				width: 5.5em;
-				margin-left: -2.75em;
+				margin-left: 0em;
 			}
 
-				#nav a span:after {
-					content: '';
-					display: block;
-					position: absolute;
-					bottom: -0.4em;
-					left: 50%;
-					margin-left: -0.6em;
-					border-top: solid 0.6em #222222;
-					border-left: solid 0.6em transparent;
-					border-right: solid 0.6em transparent;
-				}
+				
 
 			#nav a:hover {
 				opacity: 1.0;
@@ -1997,7 +1988,7 @@ input, select, textarea {
 						position: absolute;
 						top: 0;
 						left: 0;
-						width: 80%;
+						width: 70%;
 						height: 100%;
 						-moz-object-fit: cover;
 						-webkit-object-fit: cover;
@@ -2032,7 +2023,8 @@ input, select, textarea {
 
 						#main > .panel.intro .pic .arrow:before {
 							position: relative;
-							padding-right: 0;
+							
+							padding-right: 10;
 							top: 0.125em;
 						}
 
