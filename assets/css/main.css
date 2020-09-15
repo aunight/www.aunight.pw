@@ -2101,7 +2101,51 @@ input, select, textarea {
 						}
 
 				}
-
+				#nav a span {
+					display: block;
+					position: absolute;
+					background: #222222;
+					color: #ffffff;
+					top: -2.75em;
+					font-size: 0.3em;
+					height: 2.25em;
+					line-height: 2.25em;
+					left: 0%;
+					opacity: 0;
+					-moz-transition: opacity .25s ease-in-out;
+					-webkit-transition: opacity .25s ease-in-out;
+					-ms-transition: opacity .25s ease-in-out;
+					transition: opacity .25s ease-in-out;
+					width: 5.5em;
+					margin-left: 0em;
+				}
+	
+					
+	
+				#nav a:hover {
+					opacity: 1.0;
+				}
+	
+					#nav a:hover span {
+						opacity: 1.0;
+					}
+	
+				#nav a.active {
+					opacity: 1.0;
+				}
+	
+					#nav a.active:after {
+						border-bottom-width: 0.5em;
+					}
+	
+			@media screen and (max-width: 980px) {
+	
+				#nav a span {
+					display: none;
+				}
+	
+			}
+	
 
 /* Footer */
 
