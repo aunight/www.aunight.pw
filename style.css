@@ -1,0 +1,28 @@
+/* Colors */
+
+:root {
+    --purple-color: #D053BE;
+    --yellow-color: #FFCC33;
+    --light-yellow-color: #FFE174;
+    --pink-color: #DF98FA;
+    --light-pink-color: #F8C9C9;
+    --blue-color: #6699FF;
+    --red-color: #FF3366;
+    --black-volor: #4D4945;
+}
+
+ /* Fonts */
+body {
+    font-family: 'M PLUS Rounded', serif;
+    font-size: 20px;
+  }
+ /* Linear */
+body
+{position: absolute;
+width: 1024px;
+height: 1440px;
+left: 1440px;
+top: 0px;
+background: linear-gradient(#FFCC33 0.39%, #E233FF 100%);
+     }    
+    
