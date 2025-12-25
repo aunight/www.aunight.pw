@@ -167,7 +167,8 @@
 
 		/* --- Hero Section --- */
 		.hero {
-			display: flex;
+			display: grid;
+			grid-template-rows: auto auto;
 			align-items: center;
 			justify-content: space-between;
 			min-height: 280px;
@@ -177,8 +178,7 @@
 		}
 
 		.hero-text {
-			flex: 1;
-			z-index: 2;
+			position: relative;
 		}
 
 		.hero-text h1 {
@@ -194,21 +194,37 @@
 			margin-bottom: 5px;
 		}
 
+		.hide-on-computer{
+			display: flex;
+			flex-direction: column;   /* 強制上到下 */
+		}
+
+		.hide-on-computer img {
+			max-width: 20%; /* 圖片最大寬度為其容器寬度 */
+			height: auto;   /* 高度自動調整以保持長寬比 */
+			display: block;      /* 確保它是區塊元素，獨佔一行 */
+		}
+
 		.hero-img {
-			align-self: stretch;
+			width: 100%;
+			height: auto;
 			display: flex;
 			align-items: flex-end;
-			margin-left: 20px;
+			margin-left: -150px;
+			order: 1;
 		}
 
 		.hero-img img {
 			height: 100%;
-			max-height: 280px;
+			max-height: 400px;
 			width: auto;
 			object-fit: contain;
+			position: absolute;
+			bottom: 0px;
 			filter: drop-shadow(-10px 0 15px rgba(0,0,0,0.1));
 			transition: transform 0.3s ease;
 		}
+
 
 		.hero-img img:hover {
 			transform: scale(1.02);
@@ -238,34 +254,40 @@
 			display: inline-block;
 		}
 
+		/* 強制把左右排版改成上下 */
 		.grid-2 {
-			display: grid;
-			grid-template-columns: 1fr 1fr;
-			gap: 25px;
+			display: flex !important;
+			flex-direction: column !important;
+			gap: 24px;
 		}
 
-		/* --- 嵌入容器 --- */
+
 		.embed-container {
 			position: relative;
 			width: 100%;
-			background: rgba(255,255,255,0.5);
 			border-radius: 12px;
 			overflow: hidden;
 			margin-bottom: 15px;
 			min-height: 250px;
+
 			display: flex;
-			align-items: center;
-			justify-content: center;
+			flex-wrap: wrap;              /* ⭐ 關鍵：允許換行 */
+			align-items: flex-start;      /* 不要垂直置中 */
+			justify-content: flex-start;  /* 不要水平置中 */
+			gap: 12px;                    /* 物件間距 */
+
 			color: #999;
 			border: 1px dashed #ccc;
 		}
 
+		/* iframe 仍然可以獨佔整行 */
 		.embed-container iframe {
 			width: 100%;
-			height: 100%;
-			min-height: 250px;
+			min-height: 500px;
 			border: none;
+			display: block;
 		}
+
 
 		/* --- Tab 切換樣式 --- */
 		.tabs {
@@ -386,14 +408,13 @@
 			backdrop-filter: blur(10px);
 		}
 		.social-icons {
-			display: grid;
-			grid-template-columns: repeat(6, 45px);
 			justify-content: center;
 			gap: 15px;
 			margin-top: 20px;
 			max-width: fit-content;
 			margin-left: auto;
 			margin-right: auto;
+			display: flex;
 		}
 		.social-icons a {
 			width: 45px;
@@ -408,6 +429,8 @@
 			font-size: 1.2rem;
 			transition: all 0.3s ease;
 			border: 1px solid rgba(255,255,255,0.8);
+			backdrop-filter: blur(1px);
+			-webkit-backdrop-filter: blur(1px);
 		}
 		.social-icons a:hover {
 			background: white;
@@ -439,9 +462,8 @@
 				padding: 40px 20px; 
 				min-height: auto; 
 			}
-			.hero-img { height: auto; width: 100%; justify-content: center; }
-			.hero-img img { margin-bottom: 20px; width: 80%; height: auto; }
-			.hero-text h1 { font-size: 2.8rem; }
+			.hero-img { display: none }
+			.hero-text h1 { font-size: 2.8rem;}
 			.grid-2 { grid-template-columns: 1fr; }
 			nav { top: auto; bottom: 20px; width: 90%; justify-content: center; padding: 10px; gap: 8px; }
 			nav a { width: 40px; padding: 8px; }
@@ -455,9 +477,14 @@
 			}
 
 			.social-icons {
-				grid-template-columns: repeat(6, 45px);
 				justify-content: start;
+				flex-wrap: wrap; /* 兩行顯示圖標 */
 			}
+		}
+		@media (min-width: 769px) {
+			.hide-on-computer img {display: none;}
+			.hero-img { display: block }
+			.hero-img img { margin-bottom: 0px; width: 80%; height: auto; left: 400px }
 		}
 	</style>
 </head>
@@ -477,8 +504,12 @@
 <div class="container">
 
 	<section id="hero" class="glass-card hero reveal">
+		<div class="hide-on-computer">
+			<img src="img/秋夜.png" alt="Autumn Night Image">
+		</div>
 		<div class="hero-text">
 			<h1>秋夜 AuNight</h1>
+
 			<div class="skills-container" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px 20px; margin-bottom: 20px; text-align: left;">
 				<div class="skill-pair">
 					<span class="skill-zh" style="display: inline-block; font-weight: 500; color: var(--text-highlight); font-size: 1.1rem; margin-right: 8px;">剪輯師</span>
@@ -533,25 +564,25 @@
 		<h2 class="section-title">影片剪輯 Video Editing</h2>
 
 		<div class="tabs">
-			<button class="tab-btn active">遊戲類</button>
-			<button class="tab-btn">Vlog</button>
-			<button class="tab-btn">VTuber</button>
+			<button class="tab-btn active">真人類</button>
+			<button class="tab-btn">遊戲類</button>
+			<button class="tab-btn">短片類</button>
+			<button class="tab-btn">VTuber類</button>
 			<button class="tab-btn">知識類</button>
-			<button class="tab-btn">Podcast</button>
+			<button class="tab-btn">訪談類</button>
 			<button class="tab-btn">政治類</button>
 		</div>
 
-		<div class="tab-content active">
-			<div class="embed-container"><p>【遊戲類】YouTube 播放清單嵌入區</p></div>
-		</div>
-		<div class="tab-content"><div class="embed-container"><p>【Vlog】YouTube 播放清單嵌入區</p></div></div>
-		<div class="tab-content"><div class="embed-container"><p>【VTuber】YouTube 播放清單嵌入區</p></div></div>
-		<div class="tab-content"><div class="embed-container"><p>【知識類】YouTube 播放清單嵌入區</p></div></div>
-		<div class="tab-content"><div class="embed-container"><p>【Podcast】YouTube 播放清單嵌入區</p></div></div>
-		<div class="tab-content"><div class="embed-container"><p>【政治類】YouTube 播放清單嵌入區</p></div></div>
+		<div class="tab-content active"><div class="embed-container"><iframe width="560" height="315" src="https://www.youtube.com/embed/4nF57zCu3bo?si=Iewf2fuTSGq-sNk3" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div></div>
+		<div class="tab-content"><div class="embed-container"><iframe width="560" height="315" src="https://www.youtube.com/embed/tVqLHKkiXZw?si=RA37Z64RKUUwxLx_" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div></div>
+		<div class="tab-content"><div class="embed-container"><iframe width="560" height="315" src="https://www.youtube.com/embed/mmHnj6MvMv4?si=VP1AHJtZhVP7KqzQ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div></div>
+		<div class="tab-content"><div class="embed-container"><iframe width="560" height="315" src="https://www.youtube.com/embed/Ah3bcnrSfjg?si=NLrIrfUe8ax-2P9-" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div></div>
+		<div class="tab-content"><div class="embed-container"><iframe width="560" height="315" src="https://www.youtube.com/embed/4nF57zCu3bo?si=CfqrhNb_Y8WHkmfT" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div></div>
+		<div class="tab-content"><div class="embed-container"><iframe width="560" height="315" src="https://www.youtube.com/embed/ovgiz_l9Wzw?si=HgTuHxZeeDfWC0Wu" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div></div>
+		<div class="tab-content"><div class="embed-container"><iframe width="560" height="315" src="https://www.youtube.com/embed/-TcO0M6mSBw?si=8hicYF13yyMc2xLV" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div></div>
 
 		<details>
-			<summary>查看價目表 (點擊展開)</summary>
+			<summary>查看價目表</summary>
 			<div class="price-content">
 				<img src="https://via.placeholder.com/800x400?text=Video+Price+List" style="width:100%; border-radius:10px;">
 			</div>
@@ -568,21 +599,22 @@
 
 		<div class="tab-content active">
 			<div class="grid-2">
-				<div class="embed-container"><p>YouTube Embed (Cover)</p></div>
-				<div class="embed-container" style="height: auto;"><p>Google Drive / Audio Upload</p></div>
+				<div class="embed-container"><iframe width="560" height="315" src="https://www.youtube.com/embed/FsfN4p2r9rw?si=xLeKA_PsW-jMsiqp" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div>
+				<div class="embed-container"><div style="left: 0; width: 100%; height: 400px; position: relative;"><iframe src="https://drive.google.com/embeddedfolderview?id=1ruumdg8SWO1CXAJDYTMePnAa3PP0n55w#list" style="top: 0; left: 0; width: 100%; height: 100%; position: absolute; border: 0;" allowfullscreen></iframe></div></div>
 			</div>
 		</div>
 		<div class="tab-content">
-			<div class="embed-container"><p>Spotify Embed (BGM)</p></div>
+			<div class="embed-container"><div style="left: 0; width: 100%; height: 400px; position: relative;"><iframe src="https://drive.google.com/embeddedfolderview?id=1DUDpAtf6UcFKufMk5fX4ENo6XiMlcPDE#list" style="top: 0; left: 0; width: 100%; height: 100%; position: absolute; border: 0;" allowfullscreen></iframe></div></div>
 		</div>
 		<div class="tab-content">
-			<div class="embed-container"><p>Spotify Embed (Original)</p></div>
+			<div class="embed-container"><div style="left: 0; width: 100%; height: 300px; position: relative;"><iframe src="https://drive.google.com/embeddedfolderview?id=1_T3m2YcBYb_T8Z-jqgthuQWOAUdqbIh7#list" style="top: 0; left: 0; width: 100%; height: 100%; position: absolute; border: 0;" allowfullscreen></iframe></div></div>
 		</div>
 
 		<details>
 			<summary>查看價目表</summary>
 			<div class="price-content">
-				<img src="https://via.placeholder.com/800x400?text=Music+Price+List" style="width:100%; border-radius:10px;">
+				<img src="img/混音價目表.png" style="width:100%; border-radius:10px;">
+				<p style="margin-bottom: 10px; font-size: 0.9rem; opacity: 0.7;text-align: center">BGM及原創曲請聯絡我獲取詳細報價</p>
 			</div>
 		</details>
 	</section>
@@ -597,22 +629,98 @@
 		</div>
 
 		<div class="tab-content active">
-			<div class="grid-2" style="margin-bottom: 20px;">
-				<div class="embed-container"><p>App Store / Play Store Link (VALKI)</p></div>
-				<div class="embed-container"><p>Behance Embed</p></div>
+			<div class="grid-2" style="margin-bottom: 20px; text-align: center">
+				<div class="embed-container"><style>
+					/* 共用：兩欄 */
+					.embed-container{
+						display:flex;
+						flex-wrap: wrap;
+						gap: 20px;
+						justify-content: center;
+					}
+					.embed-container > .iframely-embed{
+						flex: 0 0 calc(50% - 10px);
+						display:flex;
+						justify-content:center;
+					}
+
+					/* 共用：讓內容吃滿自己的框 */
+					.embed-container > .iframely-embed > .iframely-responsive{
+						width: 420px !important;
+						border-radius: 18px !important;
+						overflow: hidden !important;
+					}
+					.embed-container > .iframely-embed > .iframely-responsive iframe,
+					.embed-container > .iframely-embed > .iframely-responsive > *{
+						width: 100% !important;
+						height: 100% !important;
+						display:block !important;
+					}
+
+					/* ✅ 商店：扁卡 */
+					.embed-store > .iframely-embed > .iframely-responsive{
+						height: 140px !important;
+					}
+
+					/* ✅ Behance：封面卡（不裁切就要更高） */
+					.embed-behance > .iframely-embed > .iframely-responsive{
+						height: 420px !important;   /* 你可調 320~420 */
+					}
+
+					/* 手機：一欄 */
+					@media (max-width: 900px){
+						.embed-container{ justify-content:center; }
+						.embed-container > .iframely-embed{ flex: 0 0 100%; }
+					}
+
+				</style>
+
+					<div class="embed-store">
+						<div class="iframely-embed">
+							<div class="iframely-responsive">
+								<a
+										href="https://play.google.com/store/apps/details?id=com.deebug.valki&hl=en_US"
+										data-iframely-url="https://iframely.net/N3cd4Q5B?card=small&theme=dark">
+								</a>
+							</div>
+						</div>
+
+						<div class="iframely-embed embed-store">
+							<div class="iframely-responsive">
+								<a
+										href="https://apps.apple.com/tw/app/valki/id6737088520"
+										data-iframely-url="https://iframely.net/jGLFUOQl?card=small&theme=dark">
+								</a>
+							</div>
+						</div>
+					</div>
+
+					<script async src="https://iframely.net/embed.js"></script>
+
+					<div class="embed-container embed-behance">
+					<div class="iframely-embed"><div class="iframely-responsive" style="padding-bottom: 71.4286%; padding-top: 120px;"><a href="https://www.behance.net/gallery/166426097/2023UIUX-Taipei-MRT-GO-App-Redesign" data-iframely-url="https://iframely.net/bOnQ3hPO?media=0&theme=dark"></a></div></div><script async src="https://iframely.net/embed.js"></script>
+					<div class="iframely-embed"><div class="iframely-responsive" style="padding-bottom: 50.2857%; padding-top: 120px;"><a href="https://www.behance.net/gallery/140733047/Dcard-App-Redesign-20" data-iframely-url="https://iframely.net/tmKNCeRd?media=0&theme=dark"></a></div></div><script async src="https://iframely.net/embed.js"></script>
+					<div class="iframely-embed"><div class="iframely-responsive" style="padding-bottom: 58.2143%; padding-top: 120px;"><a href="https://www.behance.net/gallery/140596775/APP-20-Ani-Gamer-APP-Redesign-20" data-iframely-url="https://iframely.net/ECXQY57i?media=0&theme=dark"></a></div></div><script async src="https://iframely.net/embed.js"></script>
+					<div class="iframely-embed"><div class="iframely-responsive" style="padding-bottom: 58.2143%; padding-top: 120px;"><a href="https://www.behance.net/gallery/135587759/APP-Gamercomtw-App-Social-Tab-Redesign" data-iframely-url="https://iframely.net/lFNIw9sW?media=0&theme=dark"></a></div></div><script async src="https://iframely.net/embed.js"></script>
+				    </div>
+				</div>
 			</div>
 		</div>
-
-		<div class="tab-content">
-			<div class="embed-container" style="height: 400px;">
+		<div class="tab-content" style="text-align: center">
+			<div class="embed-container" style="height: 500px">
 				<iframe src="https://valki.app" title="VALKI Preview"></iframe>
 			</div>
+			<a href="https://valki.app" target="_blank" class="action-btn">
+				<i class="fas fa-external-link-alt"></i> 前往網站 (Open Site)
+			</a>
 		</div>
 
 		<div class="tab-content">
-			<div class="embed-container"><p>Behance Embed</p></div>
+			<div class="embed-container">
+				<div class="iframely-embed"><div class="iframely-responsive" style="padding-bottom: 56.2857%; padding-top: 120px; boader-radius:20px;"><a href="https://www.behance.net/gallery/155784499/Overwatch-2-UI-Animation-Redesign-Concept" data-iframely-url="https://iframely.net/aq3tHwyi?media=0&theme=dark"></a></div></div>
+				<script async src="https://iframely.net/embed.js"></script>
+			</div>
 		</div>
-
 		<div style="text-align: center; margin-top: 30px;">
 			<p style="margin-bottom: 10px; font-size: 0.9rem; opacity: 0.7;">有興趣合作嗎？</p>
 			<a href="mailto:G950025@gmail.com" class="action-btn email-btn">
@@ -624,15 +732,15 @@
 	<section id="graphic" class="glass-card tab-container reveal">
 		<h2 class="section-title">平面設計 Graphic Design</h2>
 		<div class="tabs">
-			<button class="tab-btn active">YT縮圖</button>
-			<button class="tab-btn">菜單設計</button>
-			<button class="tab-btn">VTuber相關</button>
-			<button class="tab-btn">完整作品集</button>
-		</div>
+		<button class="tab-btn active">YT縮圖</button>
+		<button class="tab-btn">菜單設計</button>
+		<button class="tab-btn">VTuber相關</button>
+		<button class="tab-btn">完整作品集</button>
+	</div>
 
 		<div class="tab-content active">
 			<div class="grid-2">
-				<img src="https://via.placeholder.com/400x250?text=Thumbnail+1" style="width:100%; border-radius:12px;">
+				<img src="https://img.cake.me/cdn-cgi/image/fit=scale-down,format=auto,w=1920/https://images.cakeresume.com/D4REB/aunight/c9ea6069-a45b-4f4f-be3a-47a2b696eaad.png" style="width:100%; border-radius:12px;">
 				<img src="https://via.placeholder.com/400x250?text=Thumbnail+2" style="width:100%; border-radius:12px;">
 			</div>
 		</div>
@@ -643,7 +751,7 @@
 			<img src="https://via.placeholder.com/800x400?text=VTuber+Art" style="width:100%; border-radius:12px;">
 		</div>
 		<div class="tab-content">
-			<div class="embed-container"><p>Behance Full Portfolio Embed</p></div>
+			<div class="embed-container"><div class="iframely-embed"><div class="iframely-responsive" style="padding-bottom: 78.2178%; padding-top: 120px;"><a href="https://www.behance.net/gallery/104118153/Graphic-Design-" data-iframely-url="https://iframely.net/SkYaVsOo?media=0&theme=dark"></a></div></div><script async src="https://iframely.net/embed.js"></script></div>
 		</div>
 
 		<div style="text-align: center; margin-top: 30px;">
@@ -658,7 +766,7 @@
 		<h2 class="section-title">網頁前端 Web Frontend</h2>
 
 		<div style="margin-bottom: 50px; text-align: center;">
-			<h3 style="margin-bottom: 15px;">貢寮海女</h3>
+			<h3 style="margin-bottom: 15px;">貢寮女路</h3>
 			<div class="embed-container" style="height: 400px; background: white;">
 				<iframe src="https://gongliaofemalediver.ddns.net/" title="貢寮海女"></iframe>
 			</div>
@@ -680,6 +788,7 @@
 		</div>
 
 		<div style="text-align: center; margin-top: 30px;">
+			<p style="margin-bottom: 10px; font-size: 0.9rem; opacity: 0.7;">獲取詳細報價</p>
 			<a href="mailto:G950025@gmail.com" class="action-btn email-btn">
 				<i class="fas fa-envelope"></i> 寫信聯絡我
 			</a>
@@ -750,31 +859,59 @@
 <script>
 	document.addEventListener('DOMContentLoaded', function() {
 
-		// 1. Tab 切換功能
-		const tabContainers = document.querySelectorAll('.tab-container');
-		tabContainers.forEach(container => {
-			const buttons = container.querySelectorAll('.tab-btn');
-			const contents = container.querySelectorAll('.tab-content');
+		// Tab 切換功能（改良版：自動初始化、避免 index 對不到、兼容原本結構）
+		document.querySelectorAll('.tab-container').forEach(container => {
+			const buttons = Array.from(container.querySelectorAll('.tab-btn'));
+			const contents = Array.from(container.querySelectorAll('.tab-content'));
 
-			buttons.forEach((btn, index) => {
-				btn.addEventListener('click', () => {
-					buttons.forEach(b => b.classList.remove('active'));
-					contents.forEach(c => {
-						c.classList.remove('active');
-						c.style.opacity = '0';
-						c.style.transform = 'translateY(15px)';
-					});
+			if (!buttons.length || !contents.length) return;
 
-					btn.classList.add('active');
-					if (contents[index]) {
-						contents[index].classList.add('active');
-						// 延遲一點點確保 display: block 已經生效
-						setTimeout(() => {
-							contents[index].style.opacity = '1';
-							contents[index].style.transform = 'translateY(0)';
-						}, 10);
-					}
+			// 共用：切換到指定 index
+			const activate = (index) => {
+				// index 防呆：超出就回到 0
+				if (index < 0 || index >= contents.length) index = 0;
+
+				buttons.forEach(b => b.classList.remove('active'));
+				contents.forEach(c => {
+					c.classList.remove('active');
+					c.style.opacity = '0';
+					c.style.transform = 'translateY(15px)';
+					c.style.display = 'none'; // ⭐ 保證沒 active 的內容不佔空間
 				});
+
+				// 按鈕可能比內容多（或反過來），所以做防呆
+				if (buttons[index]) buttons[index].classList.add('active');
+
+				const target = contents[index];
+				if (!target) return;
+
+				target.classList.add('active');
+				target.style.display = 'block';
+
+				// 延遲一點點確保 display 生效後再做動畫
+				requestAnimationFrame(() => {
+					target.style.opacity = '1';
+					target.style.transform = 'translateY(0)';
+				});
+			};
+
+			// ✅ 初始化：優先使用「HTML 已經標 active 的按鈕」
+			let initialIndex = buttons.findIndex(b => b.classList.contains('active'));
+
+			// 如果按鈕沒 active，就看內容有沒有 active
+			if (initialIndex === -1) {
+				initialIndex = contents.findIndex(c => c.classList.contains('active'));
+			}
+
+			// 都沒有就預設第一個
+			if (initialIndex === -1) initialIndex = 0;
+
+			// ✅ 一進來就渲染（解決你說的：預設不會載入、要點按鈕才有）
+			activate(initialIndex);
+
+			// 點擊切換
+			buttons.forEach((btn, index) => {
+				btn.addEventListener('click', () => activate(index));
 			});
 		});
 
@@ -822,6 +959,8 @@
 			});
 		}, { passive: true });
 	});
+
+
 </script>
 </body>
 </html>
