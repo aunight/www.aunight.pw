@@ -17,12 +17,9 @@ body {
     font-size: 20px;
   }
  /* Linear */
-body
-{position: absolute;
-width: 1024px;
-height: 1440px;
-left: 1440px;
-top: 0px;
-background: linear-gradient(#FFCC33 0.39%, #E233FF 100%);
-     }
+body {
+    background: linear-gradient(#FFCC33 0%, #E233FF 100%);
+    background-attachment: fixed;
+    min-height: 100vh;
+}
 

@@ -1,147 +1,827 @@
-<!DOCTYPE HTML>
-<!--
-	Astral by HTML5 UP
-	html5up.net | @ajlkn
-	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
--->
-<html>
-	<head>
-		<title>秋夜AuNight｜個人網站</title>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-		<link rel="stylesheet" href="assets/css/main.css" />
-		<link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@300;700&display=swap" rel="stylesheet">
-		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
-		<link href="assets/css/all.css" rel="stylesheet">
-		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-		<link rel="icon" href="img/logo.ico" type="image/x-icon" />
-	</head>
-	<body class="is-preload">
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>秋夜 AuNight | Portfolio</title>
+	<link rel="icon" type="image/png" href="img/秋夜.png">
 
-		<!-- Wrapper-->
-		<div id="wrapper">
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Kosugi+Maru&family=Mochiy+Pop+One&family=Shippori+Mincho+B1&display=swap" rel="stylesheet">
 
-			<!-- Nav -->
-			<nav id="nav">
-				<a href="#"><img src="img/home.svg"><span>主頁</span></a>
-				<a href="#work"><img src="img/video.svg"><span>作品集</span></a>
-				<a href="#contact"><img src="img/link.svg"><span>社交連結</span></a>
-				<a href="#level"><img src="img/level.svg"><span>技能等級</span></a>
-			</nav>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
-			<!-- Main -->
-			<div id="main">
+	<style>
+		:root {
+			--glass-bg: rgba(255, 255, 255, 0.65);
+			--glass-border: rgba(255, 255, 255, 0.8);
+			--text-main: #4a4a4a;
+			--text-highlight: #e85d75;
+			--radius: 24px;
+			--shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.1);
+		}
 
-				<!-- Me -->
-				<article id="主頁" class="panel intro">
-					<header>
-						<h1>秋夜AuNight</h1>
-						<p>剪輯師｜UI/UX設計師｜特效師｜平面設計師｜動畫師｜調色師</p></br>
-						<p>Video Editor｜UI Designer｜VFX Designer｜Graphic Designer｜Animator｜Colorist</p>
-					</header>
-					<img src="img/me.png" width="300px"	height="400px"></img>
-					
-					<p align="right">
-						<a href="#work" class="jumplink pic">
-							<span class="arrow icon solid fa-chevron-right"></span>
-							
-						</a>
-					</p>
+		* {
+			box-sizing: border-box;
+			margin: 0;
+			padding: 0;
+		}
 
+		/* --- 全局設定 & 字體 --- */
+		html {
+			scroll-behavior: smooth;
+			scroll-padding-top: 100px; /* 避免導航欄遮住標題 */
+			height: 100%;
+		}
 
-				</article>
+		body {
+			font-family: 'Kosugi Maru', sans-serif; /* 內文圓體 */
+			color: var(--text-main);
+			line-height: 1.7;
+			padding-bottom: 100px;
+			min-height: 100vh;
+			position: relative;
+		}
 
-				<!-- Work -->
-				<article id="work" class="panel">
-					<header>
-						<h2>作品集</h2>
-					</header>
-					<p>
-						接案經歷7年,曾接過阿神,阿圓,阿航,朔月, 頑Game,路路,堯。<br>
-						以遊戲剪輯為主,也有剪輯過Vlog相關影片。<br>
-						擅長無縫剪輯、字幕動畫設計、字幕樣式設計、縮圖製作、調色等等。<br>
-					</p>
-					<p align="right">
-						<a href="#contact" class="jumplink pic">
-							<span class="arrow icon solid fa-chevron-right"></span>
-						</a>
-					</p>
-					<center><p>影片類</p></center>
-					<div class="row">
+		/* 修正背景斷層問題：使用固定背景層 */
+		body::before {
+			content: "";
+			position: fixed;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			background: linear-gradient(#FFCC33 0%, #E233FF 100%);
+			z-index: -1;
+			background-repeat: no-repeat;
+			background-size: cover;
+		}
 
-						<div class="video">
-							<iframe width="800" height="450" src="https://www.youtube.com/embed/videoseries?list=PLa-EIrdouSLQEYU3SzI3lQII37ASGEcAH" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-							<br><div class="link" "><a href="http://kouki.aunight.pw" target="_blank" title="【阿神】直播剪輯系列">【阿神】直播剪輯系列</a></div>
+		/* 標題字體設定 */
+		h1, h2, h3, h4, h5, h6, .section-title, nav a {
+			font-family: 'Mochiy Pop One', sans-serif;
+			font-weight: 400;
+		}
 
-							<iframe width="800" height="450" src="https://www.youtube.com/embed/videoseries?list=PLa-EIrdouSLSmtmHTYZNQh4MpTBQ-briz" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-							<br><div class="link" "><a href="http://yuan.aunight.pw" target="_blank" title="【阿圓】初剪系列">【阿圓】初剪系列</a></div>
+		/* --- 懸浮導航欄 --- */
+		nav {
+			position: fixed;
+			top: 20px;
+			left: 50%;
+			transform: translateX(-50%);
+			background: rgba(255, 255, 255, 0.85);
+			backdrop-filter: blur(10px);
+			-webkit-backdrop-filter: blur(10px);
+			padding: 10px 25px;
+			border-radius: 50px;
+			display: flex;
+			gap: 12px;
+			box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+			z-index: 1000;
+			white-space: nowrap;
+			max-width: 95%;
+			border: 1px solid var(--glass-border);
+			transform: translateX(-50%) translateZ(0);
+			transition: all 0.3s ease;
+		}
 
-							<iframe width="800" height="450" src="https://www.youtube.com/embed/videoseries?list=PLa-EIrdouSLQx-6jj5o0Pm869zs3YEXGi" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-							<br><div class="link" "><a href="http://rhung.aunight.pw" target="_blank" title="【阿航】直播剪輯系列">【阿航】直播剪輯系列</a></div>
+		nav a {
+			text-decoration: none;
+			color: var(--text-main);
+			font-size: 0.95rem;
+			transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+			padding: 8px 15px;
+			border-radius: 50px;
+			display: flex;
+			align-items: center;
+			gap: 0;
+			width: 42px; /* 更加緊湊的初始寬度 */
+			justify-content: center;
+			overflow: hidden;
+			white-space: nowrap;
+			will-change: width, background-color, transform;
+		}
 
-							<iframe width="800" height="450" src="https://www.youtube.com/embed/videoseries?list=PLa-EIrdouSLRo9uqXNs7-udhRwn3BKD0-" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-							<br><div class="link" "><a href="http://play.aunight.pw" target="_blank" title="【頑Game】VLOG剪輯系列">【頑Game】VLOG剪輯系列</a></div>
+		nav a span {
+			opacity: 0;
+			max-width: 0;
+			display: inline-block;
+			transition: opacity 0.3s ease, max-width 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+			overflow: hidden;
+			margin-left: 0;
+		}
 
-							<iframe width="800" height="450" src="https://www.youtube.com/embed/videoseries?list=PLa-EIrdouSLT-GWj9fgc-5FwjE2Tn0T3W" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-							<br><div class="link" "><a href="http://lulu.aunight.pw" target="_blank" title="【路路】VLOG剪輯系列">【路路】VLOG剪輯系列</a></div>
-						</div>
+		nav a i {
+			display: inline-block;
+			font-size: 1.1rem;
+			min-width: 20px;
+			text-align: center;
+			transition: transform 0.3s ease;
+		}
 
-					</div>
-				</article>
-             
-	     <!-- Contact -->
-           <article id="contact" class="panel">
-			<header>
-				<h2><strong>社交連結</strong></h2>
-			</header>
+		nav a:hover, nav a.active {
+			width: 150px; 
+			gap: 8px;
+			padding: 8px 15px;
+			color: white;
+			background: var(--text-highlight);
+			transform: translateY(-2px);
+			box-shadow: 0 5px 15px rgba(232, 93, 117, 0.3);
+			justify-content: center;
+		}
 
-			<a href="mailto:g950025@gmail.com" target="_blank"><img src="img/mail.svg" width="30%" width="30%"></a>
-			<a href="https://discord.com/invite/rFSVhCyM" target="_blank"><img src="img/DC.svg" width="30%" width="30%"></a>
-			<br>
-			<br>
-			<a href="http://youtube.aunight.pw" target="_blank"><img src="img/YT.svg" width="30%" width="30%"></a>
-			<a href="http://behance.aunight.pw" target="_blank"><img src="img/behance.svg" width="30%" width="30%"></a>
-			<p align="right">
-				<a href="#level" class="jumplink pic">
-					<span class="arrow icon solid fa-chevron-right"></span>
-				</a>
-			</p>
+		nav a:hover span, nav a.active span {
+			opacity: 1;
+			max-width: 100px;
+		}
 
-		</article>
+		nav a:hover i, nav a.active i {
+			transform: scale(1.1);
+		}
 
-		<!--level -->
-		<article id="level" class="panel">
-			<header>
-				<h2><strong>技能等級</strong></h2><br>
-				<img src="img/skill.svg" width="60%" width="60%"></a>
-				<p align="right">
-					<a href="#" class="jumplink pic">
-						<span class="arrow icon solid fa-chevron-left"></span>
-					</a>
-				</p>
-			</header>
+		/* --- 主容器 --- */
+		.container {
+			max-width: 1000px;
+			margin: 120px auto 0;
+			padding: 0 20px;
+		}
 
+		/* --- 玻璃擬態卡片 --- */
+		.glass-card {
+			background: var(--glass-bg);
+			backdrop-filter: blur(16px);
+			-webkit-backdrop-filter: blur(16px);
+			border-radius: var(--radius);
+			border: 1px solid var(--glass-border);
+			box-shadow: var(--shadow);
+			padding: 40px;
+			margin-bottom: 50px;
+			transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1), box-shadow 0.4s ease;
+		}
 
+		.glass-card:hover {
+			transform: translateY(-8px);
+			box-shadow: 0 12px 40px rgba(31, 38, 135, 0.15);
+		}
 
-		</article>
+		/* --- Hero Section --- */
+		.hero {
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			min-height: 280px;
+			padding: 30px 60px;
+			overflow: hidden;
+			position: relative;
+		}
 
+		.hero-text {
+			flex: 1;
+			z-index: 2;
+		}
+
+		.hero-text h1 {
+			font-size: 2.8rem;
+			margin-bottom: 10px;
+			background: -webkit-linear-gradient(45deg, #4a4a4a, #2b2b2b);
+			-webkit-background-clip: text;
+			-webkit-text-fill-color: transparent;
+			letter-spacing: 2px;
+		}
+
+		.skill-pair {
+			margin-bottom: 5px;
+		}
+
+		.hero-img {
+			align-self: stretch;
+			display: flex;
+			align-items: flex-end;
+			margin-left: 20px;
+		}
+
+		.hero-img img {
+			height: 100%;
+			max-height: 280px;
+			width: auto;
+			object-fit: contain;
+			filter: drop-shadow(-10px 0 15px rgba(0,0,0,0.1));
+			transition: transform 0.3s ease;
+		}
+
+		.hero-img img:hover {
+			transform: scale(1.02);
+		}
+
+		.hero-socials {
+			justify-content: start;
+			margin-top: 10px;
+			gap: 10px;
+			margin-left: 0;
+			margin-right: 0;
+		}
+
+		@media (max-width: 768px) {
+			.hero-socials {
+				justify-content: center;
+				margin-top: 20px;
+			}
+		}
+
+		/* --- 內容與 Grid --- */
+		.section-title {
+			font-size: 2rem;
+			margin-bottom: 25px;
+			border-left: 5px solid var(--text-highlight);
+			padding-left: 15px;
+			display: inline-block;
+		}
+
+		.grid-2 {
+			display: grid;
+			grid-template-columns: 1fr 1fr;
+			gap: 25px;
+		}
+
+		/* --- 嵌入容器 --- */
+		.embed-container {
+			position: relative;
+			width: 100%;
+			background: rgba(255,255,255,0.5);
+			border-radius: 12px;
+			overflow: hidden;
+			margin-bottom: 15px;
+			min-height: 250px;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			color: #999;
+			border: 1px dashed #ccc;
+		}
+
+		.embed-container iframe {
+			width: 100%;
+			height: 100%;
+			min-height: 250px;
+			border: none;
+		}
+
+		/* --- Tab 切換樣式 --- */
+		.tabs {
+			display: flex;
+			flex-wrap: wrap;
+			gap: 10px;
+			margin-bottom: 25px;
+		}
+		.tab-btn {
+			padding: 8px 20px;
+			border-radius: 20px;
+			background: rgba(255,255,255,0.4);
+			border: 1px solid white;
+			cursor: pointer;
+			font-family: 'Kosugi Maru', sans-serif;
+			font-size: 0.95rem;
+			transition: 0.3s;
+			color: var(--text-main);
+		}
+		.tab-btn:hover {
+			background: white;
+			transform: translateY(-2px);
+		}
+		.tab-btn.active {
+			background: white;
+			color: var(--text-highlight);
+			box-shadow: 0 4px 12px rgba(232, 93, 117, 0.2);
+			font-weight: 600;
+		}
+
+		.tab-content {
+			display: none;
+			opacity: 0;
+			transform: translateY(15px);
+			transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+		}
+		.tab-content.active {
+			display: block;
+		}
+
+		@keyframes fadeIn {
+			from { opacity: 0; transform: translateY(10px); }
+			to { opacity: 1; transform: translateY(0); }
+		}
+
+		/* --- Scroll Reveal 動畫 --- */
+		.reveal {
+			opacity: 0;
+			transform: translateY(20px) scale(0.98);
+			transition: opacity 1s cubic-bezier(0.22, 1, 0.36, 1), 
+						transform 1s cubic-bezier(0.22, 1, 0.36, 1);
+			will-change: transform, opacity;
+		}
+		.reveal.active {
+			opacity: 1;
+			transform: translateY(0) scale(1);
+		}
+
+		/* --- 按鈕樣式 --- */
+		.action-btn {
+			display: inline-flex;
+			align-items: center;
+			gap: 10px;
+			padding: 10px 24px;
+			background: linear-gradient(45deg, #e85d75, #ff9a8b);
+			color: white;
+			text-decoration: none;
+			border-radius: 50px;
+			font-weight: 600;
+			box-shadow: 0 4px 15px rgba(232, 93, 117, 0.4);
+			transition: all 0.3s ease;
+			border: none;
+			cursor: pointer;
+			font-size: 0.95rem;
+			margin-top: 10px;
+		}
+		.action-btn:hover {
+			transform: translateY(-3px);
+			box-shadow: 0 8px 25px rgba(232, 93, 117, 0.6);
+		}
+
+		.email-btn {
+			background: white;
+			color: #333;
+			border: 1px solid rgba(0,0,0,0.1);
+			box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+		}
+		.email-btn:hover {
+			background: #333;
+			color: white;
+		}
+
+		/* --- 價格詳情 --- */
+		details {
+			background: rgba(255,255,255,0.4);
+			border-radius: 12px;
+			padding: 12px;
+			margin-top: 20px;
+			cursor: pointer;
+		}
+		summary {
+			font-weight: 600;
+			padding: 5px;
+			outline: none;
+		}
+		.price-content {
+			padding-top: 15px;
+			margin-top: 10px;
+			border-top: 1px solid rgba(0,0,0,0.1);
+		}
+
+		/* --- Footer --- */
+		footer {
+			text-align: center;
+			margin-top: 80px;
+			padding: 40px;
+			background: rgba(255, 255, 255, 0.4);
+			backdrop-filter: blur(10px);
+		}
+		.social-icons {
+			display: grid;
+			grid-template-columns: repeat(6, 45px);
+			justify-content: center;
+			gap: 15px;
+			margin-top: 20px;
+			max-width: fit-content;
+			margin-left: auto;
+			margin-right: auto;
+		}
+		.social-icons a {
+			width: 45px;
+			height: 45px;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			background: rgba(255, 255, 255, 0.6);
+			border-radius: 50%;
+			text-decoration: none;
+			color: var(--text-main);
+			font-size: 1.2rem;
+			transition: all 0.3s ease;
+			border: 1px solid rgba(255,255,255,0.8);
+		}
+		.social-icons a:hover {
+			background: white;
+			color: var(--text-highlight);
+			transform: translateY(-5px);
+			box-shadow: 0 5px 15px rgba(232, 93, 117, 0.3);
+		}
+
+		.social-icons a:hover img {
+			filter: invert(48%) sepia(26%) saturate(1478%) hue-rotate(307deg) brightness(97%) contrast(92%);
+		}
+
+		.social-icons a img {
+			width: 24px;
+			height: 24px;
+			object-fit: contain;
+			transition: filter 0.3s ease;
+		}
+
+		.fa-threads {
+			-webkit-text-stroke: 0.8px currentColor;
+		}
+
+		/* --- Mobile RWD --- */
+		@media (max-width: 768px) {
+			.hero { 
+				flex-direction: column-reverse; 
+				text-align: left; 
+				padding: 40px 20px; 
+				min-height: auto; 
+			}
+			.hero-img { height: auto; width: 100%; justify-content: center; }
+			.hero-img img { margin-bottom: 20px; width: 80%; height: auto; }
+			.hero-text h1 { font-size: 2.8rem; }
+			.grid-2 { grid-template-columns: 1fr; }
+			nav { top: auto; bottom: 20px; width: 90%; justify-content: center; padding: 10px; gap: 8px; }
+			nav a { width: 40px; padding: 8px; }
+			nav a:hover, nav a.active { width: 40px; padding: 8px; justify-content: center; }
+			nav a span { display: none; }
+			html { scroll-padding-top: 20px; }
+
+			.hero-socials {
+				justify-content: start;
+				margin-top: 20px;
+			}
+
+			.social-icons {
+				grid-template-columns: repeat(6, 45px);
+				justify-content: start;
+			}
+		}
+	</style>
+</head>
+<body>
+
+<nav>
+	<a href="#hero"><i class="fas fa-home"></i><span>首頁</span></a>
+	<a href="#video"><i class="fas fa-video"></i><span>影片剪輯</span></a>
+	<a href="#music"><i class="fas fa-music"></i><span>音樂製作</span></a>
+	<a href="#uiux"><i class="fas fa-desktop"></i><span>UI/UX</span></a>
+	<a href="#graphic"><i class="fas fa-palette"></i><span>平面設計</span></a>
+	<a href="#web"><i class="fas fa-code"></i><span>網頁前端</span></a>
+	<a href="#animation"><i class="fas fa-film"></i><span>動畫</span></a>
+	<a href="#color"><i class="fas fa-adjust"></i><span>調色/追蹤</span></a>
+</nav>
+
+<div class="container">
+
+	<section id="hero" class="glass-card hero reveal">
+		<div class="hero-text">
+			<h1>秋夜 AuNight</h1>
+			<div class="skills-container" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px 20px; margin-bottom: 20px; text-align: left;">
+				<div class="skill-pair">
+					<span class="skill-zh" style="display: inline-block; font-weight: 500; color: var(--text-highlight); font-size: 1.1rem; margin-right: 8px;">剪輯師</span>
+					<span class="skill-en" style="display: inline-block; font-size: 0.9rem; opacity: 0.7; font-family: 'Outfit', sans-serif;">Video Editor</span>
+				</div>
+				<div class="skill-pair">
+					<span class="skill-zh" style="display: inline-block; font-weight: 500; color: var(--text-highlight); font-size: 1.1rem; margin-right: 8px;">音樂製作人</span>
+					<span class="skill-en" style="display: inline-block; font-size: 0.9rem; opacity: 0.7; font-family: 'Outfit', sans-serif;">Music Producer</span>
+				</div>
+				<div class="skill-pair">
+					<span class="skill-zh" style="display: inline-block; font-weight: 500; color: var(--text-highlight); font-size: 1.1rem; margin-right: 8px;">UI/UX設計師</span>
+					<span class="skill-en" style="display: inline-block; font-size: 0.9rem; opacity: 0.7; font-family: 'Outfit', sans-serif;">UI/UX Designer</span>
+				</div>
+				<div class="skill-pair">
+					<span class="skill-zh" style="display: inline-block; font-weight: 500; color: var(--text-highlight); font-size: 1.1rem; margin-right: 8px;">平面設計師</span>
+					<span class="skill-en" style="display: inline-block; font-size: 0.9rem; opacity: 0.7; font-family: 'Outfit', sans-serif;">Graphic Designer</span>
+				</div>
+				<div class="skill-pair">
+					<span class="skill-zh" style="display: inline-block; font-weight: 500; color: var(--text-highlight); font-size: 1.1rem; margin-right: 8px;">前端工程師</span>
+					<span class="skill-en" style="display: inline-block; font-size: 0.9rem; opacity: 0.7; font-family: 'Outfit', sans-serif;">Frontend Engineer</span>
+				</div>
+				<div class="skill-pair">
+					<span class="skill-zh" style="display: inline-block; font-weight: 500; color: var(--text-highlight); font-size: 1.1rem; margin-right: 8px;">動畫師</span>
+					<span class="skill-en" style="display: inline-block; font-size: 0.9rem; opacity: 0.7; font-family: 'Outfit', sans-serif;">Animator</span>
+				</div>
+				<div class="skill-pair">
+					<span class="skill-zh" style="display: inline-block; font-weight: 500; color: var(--text-highlight); font-size: 1.1rem; margin-right: 8px;">調色師</span>
+					<span class="skill-en" style="display: inline-block; font-size: 0.9rem; opacity: 0.7; font-family: 'Outfit', sans-serif;">Colorist</span>
+				</div>
+			</div>
+			<div class="social-icons hero-socials">
+				<a href="mailto:g950025@gmail.com" title="Email"><i class="fas fa-envelope"></i></a>
+				<a href="https://www.facebook.com/aunight.cheng" target="_blank" title="Facebook"><i class="fab fa-facebook"></i></a>
+				<a href="https://portaly.cc/aunight" target="_blank" title="Portaly"><img src="img/Portaly.svg" alt="Portaly"></a>
+				<a href="https://www.youtube.com/AuNight" target="_blank" title="YouTube"><i class="fab fa-youtube"></i></a>
+				<a href="https://x.com/aunight_" target="_blank" title="X (Twitter)"><i class="fa-brands fa-x-twitter"></i></a>
+				<a href="https://www.instagram.com/aunight" target="_blank" title="Instagram"><i class="fa-brands fa-square-instagram"></i></a>
+				<a href="https://www.tiktok.com/@aunight" target="_blank" title="TikTok"><i class="fab fa-tiktok"></i></a>
+				<a href="https://open.spotify.com/artist/3AhaLZxsspqiQaFjER1bX0?si=bx6OKqPmR1yLf7QHbig2lw" target="_blank" title="Spotify"><i class="fab fa-spotify"></i></a>
+				<a href="https://discord.com/users/858897462206267433" target="_blank" title="Discord"><i class="fab fa-discord"></i></a>
+				<a href="https://www.threads.net/@aunight" target="_blank" title="Threads"><i class="fa-brands fa-threads"></i></a>
+				<a href="https://line.me/ti/p/an_aidancheng" target="_blank" title="Line"><i class="fab fa-line"></i></a>
+				<a href="https://behance.net/aunight" target="_blank" title="Behance"><i class="fab fa-behance"></i></a>
+			</div>
 		</div>
-		<!-- Footer -->
-		<div id="footer">
-			<ul class="copyright">
-				<li>&copy; AuNight.</li>
-				<li>Design: <a href="#">秋夜AuNight</a></li>
-			</ul>
+		<div class="hero-img">
+			<img src="img/右人物去背.png" alt="AuNight Character">
+		</div>
+	</section>
+
+	<section id="video" class="glass-card tab-container reveal">
+		<h2 class="section-title">影片剪輯 Video Editing</h2>
+
+		<div class="tabs">
+			<button class="tab-btn active">遊戲類</button>
+			<button class="tab-btn">Vlog</button>
+			<button class="tab-btn">VTuber</button>
+			<button class="tab-btn">知識類</button>
+			<button class="tab-btn">Podcast</button>
+			<button class="tab-btn">政治類</button>
 		</div>
 
+		<div class="tab-content active">
+			<div class="embed-container"><p>【遊戲類】YouTube 播放清單嵌入區</p></div>
+		</div>
+		<div class="tab-content"><div class="embed-container"><p>【Vlog】YouTube 播放清單嵌入區</p></div></div>
+		<div class="tab-content"><div class="embed-container"><p>【VTuber】YouTube 播放清單嵌入區</p></div></div>
+		<div class="tab-content"><div class="embed-container"><p>【知識類】YouTube 播放清單嵌入區</p></div></div>
+		<div class="tab-content"><div class="embed-container"><p>【Podcast】YouTube 播放清單嵌入區</p></div></div>
+		<div class="tab-content"><div class="embed-container"><p>【政治類】YouTube 播放清單嵌入區</p></div></div>
+
+		<details>
+			<summary>查看價目表 (點擊展開)</summary>
+			<div class="price-content">
+				<img src="https://via.placeholder.com/800x400?text=Video+Price+List" style="width:100%; border-radius:10px;">
+			</div>
+		</details>
+	</section>
+
+	<section id="music" class="glass-card tab-container reveal">
+		<h2 class="section-title">音樂製作 Music Production</h2>
+		<div class="tabs">
+			<button class="tab-btn active">Cover混音</button>
+			<button class="tab-btn">BGM製作</button>
+			<button class="tab-btn">原創曲</button>
 		</div>
 
-		<!-- Scripts -->
-		<script src="assets/js/jquery.min.js"></script>
-		<script src="assets/js/browser.min.js"></script>
-		<script src="assets/js/breakpoints.min.js"></script>
-		<script src="assets/js/util.js"></script>
-		<script src="assets/js/main.js"></script>
+		<div class="tab-content active">
+			<div class="grid-2">
+				<div class="embed-container"><p>YouTube Embed (Cover)</p></div>
+				<div class="embed-container" style="height: auto;"><p>Google Drive / Audio Upload</p></div>
+			</div>
+		</div>
+		<div class="tab-content">
+			<div class="embed-container"><p>Spotify Embed (BGM)</p></div>
+		</div>
+		<div class="tab-content">
+			<div class="embed-container"><p>Spotify Embed (Original)</p></div>
+		</div>
 
-	</body>
+		<details>
+			<summary>查看價目表</summary>
+			<div class="price-content">
+				<img src="https://via.placeholder.com/800x400?text=Music+Price+List" style="width:100%; border-radius:10px;">
+			</div>
+		</details>
+	</section>
+
+	<section id="uiux" class="glass-card tab-container reveal">
+		<h2 class="section-title">UI/UX Design</h2>
+
+		<div class="tabs">
+			<button class="tab-btn active">手機介面</button>
+			<button class="tab-btn">網頁介面</button>
+			<button class="tab-btn">遊戲介面</button>
+		</div>
+
+		<div class="tab-content active">
+			<div class="grid-2" style="margin-bottom: 20px;">
+				<div class="embed-container"><p>App Store / Play Store Link (VALKI)</p></div>
+				<div class="embed-container"><p>Behance Embed</p></div>
+			</div>
+		</div>
+
+		<div class="tab-content">
+			<div class="embed-container" style="height: 400px;">
+				<iframe src="https://valki.app" title="VALKI Preview"></iframe>
+			</div>
+		</div>
+
+		<div class="tab-content">
+			<div class="embed-container"><p>Behance Embed</p></div>
+		</div>
+
+		<div style="text-align: center; margin-top: 30px;">
+			<p style="margin-bottom: 10px; font-size: 0.9rem; opacity: 0.7;">有興趣合作嗎？</p>
+			<a href="mailto:G950025@gmail.com" class="action-btn email-btn">
+				<i class="fas fa-envelope"></i> 寫信聯絡我
+			</a>
+		</div>
+	</section>
+
+	<section id="graphic" class="glass-card tab-container reveal">
+		<h2 class="section-title">平面設計 Graphic Design</h2>
+		<div class="tabs">
+			<button class="tab-btn active">YT縮圖</button>
+			<button class="tab-btn">菜單設計</button>
+			<button class="tab-btn">VTuber相關</button>
+			<button class="tab-btn">完整作品集</button>
+		</div>
+
+		<div class="tab-content active">
+			<div class="grid-2">
+				<img src="https://via.placeholder.com/400x250?text=Thumbnail+1" style="width:100%; border-radius:12px;">
+				<img src="https://via.placeholder.com/400x250?text=Thumbnail+2" style="width:100%; border-radius:12px;">
+			</div>
+		</div>
+		<div class="tab-content">
+			<img src="https://via.placeholder.com/800x400?text=Menu+Design" style="width:100%; border-radius:12px;">
+		</div>
+		<div class="tab-content">
+			<img src="https://via.placeholder.com/800x400?text=VTuber+Art" style="width:100%; border-radius:12px;">
+		</div>
+		<div class="tab-content">
+			<div class="embed-container"><p>Behance Full Portfolio Embed</p></div>
+		</div>
+
+		<div style="text-align: center; margin-top: 30px;">
+			<p style="margin-bottom: 10px; font-size: 0.9rem; opacity: 0.7;">獲取詳細報價</p>
+			<a href="mailto:G950025@gmail.com" class="action-btn email-btn">
+				<i class="fas fa-envelope"></i> 寫信聯絡我
+			</a>
+		</div>
+	</section>
+
+	<section id="web" class="glass-card reveal">
+		<h2 class="section-title">網頁前端 Web Frontend</h2>
+
+		<div style="margin-bottom: 50px; text-align: center;">
+			<h3 style="margin-bottom: 15px;">貢寮海女</h3>
+			<div class="embed-container" style="height: 400px; background: white;">
+				<iframe src="https://gongliaofemalediver.ddns.net/" title="貢寮海女"></iframe>
+			</div>
+			<a href="https://gongliaofemalediver.ddns.net/" target="_blank" class="action-btn">
+				<i class="fas fa-external-link-alt"></i> 前往網站 (Open Site)
+			</a>
+		</div>
+
+		<hr style="margin: 40px 0; border:0; border-top: 1px dashed rgba(0,0,0,0.1);">
+
+		<div style="margin-bottom: 30px; text-align: center;">
+			<h3 style="margin-bottom: 15px;">Beconrolt</h3>
+			<div class="embed-container" style="height: 400px; background: white;">
+				<iframe src="https://beconrolt.aunight.pw" title="Beconrolt"></iframe>
+			</div>
+			<a href="https://beconrolt.aunight.pw" target="_blank" class="action-btn">
+				<i class="fas fa-external-link-alt"></i> 前往網站 (Open Site)
+			</a>
+		</div>
+
+		<div style="text-align: center; margin-top: 30px;">
+			<a href="mailto:G950025@gmail.com" class="action-btn email-btn">
+				<i class="fas fa-envelope"></i> 寫信聯絡我
+			</a>
+		</div>
+	</section>
+
+	<section id="animation" class="glass-card reveal">
+		<h2 class="section-title">動畫設計 Animation</h2>
+		<div class="grid-2">
+			<div>
+				<h3>逐格動畫 (Stop Motion)</h3>
+				<div class="embed-container"><p>YT Playlist</p></div>
+				<p style="font-weight:bold; color:var(--text-highlight);">NT$ 3,000 起</p>
+			</div>
+			<div>
+				<h3>範本修改 (Template Edit)</h3>
+				<div class="embed-container"><p>YT Playlist</p></div>
+				<p style="font-weight:bold; color:var(--text-highlight);">NT$ 1,000 起</p>
+			</div>
+		</div>
+	</section>
+
+	<section id="color" class="glass-card reveal">
+		<h2 class="section-title">影像後製 Post-Production</h2>
+
+		<h3>影像調色 (Color Grading)</h3>
+		<div class="grid-2" style="margin-bottom: 30px;">
+			<div>
+				<h4>Premiere Pro</h4>
+				<div class="embed-container"><p>YT Playlist</p></div>
+				<p style="font-weight:bold; color:var(--text-highlight);">NT$ 500 起</p>
+			</div>
+			<div>
+				<h4>DaVinci Resolve</h4>
+				<div class="embed-container"><p>YT Playlist</p></div>
+				<p style="font-weight:bold; color:var(--text-highlight);">NT$ 1,000 起</p>
+			</div>
+		</div>
+
+		<hr style="margin: 30px 0; border: 0; border-top: 1px solid rgba(0,0,0,0.1);">
+
+		<h3>影像追蹤 (Motion Tracking)</h3>
+		<h4>Fusion Tracking</h4>
+		<div class="embed-container"><p>YT Playlist</p></div>
+		<p style="font-weight:bold; color:var(--text-highlight);">依難度 NT$ 3,000 起</p>
+	</section>
+
+</div>
+
+<footer>
+	<div class="social-icons">
+		<a href="mailto:g950025@gmail.com" title="Email"><i class="fas fa-envelope"></i></a>
+		<a href="https://www.facebook.com/aunight.cheng" target="_blank" title="Facebook"><i class="fab fa-facebook"></i></a>
+		<a href="https://portaly.cc/aunight" target="_blank" title="Portaly"><img src="img/Portaly.svg" alt="Portaly"></a>
+		<a href="https://www.youtube.com/AuNight" target="_blank" title="YouTube"><i class="fab fa-youtube"></i></a>
+		<a href="https://x.com/aunight_" target="_blank" title="X (Twitter)"><i class="fa-brands fa-x-twitter"></i></a>
+		<a href="https://www.instagram.com/aunight" target="_blank" title="Instagram"><i class="fa-brands fa-square-instagram"></i></a>
+		<a href="https://www.tiktok.com/@aunight" target="_blank" title="TikTok"><i class="fab fa-tiktok"></i></a>
+		<a href="https://open.spotify.com/artist/3AhaLZxsspqiQaFjER1bX0?si=bx6OKqPmR1yLf7QHbig2lw" target="_blank" title="Spotify"><i class="fab fa-spotify"></i></a>
+		<a href="https://discord.com/users/858897462206267433" target="_blank" title="Discord"><i class="fab fa-discord"></i></a>
+		<a href="https://www.threads.net/@aunight" target="_blank" title="Threads"><i class="fa-brands fa-threads"></i></a>
+		<a href="https://line.me/ti/p/an_aidancheng" target="_blank" title="Line"><i class="fab fa-line"></i></a>
+		<a href="https://behance.net/aunight" target="_blank" title="Behance"><i class="fab fa-behance"></i></a>
+	</div>
+		<p style="margin-top: 20px; font-size: 0.8rem; color: #666;">&copy; 2026 AuNight. All Rights Reserved.</p>
+</footer>
+
+<script>
+	document.addEventListener('DOMContentLoaded', function() {
+
+		// 1. Tab 切換功能
+		const tabContainers = document.querySelectorAll('.tab-container');
+		tabContainers.forEach(container => {
+			const buttons = container.querySelectorAll('.tab-btn');
+			const contents = container.querySelectorAll('.tab-content');
+
+			buttons.forEach((btn, index) => {
+				btn.addEventListener('click', () => {
+					buttons.forEach(b => b.classList.remove('active'));
+					contents.forEach(c => {
+						c.classList.remove('active');
+						c.style.opacity = '0';
+						c.style.transform = 'translateY(15px)';
+					});
+
+					btn.classList.add('active');
+					if (contents[index]) {
+						contents[index].classList.add('active');
+						// 延遲一點點確保 display: block 已經生效
+						setTimeout(() => {
+							contents[index].style.opacity = '1';
+							contents[index].style.transform = 'translateY(0)';
+						}, 10);
+					}
+				});
+			});
+		});
+
+		// 2. Scroll Reveal 動畫
+		const observerOptions = {
+			root: null,
+			rootMargin: '0px',
+			threshold: 0.1
+		};
+
+		const observer = new IntersectionObserver((entries, observer) => {
+			entries.forEach(entry => {
+				if (entry.isIntersecting) {
+					entry.target.classList.add('active');
+				}
+			});
+		}, observerOptions);
+
+		document.querySelectorAll('.reveal').forEach(el => {
+			observer.observe(el);
+		});
+
+		// 3. 導航欄 Active 狀態切換
+		const navLinks = document.querySelectorAll('nav a');
+		const sections = document.querySelectorAll('section');
+
+		let isScrolling;
+		window.addEventListener('scroll', () => {
+			window.cancelAnimationFrame(isScrolling);
+			isScrolling = window.requestAnimationFrame(() => {
+				let current = '';
+				sections.forEach(section => {
+					const sectionTop = section.offsetTop;
+					if (window.pageYOffset >= sectionTop - 150) {
+						current = section.getAttribute('id');
+					}
+				});
+
+				navLinks.forEach(link => {
+					link.classList.remove('active');
+					if (link.getAttribute('href') === `#${current}`) {
+						link.classList.add('active');
+					}
+				});
+			});
+		}, { passive: true });
+	});
+</script>
+</body>
 </html>
