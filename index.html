@@ -3,7 +3,7 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>秋夜 AuNight | Portfolio</title>
+	<title data-title-zh="秋夜 AuNight｜作品集" data-title-en="AuNight | Portfolio">秋夜 AuNight｜作品集</title>
 	<link rel="icon" type="image/png" href="img/秋夜.png">
 
 	<link rel="preconnect" href="https://fonts.googleapis.com">
@@ -16,10 +16,17 @@
 		:root {
 			--glass-bg: rgba(255, 255, 255, 0.65);
 			--glass-border: rgba(255, 255, 255, 0.8);
+			--glass-surface: rgba(255, 255, 255, 0.58);
+			--glass-surface-strong: rgba(255, 255, 255, 0.72);
+			--glass-border-strong: rgba(255, 255, 255, 0.72);
+			--glass-blur: 18px;
 			--text-main: #4a4a4a;
 			--text-highlight: #e85d75;
 			--radius: 24px;
 			--shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.1);
+			--hover-glow-shadow: 0 5px 15px rgba(232, 93, 117, 0.3),
+				0 12px 28px rgba(232, 93, 117, 0.45),
+				0 18px 45px rgba(232, 93, 117, 0.35);
 		}
 
 		* {
@@ -74,20 +81,42 @@
 			top: 20px;
 			left: 50%;
 			transform: translateX(-50%);
-			background: rgba(255, 255, 255, 0.85);
-			backdrop-filter: blur(10px);
-			-webkit-backdrop-filter: blur(10px);
+			background: var(--glass-surface);
+			backdrop-filter: blur(var(--glass-blur)) saturate(180%) contrast(1.05);
+			-webkit-backdrop-filter: blur(var(--glass-blur)) saturate(180%) contrast(1.05);
 			padding: 10px 25px;
 			border-radius: 50px;
 			display: flex;
 			gap: 12px;
-			box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+			box-shadow:
+				0 12px 40px rgba(0,0,0,0.14),
+				inset 0 1px 0 rgba(255,255,255,0.65),
+				inset 0 -1px 0 rgba(255,255,255,0.25);
 			z-index: 1000;
 			white-space: nowrap;
 			max-width: 95%;
-			border: 1px solid var(--glass-border);
+			border: 1px solid var(--glass-border-strong);
 			transform: translateX(-50%) translateZ(0);
 			transition: all 0.3s ease;
+			overflow: hidden;
+			isolation: isolate;
+		}
+
+		nav::before {
+			content: "";
+			position: absolute;
+			inset: 0;
+			border-radius: inherit;
+			background:
+				linear-gradient(135deg, rgba(255,255,255,0.9), rgba(255,255,255,0.25) 45%, rgba(255,255,255,0.15));
+			opacity: 0.55;
+			pointer-events: none;
+			z-index: 0;
+		}
+
+		nav > * {
+			position: relative;
+			z-index: 1;
 		}
 
 		nav a {
@@ -107,7 +136,7 @@
 			will-change: width, background-color, transform;
 		}
 
-		nav a span {
+		nav a > span {
 			opacity: 0;
 			max-width: 0;
 			display: inline-block;
@@ -127,7 +156,6 @@
 		nav a:hover, nav a.active {
 			width: 150px;
 			gap: 8px;
-			padding: 8px 15px;
 			color: white;
 			background: var(--text-highlight);
 			transform: translateY(-2px);
@@ -135,9 +163,29 @@
 			justify-content: center;
 		}
 
-		nav a:hover span, nav a.active span {
+		nav a:hover > span, nav a.active > span {
 			opacity: 1;
 			max-width: 100px;
+		}
+
+		nav a[href="#color"]:hover,
+		nav a[href="#color"].active {
+			width: 245px;
+		}
+
+		nav a[href="#color"]:hover > span,
+		nav a[href="#color"].active > span {
+			max-width: 200px;
+		}
+
+		nav a[href="#animation"]:hover,
+		nav a[href="#animation"].active {
+			width: 180px;
+		}
+
+		nav a[href="#animation"]:hover > span,
+		nav a[href="#animation"].active > span {
+			max-width: 140px;
 		}
 
 		nav a:hover i, nav a.active i {
@@ -153,20 +201,46 @@
 
 		/* --- 玻璃擬態卡片 --- */
 		.glass-card {
-			background: var(--glass-bg);
-			backdrop-filter: blur(16px);
-			-webkit-backdrop-filter: blur(16px);
+			background: var(--glass-surface);
+			backdrop-filter: blur(var(--glass-blur)) saturate(180%) contrast(1.05);
+			-webkit-backdrop-filter: blur(var(--glass-blur)) saturate(180%) contrast(1.05);
 			border-radius: var(--radius);
-			border: 1px solid var(--glass-border);
-			box-shadow: var(--shadow);
+			border: 1px solid var(--glass-border-strong);
+			box-shadow:
+				0 12px 40px rgba(0,0,0,0.14),
+				inset 0 1px 0 rgba(255,255,255,0.65),
+				inset 0 -1px 0 rgba(255,255,255,0.25);
 			padding: 40px;
 			margin-bottom: 50px;
 			transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1), box-shadow 0.4s ease;
+			position: relative;
+			overflow: hidden;
+			isolation: isolate;
+		}
+
+		.glass-card::before {
+			content: "";
+			position: absolute;
+			inset: 0;
+			border-radius: inherit;
+			background:
+				linear-gradient(135deg, rgba(255,255,255,0.9), rgba(255,255,255,0.25) 45%, rgba(255,255,255,0.15));
+			opacity: 0.55;
+			pointer-events: none;
+			z-index: 0;
+		}
+
+		.glass-card > * {
+			position: relative;
+			z-index: 1;
 		}
 
 		.glass-card:hover {
 			transform: translateY(-8px);
-			box-shadow: 0 12px 40px rgba(31, 38, 135, 0.15);
+			box-shadow:
+				0 18px 52px rgba(0,0,0,0.16),
+				inset 0 1px 0 rgba(255,255,255,0.65),
+				inset 0 -1px 0 rgba(255,255,255,0.25);
 		}
 
 		/* --- Hero Section --- */
@@ -176,13 +250,15 @@
 			align-items: center;
 			justify-content: space-between;
 			min-height: 280px;
-			padding: 30px 60px;
+			padding: 30px 60px 18px;
 			overflow: hidden;
 			position: relative;
+			isolation: isolate;
 		}
 
 		.hero-text {
 			position: relative;
+			z-index: 2;
 		}
 
 		.hero-text h1 {
@@ -196,6 +272,44 @@
 
 		.skill-pair {
 			margin-bottom: 5px;
+		}
+
+		.skills-container {
+			--skill-main-size: clamp(0.98rem, 2.4vw, 1.1rem);
+			--skill-sub-size: clamp(0.8rem, 2vw, 0.9rem);
+			display: grid;
+			grid-template-columns: repeat(2, minmax(0, 1fr));
+			gap: 10px 20px;
+			margin-bottom: 20px;
+			text-align: left;
+		}
+
+		.skills-container .skill-pair {
+			display: flex;
+			flex-wrap: wrap;
+			align-items: baseline;
+			gap: 2px 10px;
+			margin-bottom: 0;
+			min-width: 0;
+		}
+
+		.skills-container .skill-zh,
+		.skills-container .skill-en {
+			white-space: normal;
+			min-width: 0;
+		}
+
+		.skills-container .skill-zh {
+			font-weight: 500;
+			color: var(--text-highlight);
+			font-size: var(--skill-main-size);
+			margin-right: 0;
+		}
+
+		.skills-container .skill-en {
+			font-size: var(--skill-sub-size);
+			opacity: 0.7;
+			font-family: 'Outfit', sans-serif;
 		}
 
 		.hide-on-computer{
@@ -216,6 +330,9 @@
 			align-items: flex-end;
 
 			order: 1;
+			position: relative;
+			z-index: 0;
+			pointer-events: none;
 		}
 
 		.hero-img img {
@@ -224,10 +341,12 @@
 			width: auto;
 			object-fit: contain;
 			position: absolute;
+			z-index: 0;
 			bottom: -50px;
-			margin-left: 50px;
+			margin-left: 150px;
 			filter: drop-shadow(-10px 0 15px rgba(0,0,0,0.1));
 			transition: transform 0.3s ease;
+			pointer-events: none;
 		}
 
 
@@ -236,16 +355,26 @@
 		}
 
 		.hero-socials {
-			justify-content: start;
+			justify-content: flex-start;
+			flex-wrap: nowrap;
+			overflow: visible;
+			width: 100%;
+			max-width: 100%;
 			margin-top: 10px;
-			gap: 10px;
+			gap: 8px;
 			margin-left: 0;
 			margin-right: 0;
+			position: relative;
+			z-index: 10;
+		}
+
+		.hero-socials a {
+			flex: 0 0 auto;
 		}
 
 		@media (max-width: 768px) {
 			.hero-socials {
-				justify-content: center;
+				justify-content: flex-start;
 				margin-top: 20px;
 			}
 		}
@@ -257,6 +386,81 @@
 			border-left: 5px solid var(--text-highlight);
 			padding-left: 15px;
 			display: inline-block;
+		}
+
+		.about-lead {
+			font-weight: 700;
+			color: var(--text-main);
+			line-height: 1.75;
+			margin: 0 0 18px 0;
+		}
+
+		.about-grid {
+			display: grid;
+			grid-template-columns: 1fr;
+			gap: 16px;
+		}
+
+		@media (min-width: 769px) {
+			.about-grid {
+				grid-template-columns: repeat(2, minmax(0, 1fr));
+			}
+		}
+
+		.about-card {
+			background: rgba(255,255,255,0.34);
+			border: 1px solid rgba(255,255,255,0.55);
+			border-radius: 18px;
+			padding: 18px 18px;
+			box-shadow: 0 10px 26px rgba(0,0,0,0.06);
+		}
+
+		.about-card-title {
+			display: flex;
+			align-items: center;
+			gap: 10px;
+			margin: 0 0 12px 0;
+			font-size: 1.05rem;
+		}
+
+		.about-card-title i {
+			width: 34px;
+			height: 34px;
+			display: inline-flex;
+			align-items: center;
+			justify-content: center;
+			border-radius: 10px;
+			background: rgba(255,255,255,0.65);
+			border: 1px solid rgba(255,255,255,0.8);
+			color: var(--text-highlight);
+			box-shadow: 0 6px 16px rgba(0,0,0,0.08);
+			flex: 0 0 auto;
+		}
+
+		.about-list {
+			list-style: none;
+			padding: 0;
+			margin: 0;
+			display: grid;
+			gap: 10px;
+			line-height: 1.85;
+			font-size: 0.98rem;
+		}
+
+		.about-list li {
+			display: flex;
+			gap: 10px;
+			align-items: flex-start;
+		}
+
+		.about-list li::before {
+			content: "";
+			width: 8px;
+			height: 8px;
+			border-radius: 999px;
+			background: rgba(232, 93, 117, 0.65);
+			margin-top: 10px;
+			flex: 0 0 auto;
 		}
 
 		/* 強制把左右排版改成上下 */
@@ -273,7 +477,7 @@
 			border-radius: 12px;
 			overflow: hidden;
 			margin-bottom: 15px;
-			min-height: 250px;
+			min-height: 0;
 
 			display: flex;
 			flex-wrap: wrap;              /* ⭐ 關鍵：允許換行 */
@@ -288,8 +492,30 @@
 		/* iframe 仍然可以獨佔整行 */
 		.embed-container iframe {
 			width: 100%;
-			min-height: 500px;
 			border: none;
+			display: block;
+		}
+
+		.embed-container > iframe[src*="youtube.com/embed"],
+		.embed-container > iframe[src*="youtube-nocookie.com/embed"] {
+			aspect-ratio: 16 / 9;
+			height: auto;
+		}
+
+		.drive-embed {
+			position: relative;
+			width: 100%;
+			flex: 1 1 100%;
+			min-width: 0;
+			height: clamp(260px, 55vh, 520px);
+		}
+
+		.drive-embed iframe {
+			position: absolute;
+			inset: 0;
+			width: 100%;
+			height: 100%;
+			border: 0;
 			display: block;
 		}
 
@@ -374,6 +600,127 @@
 			box-shadow: 0 8px 25px rgba(232, 93, 117, 0.6);
 		}
 
+		.container, footer {
+			transition: opacity 180ms ease, transform 180ms ease;
+			will-change: opacity, transform;
+		}
+
+		html.lang-switching body {
+			pointer-events: none;
+		}
+
+		html.lang-switching .container,
+		html.lang-switching footer {
+			opacity: 0;
+			transform: translateY(2px);
+		}
+
+		html.lang-switching nav,
+		html.lang-switching .lang-toggle-floating,
+		html.lang-switching .scroll-top-btn {
+			opacity: 0;
+		}
+
+		@media (prefers-reduced-motion: reduce) {
+			.container, footer {
+				transition: none;
+			}
+			nav, .lang-toggle-floating, .scroll-top-btn {
+				transition: none;
+			}
+		}
+
+		.lang-en { display: none; }
+		html[data-lang="en"] .lang-zh { display: none !important; }
+		html[data-lang="en"] .lang-en { display: revert !important; }
+		html[data-lang="en"] .skills-container .skill-en {
+			font-weight: 500 !important;
+			color: var(--text-highlight) !important;
+			font-size: var(--skill-main-size) !important;
+			opacity: 1 !important;
+			font-family: inherit !important;
+		}
+
+		.lang-toggle-btn {
+			background: transparent;
+			border: 0;
+			font: inherit;
+		}
+
+		.lang-toggle-floating {
+			position: fixed;
+			left: calc(18px + env(safe-area-inset-left));
+			bottom: calc(18px + env(safe-area-inset-bottom));
+			z-index: 1301;
+			display: inline-flex;
+			align-items: center;
+			justify-content: center;
+			width: 52px;
+			height: 52px;
+			padding: 0;
+			border-radius: 999px;
+			border: 1px solid var(--glass-border-strong);
+			background: var(--glass-surface);
+			backdrop-filter: blur(var(--glass-blur)) saturate(180%) contrast(1.05);
+			-webkit-backdrop-filter: blur(var(--glass-blur)) saturate(180%) contrast(1.05);
+			color: var(--text-main);
+			box-shadow:
+				0 12px 36px rgba(0,0,0,0.16),
+				inset 0 1px 0 rgba(255,255,255,0.65),
+				inset 0 -1px 0 rgba(255,255,255,0.25);
+			cursor: pointer;
+			line-height: 1;
+			white-space: nowrap;
+			transition: all 0.3s ease;
+			overflow: hidden;
+			isolation: isolate;
+		}
+
+		.lang-toggle-floating::before {
+			content: "";
+			position: absolute;
+			inset: 0;
+			border-radius: inherit;
+			background:
+				radial-gradient(120% 120% at 20% 15%, rgba(255,255,255,0.95), rgba(255,255,255,0) 60%),
+				linear-gradient(135deg, rgba(255,255,255,0.55), rgba(255,255,255,0.15));
+			opacity: 0.55;
+			pointer-events: none;
+			z-index: 0;
+		}
+
+		.lang-toggle-floating > * {
+			position: relative;
+			z-index: 1;
+		}
+
+		.lang-toggle-floating:hover {
+			background: var(--glass-surface-strong);
+			color: var(--text-highlight);
+			transform: translateY(-5px);
+			box-shadow: var(--hover-glow-shadow);
+		}
+
+		.lang-toggle-floating:focus-visible {
+			outline: 3px solid rgba(232, 93, 117, 0.65);
+			outline-offset: 3px;
+		}
+
+		.lang-toggle-floating .lang-toggle-label {
+			font-weight: 800;
+			letter-spacing: 0.5px;
+			font-size: 0.95rem;
+		}
+
+		@media (min-width: 769px) {
+			.lang-toggle-floating {
+				left: auto;
+				right: calc(18px + env(safe-area-inset-right));
+				top: 20px;
+				bottom: auto;
+			}
+		}
+
 		.email-btn {
 			background: white;
 			color: #333;
@@ -381,8 +728,80 @@
 			box-shadow: 0 4px 15px rgba(0,0,0,0.05);
 		}
 		.email-btn:hover {
-			background: #333;
-			color: white;
+			background: white;
+			color: var(--text-highlight);
+			transform: translateY(-5px);
+			box-shadow: var(--hover-glow-shadow);
+		}
+
+		.scroll-top-btn {
+			position: fixed;
+			right: calc(18px + env(safe-area-inset-right));
+			bottom: calc(18px + env(safe-area-inset-bottom));
+			width: 52px;
+			height: 52px;
+			border-radius: 999px;
+			border: 1px solid var(--glass-border-strong);
+			background: var(--glass-surface);
+			backdrop-filter: blur(var(--glass-blur)) saturate(180%) contrast(1.05);
+			-webkit-backdrop-filter: blur(var(--glass-blur)) saturate(180%) contrast(1.05);
+			color: rgba(0,0,0,0.88);
+			display: inline-flex;
+			align-items: center;
+			justify-content: center;
+			box-shadow:
+				0 12px 36px rgba(0,0,0,0.18),
+				inset 0 1px 0 rgba(255,255,255,0.65),
+				inset 0 -1px 0 rgba(255,255,255,0.25);
+			cursor: pointer;
+			z-index: 1200;
+			opacity: 0;
+			transform: translateY(10px);
+			pointer-events: none;
+			transition: all 0.3s ease;
+			overflow: hidden;
+			isolation: isolate;
+		}
+
+		.scroll-top-btn::before {
+			content: "";
+			position: absolute;
+			inset: 0;
+			border-radius: inherit;
+			background:
+				radial-gradient(120% 120% at 20% 15%, rgba(255,255,255,0.95), rgba(255,255,255,0) 60%),
+				linear-gradient(135deg, rgba(255,255,255,0.55), rgba(255,255,255,0.15));
+			opacity: 0.55;
+			pointer-events: none;
+			z-index: 0;
+		}
+
+		.scroll-top-btn > * {
+			position: relative;
+			z-index: 1;
+		}
+
+		.scroll-top-btn i {
+			font-size: 1.15rem;
+			line-height: 1;
+		}
+
+		.scroll-top-btn.show {
+			opacity: 1;
+			transform: translateY(0);
+			pointer-events: auto;
+		}
+
+		.scroll-top-btn:hover {
+			background: var(--glass-surface-strong);
+			color: var(--text-highlight);
+			transform: translateY(-5px);
+			box-shadow: var(--hover-glow-shadow);
+		}
+
+		.scroll-top-btn:focus-visible {
+			outline: 3px solid rgba(232, 93, 117, 0.65);
+			outline-offset: 3px;
 		}
 
 
@@ -435,6 +854,7 @@
 			transform: translateY(-6px);
 			transition: max-height .55s ease, opacity .3s ease, transform .3s ease;
 			padding-top: 0;
+			padding-bottom: 0;
 			margin-top: 0;
 			border-top: 0;
 		}
@@ -445,6 +865,7 @@
 			opacity: 1;
 			transform: translateY(0);
 			padding-top: 15px;
+			padding-bottom: 24px;
 			margin-top: 10px;
 			border-top: 1px solid rgba(0,0,0,0.1);
 		}
@@ -458,42 +879,126 @@
 
 		/* --- Footer --- */
 		footer {
-			text-align: center;
-			margin-top: 80px;
-			padding: 80px;
-			background: rgba(255, 255, 255, 0.4);
+			text-align: left;
+			margin-top: 0;
+			padding: 30px 24px;
+			background: linear-gradient(180deg, rgba(255, 255, 255, 0.55), rgba(255, 255, 255, 0.35));
 			backdrop-filter: blur(10px);
+			border-top: 1px solid rgba(255, 255, 255, 0.55);
 		}
+
+		.footer-inner {
+			max-width: 860px;
+			margin: 0 auto;
+			display: flex;
+			flex-direction: row;
+			align-items: center;
+			justify-content: space-between;
+			gap: 12px;
+			flex-wrap: wrap;
+		}
+
+		.footer-lead {
+			margin: 0;
+			font-size: 0.95rem;
+			opacity: 0.78;
+			line-height: 1.7;
+		}
+
 		.social-icons {
-			justify-content: center;
-			gap: 15px;
-			margin-top: 20px;
-			max-width: fit-content;
+			display: flex;
+			justify-content: flex-end;
+			gap: 12px;
+			margin-top: 0;
+			max-width: 560px;
 			margin-left: auto;
 			margin-right: auto;
-			display: flex;
+			flex-wrap: wrap;
+		}
+		footer .social-icons {
+			max-width: min(100%, 336px);
+			justify-content: flex-end;
+			margin-left: auto;
+			margin-right: 0;
+		}
+		.social-icons.hero-socials {
+			justify-content: flex-start;
+			flex-wrap: nowrap;
+			overflow: visible;
+			max-width: 100%;
+			width: 100%;
+			margin-left: -18px;
+			margin-right: -42px;
+			transform: translateX(-10px);
+			padding-top: 14px;
+			padding-bottom: 12px;
+			padding-left: 18px;
+			padding-right: 42px;
+			margin-top: -14px;
+		}
+		.social-icons.hero-socials a {
+			width: clamp(42px, 5.2vw, 48px);
+			height: clamp(42px, 5.2vw, 48px);
+			font-size: clamp(1.05rem, 2.4vw, 1.18rem);
+		}
+		.social-icons.hero-socials a img {
+			width: clamp(22px, 3vw, 26px);
+			height: clamp(22px, 3vw, 26px);
+		}
+		.social-icons.hero-socials a:hover {
+			transform: translateY(-3px);
+			box-shadow:
+				0 4px 12px rgba(232, 93, 117, 0.22),
+				0 10px 22px rgba(232, 93, 117, 0.22);
 		}
 		.social-icons a {
-			width: 45px;
-			height: 45px;
-			display: flex;
+			width: 44px;
+			height: 44px;
+			display: inline-flex;
 			align-items: center;
 			justify-content: center;
-			background: rgba(255, 255, 255, 0.6);
-			border-radius: 50%;
+			border-radius: 999px;
 			text-decoration: none;
 			color: var(--text-main);
 			font-size: 1.2rem;
 			transition: all 0.3s ease;
-			border: 1px solid rgba(255,255,255,0.8);
-			backdrop-filter: blur(1px);
-			-webkit-backdrop-filter: blur(1px);
+			border: 1px solid var(--glass-border-strong);
+			background: var(--glass-surface);
+			backdrop-filter: blur(var(--glass-blur)) saturate(180%) contrast(1.05);
+			-webkit-backdrop-filter: blur(var(--glass-blur)) saturate(180%) contrast(1.05);
+			box-shadow:
+				inset 0 1px 0 rgba(255,255,255,0.65),
+				inset 0 -1px 0 rgba(255,255,255,0.25);
+			position: relative;
+			overflow: hidden;
+			isolation: isolate;
+		}
+		.social-icons a::before {
+			content: "";
+			position: absolute;
+			inset: 0;
+			border-radius: inherit;
+			background:
+				radial-gradient(120% 120% at 20% 15%, rgba(255,255,255,0.95), rgba(255,255,255,0) 60%),
+				linear-gradient(135deg, rgba(255,255,255,0.55), rgba(255,255,255,0.15));
+			opacity: 0.55;
+			pointer-events: none;
+			z-index: 0;
+		}
+		.social-icons a > * {
+			position: relative;
+			z-index: 1;
 		}
 		.social-icons a:hover {
-			background: white;
+			background: var(--glass-surface-strong);
 			color: var(--text-highlight);
 			transform: translateY(-5px);
-			box-shadow: 0 5px 15px rgba(232, 93, 117, 0.3);
+			box-shadow: var(--hover-glow-shadow);
+		}
+
+		.social-icons a:focus-visible {
+			outline: 3px solid rgba(232, 93, 117, 0.55);
+			outline-offset: 3px;
 		}
 
 		.social-icons a:hover img {
@@ -511,6 +1016,21 @@
 			-webkit-text-stroke: 0.8px currentColor;
 		}
 
+		.footer-bottom {
+			max-width: 860px;
+			margin: 14px auto 0;
+			padding-top: 12px;
+			border-top: 1px solid rgba(0,0,0,0.08);
+		}
+
+		.footer-copy {
+			margin: 0;
+			font-size: 0.8rem;
+			color: rgba(0,0,0,0.55);
+			line-height: 1.6;
+			text-align: center;
+		}
+
 		/* --- Mobile RWD --- */
 		@media (max-width: 768px) {
 			.hero {
@@ -519,212 +1039,322 @@
 				padding: 40px 20px;
 				min-height: auto;
 			}
+			.skills-container {
+				grid-template-columns: 1fr;
+				gap: 10px 14px;
+			}
 			.hero-img { display: none }
 			.hero-text h1 { font-size: 2.8rem;}
 			.grid-2 { grid-template-columns: 1fr; }
-			nav { top: auto; bottom: 20px; width: 90%; justify-content: center; padding: 10px; gap: 8px; }
-			nav a { width: 40px; padding: 8px; }
-			nav a:hover, nav a.active { width: 40px; padding: 8px; justify-content: center; }
-			nav a span { display: none; }
+			nav {
+				top: auto;
+				bottom: calc(16px + env(safe-area-inset-bottom));
+				width: min(94vw, 560px);
+				justify-content: center;
+				padding: clamp(6px, 2vw, 10px);
+				gap: clamp(8px, 2.2vw, 14px);
+				flex-wrap: wrap;
+			}
+			nav a {
+				width: clamp(22px, 7vw, 34px);
+				height: clamp(22px, 7vw, 34px);
+				padding: 0;
+			}
+			nav a i {
+				font-size: clamp(0.75rem, 3.2vw, 1rem);
+				min-width: 0;
+			}
+			nav a:hover, nav a.active { width: clamp(22px, 7vw, 34px); height: clamp(22px, 7vw, 34px); padding: 0; justify-content: center; }
+			nav a[href="#color"]:hover,
+			nav a[href="#color"].active {
+				width: clamp(22px, 7vw, 34px);
+				height: clamp(22px, 7vw, 34px);
+			}
+			nav a:hover i, nav a.active i { transform: none; }
+			nav a > span { display: none; }
+			.lang-toggle-floating {
+				left: calc(14px + env(safe-area-inset-left));
+				right: auto;
+				top: auto;
+				bottom: calc(90px + env(safe-area-inset-bottom));
+				width: 52px;
+				height: 52px;
+				padding: 0;
+			}
+			.scroll-top-btn {
+				bottom: calc(90px + env(safe-area-inset-bottom));
+			}
 			html { scroll-padding-top: 20px; }
 
-			.hero-socials {
-				justify-content: start;
+			.social-icons.hero-socials {
+				justify-content: flex-start;
 				margin-top: 20px;
+				flex-wrap: wrap;
+				margin-left: 0;
+				margin-right: 0;
+				transform: none;
+				padding-left: 0;
+				padding-right: 0;
 			}
 
-			.social-icons {
-				justify-content: start;
-				flex-wrap: wrap; /* 兩行顯示圖標 */
+			footer {
+				text-align: center;
+				padding: 26px 18px;
+			}
+
+			.footer-inner {
+				flex-direction: column;
+				align-items: center;
+			}
+
+			footer .social-icons {
+				justify-content: center;
+				max-width: 100%;
+				width: 100%;
 			}
 		}
 		@media (min-width: 769px) {
 			.hide-on-computer img {display: none;}
 			.hero-img { display: block }
-			.hero-img img { margin-bottom: 0px; width: 80%; height: auto; left: 400px }
+			.hero-img img { margin-bottom: 0px; width: clamp(280px, 40vw, 520px); height: auto; left: auto; right: -300px !important; bottom: -85px !important; margin-left: 0 !important; }
 		}
 	</style>
 </head>
 <body>
 
 <nav>
-	<a href="#hero"><i class="fas fa-home"></i><span>首頁</span></a>
-	<a href="#video"><i class="fas fa-video"></i><span>影片剪輯</span></a>
-	<a href="#music"><i class="fas fa-music"></i><span>音樂製作</span></a>
-	<a href="#uiux"><i class="fas fa-desktop"></i><span>UI/UX</span></a>
-	<a href="#graphic"><i class="fas fa-palette"></i><span>平面設計</span></a>
-	<a href="#web"><i class="fas fa-code"></i><span>網頁前端</span></a>
-	<a href="#animation"><i class="fas fa-film"></i><span>動畫</span></a>
-	<a href="#color"><i class="fas fa-adjust"></i><span>調色/追蹤</span></a>
+	<a href="#hero"><i class="fas fa-home"></i><span><span class="lang-zh">首頁</span><span class="lang-en">Home</span></span></a>
+	<a href="#about"><i class="fas fa-user"></i><span><span class="lang-zh">關於我</span><span class="lang-en">About</span></span></a>
+	<a href="#video"><i class="fas fa-video"></i><span><span class="lang-zh">影片剪輯</span><span class="lang-en">Video</span></span></a>
+	<a href="#music"><i class="fas fa-music"></i><span><span class="lang-zh">音樂製作</span><span class="lang-en">Music</span></span></a>
+	<a href="#uiux"><i class="fas fa-desktop"></i><span><span class="lang-zh">介面設計</span><span class="lang-en">UI/UX</span></span></a>
+	<a href="#graphic"><i class="fas fa-palette"></i><span><span class="lang-zh">平面設計</span><span class="lang-en">Graphic</span></span></a>
+	<a href="#web"><i class="fas fa-code"></i><span><span class="lang-zh">網頁前端</span><span class="lang-en">Web</span></span></a>
+	<a href="#animation"><i class="fas fa-film"></i><span><span class="lang-zh">動畫</span><span class="lang-en">Animation</span></span></a>
+	<a href="#color"><i class="fas fa-photo-film"></i><span><span class="lang-zh">影像後製</span><span class="lang-en">Post-Production</span></span></a>
 </nav>
+
+<button id="langToggle" class="lang-toggle-btn lang-toggle-floating" type="button" aria-label="切換語言">
+	<span id="langToggleLabel" class="lang-toggle-label">中</span>
+</button>
 
 <div class="container">
 
 	<section id="hero" class="glass-card hero reveal">
 		<div class="hide-on-computer">
-			<img src="img/秋夜.png" alt="Autumn Night Image">
+			<img src="img/秋夜.png" alt="秋夜" data-alt-zh="秋夜" data-alt-en="AuNight">
 		</div>
 		<div class="hero-text">
-			<h1>秋夜 AuNight</h1>
+			<h1><span class="lang-zh">秋夜 </span>AuNight</h1>
 
-			<div class="skills-container" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px 20px; margin-bottom: 20px; text-align: left;">
+			<div class="skills-container">
 				<div class="skill-pair">
-					<span class="skill-zh" style="display: inline-block; font-weight: 500; color: var(--text-highlight); font-size: 1.1rem; margin-right: 8px;">剪輯師</span>
-					<span class="skill-en" style="display: inline-block; font-size: 0.9rem; opacity: 0.7; font-family: 'Outfit', sans-serif;">Video Editor</span>
+					<span class="skill-zh lang-zh">剪輯師</span>
+					<span class="skill-en lang-en">Video Editor</span>
 				</div>
 				<div class="skill-pair">
-					<span class="skill-zh" style="display: inline-block; font-weight: 500; color: var(--text-highlight); font-size: 1.1rem; margin-right: 8px;">音樂製作人</span>
-					<span class="skill-en" style="display: inline-block; font-size: 0.9rem; opacity: 0.7; font-family: 'Outfit', sans-serif;">Music Producer</span>
+					<span class="skill-zh lang-zh">音樂製作人</span>
+					<span class="skill-en lang-en">Music Producer</span>
 				</div>
 				<div class="skill-pair">
-					<span class="skill-zh" style="display: inline-block; font-weight: 500; color: var(--text-highlight); font-size: 1.1rem; margin-right: 8px;">UI/UX設計師</span>
-					<span class="skill-en" style="display: inline-block; font-size: 0.9rem; opacity: 0.7; font-family: 'Outfit', sans-serif;">UI/UX Designer</span>
+					<span class="skill-zh lang-zh">UI/UX設計師</span>
+					<span class="skill-en lang-en">UI/UX Designer</span>
 				</div>
 				<div class="skill-pair">
-					<span class="skill-zh" style="display: inline-block; font-weight: 500; color: var(--text-highlight); font-size: 1.1rem; margin-right: 8px;">平面設計師</span>
-					<span class="skill-en" style="display: inline-block; font-size: 0.9rem; opacity: 0.7; font-family: 'Outfit', sans-serif;">Graphic Designer</span>
+					<span class="skill-zh lang-zh">平面設計師</span>
+					<span class="skill-en lang-en">Graphic Designer</span>
 				</div>
 				<div class="skill-pair">
-					<span class="skill-zh" style="display: inline-block; font-weight: 500; color: var(--text-highlight); font-size: 1.1rem; margin-right: 8px;">前端工程師</span>
-					<span class="skill-en" style="display: inline-block; font-size: 0.9rem; opacity: 0.7; font-family: 'Outfit', sans-serif;">Frontend Engineer</span>
+					<span class="skill-zh lang-zh">前端工程師</span>
+					<span class="skill-en lang-en">Frontend Engineer</span>
 				</div>
 				<div class="skill-pair">
-					<span class="skill-zh" style="display: inline-block; font-weight: 500; color: var(--text-highlight); font-size: 1.1rem; margin-right: 8px;">動畫師</span>
-					<span class="skill-en" style="display: inline-block; font-size: 0.9rem; opacity: 0.7; font-family: 'Outfit', sans-serif;">Animator</span>
+					<span class="skill-zh lang-zh">動畫師</span>
+					<span class="skill-en lang-en">Animator</span>
 				</div>
 				<div class="skill-pair">
-					<span class="skill-zh" style="display: inline-block; font-weight: 500; color: var(--text-highlight); font-size: 1.1rem; margin-right: 8px;">調色師</span>
-					<span class="skill-en" style="display: inline-block; font-size: 0.9rem; opacity: 0.7; font-family: 'Outfit', sans-serif;">Colorist</span>
+					<span class="skill-zh lang-zh">調色師</span>
+					<span class="skill-en lang-en">Colorist</span>
+				</div>
+				<div class="skill-pair">
+					<span class="skill-zh lang-zh">特效師</span>
+					<span class="skill-en lang-en">VFX Artist</span>
 				</div>
 			</div>
 			<div class="hero-img">
-				<img src="img/右人物去背.png" alt="AuNight Character">
+				<img src="img/右人物去背.png" alt="秋夜人物" data-alt-zh="秋夜人物" data-alt-en="AuNight character">
 			</div>
 			<div class="social-icons hero-socials">
-				<a href="mailto:g950025@gmail.com" title="Email"><i class="fas fa-envelope"></i></a>
-				<a href="https://www.facebook.com/aunight.cheng" target="_blank" title="Facebook"><i class="fab fa-facebook"></i></a>
-				<a href="https://portaly.cc/aunight" target="_blank" title="Portaly"><img src="img/Portaly.svg" alt="Portaly"></a>
-				<a href="https://www.youtube.com/AuNight" target="_blank" title="YouTube"><i class="fab fa-youtube"></i></a>
-				<a href="https://x.com/aunight_" target="_blank" title="X (Twitter)"><i class="fa-brands fa-x-twitter"></i></a>
-				<a href="https://www.instagram.com/aunight" target="_blank" title="Instagram"><i class="fa-brands fa-square-instagram"></i></a>
-				<a href="https://www.tiktok.com/@au.night" target="_blank" title="TikTok"><i class="fab fa-tiktok"></i></a>
-				<a href="https://open.spotify.com/artist/3AhaLZxsspqiQaFjER1bX0?si=bx6OKqPmR1yLf7QHbig2lw" target="_blank" title="Spotify"><i class="fab fa-spotify"></i></a>
-				<a href="https://discord.com/users/858897462206267433" target="_blank" title="Discord"><i class="fab fa-discord"></i></a>
-				<a href="https://www.threads.net/@aunight" target="_blank" title="Threads"><i class="fa-brands fa-threads"></i></a>
-				<a href="https://line.me/ti/p/an_aidancheng" target="_blank" title="Line"><i class="fab fa-line"></i></a>
-				<a href="https://behance.net/aunight" target="_blank" title="Behance"><i class="fab fa-behance"></i></a>
+				<a href="mailto:g950025@gmail.com" title="信箱" data-title-zh="信箱" data-title-en="Email"><i class="fas fa-envelope"></i></a>
+				<a href="https://line.me/ti/p/an_aidancheng" target="_blank" title="LINE" data-title-zh="LINE" data-title-en="LINE"><i class="fab fa-line"></i></a>
+				<a href="https://x.com/aunight_" target="_blank" title="X" data-title-zh="X" data-title-en="X"><i class="fa-brands fa-x-twitter"></i></a>
+				<a href="https://discord.com/users/858897462206267433" target="_blank" title="Discord" data-title-zh="Discord" data-title-en="Discord"><i class="fab fa-discord"></i></a>
+				<a href="https://www.instagram.com/aunight" target="_blank" title="Instagram" data-title-zh="Instagram" data-title-en="Instagram"><i class="fa-brands fa-square-instagram"></i></a>
+				<a href="https://www.facebook.com/aunight.cheng" target="_blank" title="Facebook" data-title-zh="Facebook" data-title-en="Facebook"><i class="fab fa-facebook"></i></a>
+				<a href="https://portaly.cc/aunight" target="_blank" title="Portaly" data-title-zh="Portaly" data-title-en="Portaly"><img src="img/Portaly.svg" alt="Portaly"></a>
+				<a href="https://www.youtube.com/AuNight" target="_blank" title="YouTube" data-title-zh="YouTube" data-title-en="YouTube"><i class="fab fa-youtube"></i></a>
+				<a href="https://open.spotify.com/artist/3AhaLZxsspqiQaFjER1bX0?si=bx6OKqPmR1yLf7QHbig2lw" target="_blank" title="Spotify" data-title-zh="Spotify" data-title-en="Spotify"><i class="fab fa-spotify"></i></a>
+				<a href="https://behance.net/aunight" target="_blank" title="Behance" data-title-zh="Behance" data-title-en="Behance"><i class="fab fa-behance"></i></a>
+				<a href="https://www.tiktok.com/@au.night" target="_blank" title="TikTok" data-title-zh="TikTok" data-title-en="TikTok"><i class="fab fa-tiktok"></i></a>
+				<a href="https://www.threads.net/@aunight" target="_blank" title="Threads" data-title-zh="Threads" data-title-en="Threads"><i class="fa-brands fa-threads"></i></a>
 			</div>
 		</div>
 
 	</section>
 
+	<section id="about" class="glass-card reveal">
+		<h2 class="section-title"><span class="lang-zh">關於我</span><span class="lang-en">About</span></h2>
+		<p class="about-lead"><span class="lang-zh">跨越影音、介面設計與音樂的全能創作者 | 8年資歷自由工作者</span><span class="lang-en">Multidisciplinary Creator: Bridging Visuals,Interface,and Music | 8+ Years of Freelance Experience</span></p>
+
+		<div class="about-grid">
+			<div class="about-card">
+				<h3 class="about-card-title"><i class="fas fa-film" aria-hidden="true"></i><span class="lang-zh">百萬流量的視覺推手</span><span class="lang-en">Editing & VFX</span></h3>
+				<ul class="about-list">
+					<li><span class="lang-zh">我的創作生涯始於高中自學,至今已累積 8 年接案經驗。</span><span class="lang-en">Precision in Video & Graphics My creative journey began as a self-taught enthusiast in high school and has evolved into a freelance career spanning over 8 years.</span></li>
+					<li><span class="lang-zh">作為影片剪輯師,我曾與阿神、尊、放火等台灣頂尖YouTuber合作。</span><span class="lang-en">As a video editor,I have collaborated with some of Taiwan’s top YouTubers (e.g.阿神,尊,放火),with the very first video I edited for 阿神 amassing over one million views.</span></li>
+					<li><span class="lang-zh">除內容剪輯外,我亦擅長製作高點閱率的YouTube縮圖與平面設計。</span><span class="lang-en">Beyond content editing,I specialize in crafting high-CTR (Click-Through Rate) YouTube Thumbnails and graphic designs.</span></li>
+					<li><span class="lang-zh">在商業廣告專案中,我更運用Fusion進行高難度的動態追蹤特效,為商案提供電影級的視覺技術支援。</span><span class="lang-en">For commercial projects,I utilize advanced Fusion motion tracking to deliver high-end visual effects that provide cinematic technical support.</span></li>
+				</ul>
+			</div>
+
+			<div class="about-card">
+				<h3 class="about-card-title"><i class="fas fa-pen-ruler" aria-hidden="true"></i><span class="lang-zh">UI/UX 與產品設計的實戰驗證</span><span class="lang-en">UI/UX & Product Design</span></h3>
+				<ul class="about-list">
+					<li><span class="lang-zh">我不滿足於視覺層面,且進一步跨足UI/UX領域。</span><span class="lang-en">Driven to go beyond surface-level aesthetics,I expanded my expertise into UI/UX design.</span></li>
+					<li><span class="lang-zh">我主導設計的Valki(Valorant輔助工具),成功服務超過10萬名活躍用戶,展現了兼具美感與易用性的產品設計力,並且我也設計了其官方網站。</span><span class="lang-en">I led the design of the Valki APP (a Valorant utility),which successfully serves over 100,000 active users,demonstrating product design capabilities that balance aesthetics and usability,and I also designed its official website.</span></li>
+					<li><span class="lang-zh">同時,我也設計了巴哈姆特首頁及動畫瘋,台北捷運Go,Dcard等大型App及網頁的Redesign專案,並致力於優化使用者的體驗。</span><span class="lang-en">I also design comprehensive App and Web redesign projects for major platforms like Taipei MRT Go,Dcard,and Bahamut,dedicated to optimizing digital user experiences.</span></li>
+				</ul>
+			</div>
+
+			<div class="about-card" style="grid-column: 1 / -1;">
+				<h3 class="about-card-title"><i class="fas fa-music" aria-hidden="true"></i><span class="lang-zh">獨立音樂製作與虛擬偶像的共鳴</span><span class="lang-en">Independent Music Production</span></h3>
+				<ul class="about-list">
+					<li><span class="lang-zh">在音樂領域,我以獨立音樂製作人的身分活躍,不僅累積創作超過30首的原創歌曲及背景音樂。</span><span class="lang-en">In the music realm,I am active as an Independent Music Producer,having composed over 30 original songs and background music (BGM) tracks.</span></li>
+					<li><span class="lang-zh">更曾與Vtuber深度合作打造原創歌曲,從詞曲創作、編曲到混音皆由我操刀,並將多首個人作品發行至Spotify、Apple Music等各大串流平台。</span><span class="lang-en">I have collaborated deeply with Vtubers to produce original songs,handling the entire process from songwriting and arrangement to mixing. Many of my works have been released on major streaming platforms like Spotify and Apple Music.</span></li>
+					<li><span class="lang-zh">結合我製作Vtuber PV動畫的影像能力,我能為虛擬藝人提供從「聽覺」到「視覺」的一條龍高品質產出。</span><span class="lang-en">Combined with my ability to produce Vtuber PV animations,I provide a comprehensive,high-quality audio-visual solution for virtual talents.</span></li>
+				</ul>
+			</div>
+		</div>
+	</section>
+
 	<section id="video" class="glass-card tab-container reveal">
-		<h2 class="section-title">影片剪輯 Video Editing</h2>
+		<h2 class="section-title"><span class="lang-zh">影片剪輯</span><span class="lang-en">Video Editing</span></h2>
 
 		<div class="tabs">
-			<button class="tab-btn active">真人類 (Live-Action)</button>
-			<button class="tab-btn">遊戲類 (Games)</button>
-			<button class="tab-btn">短片類 (Shorts)</button>
-			<button class="tab-btn">VTuber類 (VTuber)</button>
-			<button class="tab-btn">知識類 (Knowledge)</button>
-			<button class="tab-btn">訪談類 (Interview)</button>
-			<button class="tab-btn">政治類 (Political)</button>
+			<button class="tab-btn active"><span class="lang-zh">真人類</span><span class="lang-en">Live-Action</span></button>
+			<button class="tab-btn"><span class="lang-zh">遊戲類</span><span class="lang-en">Games</span></button>
+			<button class="tab-btn"><span class="lang-zh">短片類</span><span class="lang-en">Shorts</span></button>
+			<button class="tab-btn"><span class="lang-zh">VTuber類</span><span class="lang-en">VTuber</span></button>
+			<button class="tab-btn"><span class="lang-zh">知識類</span><span class="lang-en">Knowledge</span></button>
+			<button class="tab-btn"><span class="lang-zh">訪談類</span><span class="lang-en">Interview</span></button>
+			<button class="tab-btn"><span class="lang-zh">政治類</span><span class="lang-en">Political</span></button>
+			<button class="tab-btn"><span class="lang-zh">Podcast</span><span class="lang-en">Podcast</span></button>
 		</div>
 
 		<div class="tab-content active">
 			<div class="embed-container">
-				<iframe width="560" height="315" src="https://www.youtube.com/embed/4nF57zCu3bo?si=Iewf2fuTSGq-sNk3" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div>
+				<iframe width="560" height="315" src="https://www.youtube.com/embed/4nF57zCu3bo?si=Iewf2fuTSGq-sNk3" title="YouTube 影片播放器" data-title-zh="YouTube 影片播放器" data-title-en="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div>
 			<div style="text-align: center; margin-top: 30px;">
 			<a href="http://vlog.aunight.pw"
 			   target="_blank" class="action-btn">
-				<i class="fas fa-external-link-alt"></i>點擊前往完整播放清單 (Click to full playlist) (Click to full playlist)
+				<i class="fas fa-external-link-alt"></i><span class="lang-zh">點擊前往完整播放清單</span><span class="lang-en">Open full playlist</span>
 			</a>
 			</div>
 		</div>
-		<div class="tab-content"><div class="embed-container"><iframe width="560" height="315" src="https://www.youtube.com/embed/tVqLHKkiXZw?si=RA37Z64RKUUwxLx_" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div>
+		<div class="tab-content"><div class="embed-container"><iframe width="560" height="315" src="https://www.youtube.com/embed/tVqLHKkiXZw?si=RA37Z64RKUUwxLx_" title="YouTube 影片播放器" data-title-zh="YouTube 影片播放器" data-title-en="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div>
 			<div style="text-align: center; margin-top: 30px;">
 			<a href="http://game.aunight.pw"
 			   target="_blank" class="action-btn">
-				<i class="fas fa-external-link-alt"></i>點擊前往完整播放清單 (Click to full playlist)
+				<i class="fas fa-external-link-alt"></i><span class="lang-zh">點擊前往完整播放清單</span><span class="lang-en">Open full playlist</span>
 			</a>
 		</div>
 		</div>
-		<div class="tab-content"><div class="embed-container"><iframe width="560" height="315" src="https://www.youtube.com/embed/mmHnj6MvMv4?si=VP1AHJtZhVP7KqzQ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div>
+		<div class="tab-content"><div class="embed-container"><iframe width="560" height="315" src="https://www.youtube.com/embed/mmHnj6MvMv4?si=VP1AHJtZhVP7KqzQ" title="YouTube 影片播放器" data-title-zh="YouTube 影片播放器" data-title-en="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div>
 			<div style="text-align: center; margin-top: 30px;">
 			<a href="http://shorts.aunight.pw"
 			   target="_blank" class="action-btn">
-				<i class="fas fa-external-link-alt"></i>點擊前往完整播放清單 (Click to full playlist)
+				<i class="fas fa-external-link-alt"></i><span class="lang-zh">點擊前往完整播放清單</span><span class="lang-en">Open full playlist</span>
 			</a>
 		</div>
 		</div>
-		<div class="tab-content"><div class="embed-container"><iframe width="560" height="315" src="https://www.youtube.com/embed/Ah3bcnrSfjg?si=NLrIrfUe8ax-2P9-" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div>
+		<div class="tab-content"><div class="embed-container"><iframe width="560" height="315" src="https://www.youtube.com/embed/Ah3bcnrSfjg?si=NLrIrfUe8ax-2P9-" title="YouTube 影片播放器" data-title-zh="YouTube 影片播放器" data-title-en="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div>
 			<div style="text-align: center; margin-top: 30px;">
 			<a href="http://vtuber.aunight.pw"
 			   target="_blank" class="action-btn">
-				<i class="fas fa-external-link-alt"></i>點擊前往完整播放清單 (Click to full playlist)
+				<i class="fas fa-external-link-alt"></i><span class="lang-zh">點擊前往完整播放清單</span><span class="lang-en">Open full playlist</span>
 			</a>
 		</div>
 		</div>
-		<div class="tab-content"><div class="embed-container"><iframe width="560" height="315" src="https://www.youtube.com/embed/4nF57zCu3bo?si=CfqrhNb_Y8WHkmfT" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div>
+		<div class="tab-content"><div class="embed-container"><iframe width="560" height="315" src="https://www.youtube.com/embed/4nF57zCu3bo?si=CfqrhNb_Y8WHkmfT" title="YouTube 影片播放器" data-title-zh="YouTube 影片播放器" data-title-en="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div>
 			<div style="text-align: center; margin-top: 30px;">
 			<a href="http://kn.aunight.pw"
 			   target="_blank" class="action-btn">
-				<i class="fas fa-external-link-alt"></i>點擊前往完整播放清單 (Click to full playlist)
+				<i class="fas fa-external-link-alt"></i><span class="lang-zh">點擊前往完整播放清單</span><span class="lang-en">Open full playlist</span>
 			</a>
 		</div>
 		</div>
-		<div class="tab-content"><div class="embed-container"><iframe width="560" height="315" src="https://www.youtube.com/embed/ovgiz_l9Wzw?si=HgTuHxZeeDfWC0Wu" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div>
+		<div class="tab-content"><div class="embed-container"><iframe width="560" height="315" src="https://www.youtube.com/embed/ovgiz_l9Wzw?si=HgTuHxZeeDfWC0Wu" title="YouTube 影片播放器" data-title-zh="YouTube 影片播放器" data-title-en="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div>
 			<div style="text-align: center; margin-top: 30px;">
 			<a href="http://interview.aunight.pw"
 			   target="_blank" class="action-btn">
-				<i class="fas fa-external-link-alt"></i>點擊前往完整播放清單 (Click to full playlist)
+				<i class="fas fa-external-link-alt"></i><span class="lang-zh">點擊前往完整播放清單</span><span class="lang-en">Open full playlist</span>
 			</a>
 		</div>
 		</div>
-		<div class="tab-content"><div class="embed-container"><iframe width="560" height="315" src="https://www.youtube.com/embed/-TcO0M6mSBw?si=8hicYF13yyMc2xLV" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div>
+		<div class="tab-content"><div class="embed-container"><iframe width="560" height="315" src="https://www.youtube.com/embed/-TcO0M6mSBw?si=8hicYF13yyMc2xLV" title="YouTube 影片播放器" data-title-zh="YouTube 影片播放器" data-title-en="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div>
 			<div style="text-align: center; margin-top: 30px;">
 			<a href="http://political.aunight.pw"
 			   target="_blank" class="action-btn">
-				<i class="fas fa-external-link-alt"></i>點擊前往完整播放清單 (Click to full playlist)
+				<i class="fas fa-external-link-alt"></i><span class="lang-zh">點擊前往完整播放清單</span><span class="lang-en">Open full playlist</span>
 			</a>
 		</div>
+		</div>
+		<div class="tab-content">
+			<div class="embed-container">
+				<iframe width="560" height="315" src="https://www.youtube.com/embed/tK3E_ZH3las?list=PLa-EIrdouSLRs5gNgM8SdggADrqHT86L8" title="YouTube 影片播放器" data-title-zh="YouTube 影片播放器" data-title-en="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+			</div>
+			<div style="text-align: center; margin-top: 30px;">
+				<a href="https://www.youtube.com/watch?v=tK3E_ZH3las&list=PLa-EIrdouSLRs5gNgM8SdggADrqHT86L8" target="_blank" class="action-btn">
+					<i class="fas fa-external-link-alt"></i><span class="lang-zh">點擊前往完整播放清單</span><span class="lang-en">Open full playlist</span>
+				</a>
+			</div>
 		</div>
 
 		<div class="price-details">
 			<input id="notice-toggle" class="price-toggle" type="checkbox">
 			<label class="price-summary" for="notice-toggle">
-				查看委託須知<br>
-				<span style="font-size:0.85em; opacity:0.7;">Commission Guidelines</span>
+				<span class="lang-zh">查看委託須知<br></span>
+				<span class="lang-en" style="font-size:0.85em; opacity:0.7;">Commission Guidelines</span>
 			</label>
 
 			<div class="price-content">
 				<div class="price-content-inner">
 
 					<p>
-						1.請提供範例的影片及毛片長度以及提供的素材多寡以進行計價<br>
-						<span style="font-size:0.8em; opacity:0.75;">
-          Please provide reference videos, raw footage length, and the amount of materials supplied for pricing evaluation.
+						<span class="lang-zh">1.請提供範例的影片及毛片長度以及提供的素材多寡以進行計價<br></span>
+						<span class="lang-en" style="font-size:0.8em; opacity:0.75;">
+          1. Please provide reference videos, raw footage length, and the amount of materials supplied for pricing evaluation.
         </span>
 					</p>
 
 					<p>
-						2.修改次數皆為兩次內，一次修改項目不超過5個<br>
-						<span style="font-size:0.8em; opacity:0.75;">
-          Up to two rounds of revisions are included, with no more than five items per revision.
+						<span class="lang-zh">2.修改次數皆為兩次內，一次修改項目不超過5個<br></span>
+						<span class="lang-en" style="font-size:0.8em; opacity:0.75;">
+          2. Up to two rounds of revisions are included, with no more than five items per revision.
         </span>
 					</p>
 
 					<p>
-						3.超過次數須加錢，並依照難度調整價格<br>
-						<span style="font-size:0.8em; opacity:0.75;">
-          Additional revisions will incur extra charges, adjusted based on complexity.
+						<span class="lang-zh">3.超過次數須加錢，並依照難度調整價格<br></span>
+						<span class="lang-en" style="font-size:0.8em; opacity:0.75;">
+          3. Additional revisions will incur extra charges, adjusted based on complexity.
         </span>
 					</p>
 
 					<p>
-						4.字幕修改並不包含在修改項目內<br>
-						<span style="font-size:0.8em; opacity:0.75;">
-          Subtitle changes are not included in the standard revision scope.
+						<span class="lang-zh">4.字幕修改並不包含在修改項目內<br></span>
+						<span class="lang-en" style="font-size:0.8em; opacity:0.75;">
+          4. Subtitle changes are not included in the standard revision scope.
         </span>
 					</p>
 
@@ -735,25 +1365,25 @@
 	</section>
 
 	<section id="music" class="glass-card tab-container reveal">
-		<h2 class="section-title">音樂製作 Music Production</h2>
+		<h2 class="section-title"><span class="lang-zh">音樂製作</span><span class="lang-en">Music Production</span></h2>
 		<div class="tabs">
-			<button class="tab-btn active">Cover混音 (Cover Mixing)</button>
-			<button class="tab-btn">BGM製作 (Background Music)</button>
-			<button class="tab-btn">原創曲 (Original Music)</button>
+			<button class="tab-btn active"><span class="lang-zh">Cover混音</span><span class="lang-en">Cover Mixing</span></button>
+			<button class="tab-btn"><span class="lang-zh">BGM製作</span><span class="lang-en">Background Music</span></button>
+			<button class="tab-btn"><span class="lang-zh">原創曲</span><span class="lang-en">Original Music</span></button>
 		</div>
 
 		<div class="tab-content active">
 			<div class="grid-2">
-				<div class="embed-container"><iframe width="560" height="315" src="https://www.youtube.com/embed/FsfN4p2r9rw?si=xLeKA_PsW-jMsiqp" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div>
-				<div class="embed-container"><div style="left: 0; width: 100%; height: 400px; position: relative;"><iframe src="https://drive.google.com/embeddedfolderview?id=1ruumdg8SWO1CXAJDYTMePnAa3PP0n55w#list" style="top: 0; left: 0; width: 100%; height: 100%; position: absolute; border: 0;" allowfullscreen></iframe></div></div>
+				<div class="embed-container"><iframe width="560" height="315" src="https://www.youtube.com/embed/FsfN4p2r9rw?si=xLeKA_PsW-jMsiqp" title="YouTube 影片播放器" data-title-zh="YouTube 影片播放器" data-title-en="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div>
+				<div class="embed-container"><div class="drive-embed"><iframe src="https://drive.google.com/embeddedfolderview?id=1ruumdg8SWO1CXAJDYTMePnAa3PP0n55w#list" allowfullscreen></iframe></div></div>
 			</div>
 		</div>
 		<div class="tab-content">
-			<div class="embed-container"><div style="left: 0; width: 100%; height: 400px; position: relative;"><iframe src="https://drive.google.com/embeddedfolderview?id=1DUDpAtf6UcFKufMk5fX4ENo6XiMlcPDE#list" style="top: 0; left: 0; width: 100%; height: 100%; position: absolute; border: 0;" allowfullscreen></iframe></div></div>
+			<div class="embed-container"><div class="drive-embed"><iframe src="https://drive.google.com/embeddedfolderview?id=1DUDpAtf6UcFKufMk5fX4ENo6XiMlcPDE#list" allowfullscreen></iframe></div></div>
 		</div>
 		<div class="tab-content">
 			<iframe data-testid="embed-iframe" style="border-radius:12px;width: 100%; height: 500px;" src="https://open.spotify.com/embed/artist/3AhaLZxsspqiQaFjER1bX0?utm_source=generator" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
-			<div class="embed-container"><div style="left: 0; width: 100%; height: 500px; position: relative;"><iframe src="https://drive.google.com/embeddedfolderview?id=1_T3m2YcBYb_T8Z-jqgthuQWOAUdqbIh7#list" style="top: 0; left: 0; width: 100%; height: 100%; position: absolute; border: 0;" allowfullscreen></iframe></div></div>
+			<div class="embed-container"><div class="drive-embed"><iframe src="https://drive.google.com/embeddedfolderview?id=1_T3m2YcBYb_T8Z-jqgthuQWOAUdqbIh7#list" allowfullscreen></iframe></div></div>
 		</div>
 
 
@@ -761,8 +1391,8 @@
 			<input type="checkbox" class="price-toggle" id="toggle-price">
 
 			<label class="price-summary" for="toggle-price">
-				查看價目表<br>
-				<span style="font-size:0.85em; opacity:0.7;">Price List</span>
+				<span class="lang-zh">查看價目表<br></span>
+				<span class="lang-en" style="font-size:0.85em; opacity:0.7;">Price List</span>
 			</label>
 
 			<div class="price-content">
@@ -770,15 +1400,15 @@
 					<img src="img/混音價目表.png" style="width:100%; border-radius:10px;">
 
 					<div style="text-align: center; margin-top: 30px;">
-						<p style="margin-bottom: 6px; font-size: 0.9rem; opacity: 0.75;">
+						<p class="lang-zh" style="margin-bottom: 6px; font-size: 0.9rem; opacity: 0.75;">
 							BGM及原創曲請聯絡我獲取詳細報價
 						</p>
-						<p style="margin-bottom: 14px; font-size: 0.85rem; opacity: 0.65;">
+						<p class="lang-en" style="margin-bottom: 14px; font-size: 0.85rem; opacity: 0.65;">
 							For background music and original compositions, please contact me for a detailed quotation.
 						</p>
 
 						<a href="mailto:G950025@gmail.com" class="action-btn email-btn">
-							<i class="fas fa-envelope"></i> 寫信聯絡我 (Email me)
+							<i class="fas fa-envelope"></i> <span class="lang-zh">寫信聯絡我</span><span class="lang-en">Email me</span>
 						</a>
 					</div>
 				</div>
@@ -788,12 +1418,12 @@
 	</section>
 
 	<section id="uiux" class="glass-card tab-container reveal">
-		<h2 class="section-title">UI/UX Design</h2>
+		<h2 class="section-title"><span class="lang-zh">UI/UX 設計</span><span class="lang-en">UI/UX Design</span></h2>
 
 		<div class="tabs">
-			<button class="tab-btn active">手機介面 (Mobile Design)</button>
-			<button class="tab-btn">網頁介面 (Website Design)</button>
-			<button class="tab-btn">遊戲介面 (Game UI Design)</button>
+			<button class="tab-btn active"><span class="lang-zh">手機介面</span><span class="lang-en">Mobile Design</span></button>
+			<button class="tab-btn"><span class="lang-zh">網頁介面</span><span class="lang-en">Website Design</span></button>
+			<button class="tab-btn"><span class="lang-zh">遊戲介面</span><span class="lang-en">Game UI Design</span></button>
 		</div>
 
 		<div class="tab-content active">
@@ -910,6 +1540,22 @@
 								top: -10px;
 							}
 
+							.figma-embed iframe{
+								position: absolute;
+								inset: 0;
+								width: 100%;
+								height: 100%;
+								border: 0;
+								display: block;
+							}
+
+							@media (max-width: 900px){
+								.figma-embed{
+									width: 100%;
+									aspect-ratio: 9 / 16;
+									top: 0;
+								}
+							}
 
 						</style>
 					</div>
@@ -918,10 +1564,10 @@
 		</div>
 		<div class="tab-content" style="text-align: center">
 			<div class="embed-container" style="height: 500px">
-				<iframe src="https://valki.app" title="VALKI Preview"></iframe>
+				<iframe src="https://valki.app" title="VALKI 預覽" data-title-zh="VALKI 預覽" data-title-en="VALKI Preview"></iframe>
 			</div>
 			<a href="https://valki.app" target="_blank" class="action-btn">
-				<i class="fas fa-external-link-alt"></i> 前往網站 (Open Site)
+				<i class="fas fa-external-link-alt"></i> <span class="lang-zh">前往網站</span><span class="lang-en">Open Site</span>
 			</a>
 			<br>	<br>	<br>
 			<div class="iframely-embed"><div class="iframely-responsive" style="height: 140px; padding-bottom: 0; border-radius: 16px 16px 0px 0px"><a href="https://www.behance.net/gallery/133125757/20-Gamercomtw-Main-Page-Redesign-20" data-iframely-url="https://iframely.net/RPN0poIE?media=0&theme=dark"></a></div></div><script async src="https://iframely.net/embed.js"></script>
@@ -934,26 +1580,26 @@
 			</div>
 		</div>
 		<div style="text-align: center; margin-top: 30px;">
-			<p style="margin-bottom: 4px; font-size: 0.9rem; opacity: 0.7;">
+			<p class="lang-zh" style="margin-bottom: 4px; font-size: 0.9rem; opacity: 0.7;">
 				有興趣合作嗎？
 			</p>
-			<p style="margin-bottom: 10px; font-size: 0.85rem; opacity: 0.6;">
+			<p class="lang-en" style="margin-bottom: 10px; font-size: 0.85rem; opacity: 0.6;">
 				Interested in collaborating?
 			</p>
 			<a href="mailto:G950025@gmail.com" class="action-btn email-btn">
-				<i class="fas fa-envelope"></i> 寫信聯絡我 (Email me)
+				<i class="fas fa-envelope"></i> <span class="lang-zh">寫信聯絡我</span><span class="lang-en">Email me</span>
 			</a>
 		</div>
 
 	</section>
 
 	<section id="graphic" class="glass-card tab-container reveal">
-		<h2 class="section-title">平面設計 Graphic Design</h2>
+		<h2 class="section-title"><span class="lang-zh">平面設計</span><span class="lang-en">Graphic Design</span></h2>
 		<div class="tabs">
-			<button class="tab-btn active">YT縮圖 (YT Thumbnail)</button>
-			<button class="tab-btn">菜單設計 (Food Menu)</button>
-			<button class="tab-btn">VTuber相關 (Vtuber Works)</button>
-			<button class="tab-btn">完整作品集 (Full Works)</button>
+			<button class="tab-btn active"><span class="lang-zh">YT縮圖</span><span class="lang-en">YT Thumbnail</span></button>
+			<button class="tab-btn"><span class="lang-zh">菜單設計</span><span class="lang-en">Food Menu</span></button>
+			<button class="tab-btn"><span class="lang-zh">VTuber相關</span><span class="lang-en">Vtuber Works</span></button>
+			<button class="tab-btn"><span class="lang-zh">完整作品集</span><span class="lang-en">Full Works</span></button>
 		</div>
 
 		<div class="tab-content active">
@@ -1139,7 +1785,7 @@
 				/* Optional shimmer placeholder */
 				.embed-container,
 				.iframely-responsive {
-					background: linear-gradient(90deg, rgba(255,255,255,.22), rgba(255,255,255,.55), rgba(255,255,255,.22));
+					background: linear-gradient(90deg, rgba(0,0,0,.35), rgba(0,0,0,.65), rgba(0,0,0,.35));
 					background-size: 200% 100%;
 					animation: embedShimmer 1.25s linear infinite;
 				}
@@ -1150,7 +1796,7 @@
 					content: "";
 					position: absolute;
 					inset: 0;
-					background: rgba(255,255,255,0.92);
+					background: rgba(0,0,0,0.88);
 					opacity: 1;
 					pointer-events: none;
 					animation: embedReveal 3.2s ease forwards; /* longer = less "pop" */
@@ -1211,24 +1857,24 @@
 				<div class="iframely-embed"><div class="iframely-responsive" style="padding-bottom: 78.2178%; padding-top: 120px;"><a href="https://www.behance.net/gallery/104118153/Graphic-Design-" data-iframely-url="https://iframely.net/SkYaVsOo?media=0&theme=dark"></a></div></div><script async src="https://iframely.net/embed.js"></script></div>
 		</div>
 		<div style="text-align: center; margin-top: 30px;">
-			<p style="margin-bottom: 10px; font-size: 0.9rem; opacity: 0.7;">獲取詳細報價</p>
-			<p style="margin-bottom: 10px; font-size: 0.8rem; opacity: 0.6;">Get a detailed quotation</p>
+			<p class="lang-zh" style="margin-bottom: 10px; font-size: 0.9rem; opacity: 0.7;">獲取詳細報價</p>
+			<p class="lang-en" style="margin-bottom: 10px; font-size: 0.8rem; opacity: 0.6;">Get a detailed quotation</p>
 			<a href="mailto:G950025@gmail.com" class="action-btn email-btn">
-				<i class="fas fa-envelope"></i> 寫信聯絡我 (Email me)
+				<i class="fas fa-envelope"></i> <span class="lang-zh">寫信聯絡我</span><span class="lang-en">Email me</span>
 			</a>
 
 	</section>
 
 	<section id="web" class="glass-card reveal">
-		<h2 class="section-title">網頁前端 Web Frontend</h2>
+		<h2 class="section-title"><span class="lang-zh">網頁前端</span><span class="lang-en">Web Frontend</span></h2>
 
 		<div style="margin-bottom: 50px; text-align: center;">
-			<h3 style="margin-bottom: 15px;">貢寮女路</h3>
+			<h3 style="margin-bottom: 15px;"><span class="lang-zh">貢寮女路</span><span class="lang-en">Gongliao Female Road</span></h3>
 			<div class="embed-container" style="height: 400px; background: white;">
 				<iframe src="https://gongliaofemalediver.ddns.net/" title="貢寮海女"></iframe>
 			</div>
 			<a href="https://gongliaofemalediver.ddns.net/" target="_blank" class="action-btn">
-				<i class="fas fa-external-link-alt"></i> 前往網站 (Open Site)
+				<i class="fas fa-external-link-alt"></i> <span class="lang-zh">前往網站</span><span class="lang-en">Open Site</span>
 			</a>
 		</div>
 
@@ -1240,42 +1886,42 @@
 				<iframe src="https://beconrolt.aunight.pw" title="Beconrolt"></iframe>
 			</div>
 			<a href="https://beconrolt.aunight.pw" target="_blank" class="action-btn">
-				<i class="fas fa-external-link-alt"></i> 前往網站 (Open Site)
+				<i class="fas fa-external-link-alt"></i> <span class="lang-zh">前往網站</span><span class="lang-en">Open Site</span>
 			</a>
 		</div>
 
 		<div style="text-align: center; margin-top: 30px;">
-			<p style="margin-bottom: 10px; font-size: 0.9rem; opacity: 0.7;">獲取詳細報價</p>
-			<p style="margin-bottom: 10px; font-size: 0.8rem; opacity: 0.6;">Get a detailed quotation</p>
+			<p class="lang-zh" style="margin-bottom: 10px; font-size: 0.9rem; opacity: 0.7;">獲取詳細報價</p>
+			<p class="lang-en" style="margin-bottom: 10px; font-size: 0.8rem; opacity: 0.6;">Get a detailed quotation</p>
 			<a href="mailto:G950025@gmail.com" class="action-btn email-btn">
-				<i class="fas fa-envelope"></i> 寫信聯絡我 (Email me)
+				<i class="fas fa-envelope"></i> <span class="lang-zh">寫信聯絡我</span><span class="lang-en">Email me</span>
 			</a>
 		</div>
 	</section>
 
 	<section id="animation" class="glass-card tab-container reveal">
-		<h2 class="section-title">動畫設計 Animation</h2>
+		<h2 class="section-title"><span class="lang-zh">動畫設計</span><span class="lang-en">Animation</span></h2>
 
 		<div class="tabs">
-			<button class="tab-btn active">逐格動畫 (Frame Animation)</button>
-			<button class="tab-btn">範本修改 (Template Edit)</button>
-			<button class="tab-btn">片頭片尾 (Intro&Outro)</button>
-			<button class="tab-btn">其他作品 (Other Works)</button>
+			<button class="tab-btn active"><span class="lang-zh">逐格動畫</span><span class="lang-en">Frame Animation</span></button>
+			<button class="tab-btn"><span class="lang-zh">範本修改</span><span class="lang-en">Template Edit</span></button>
+			<button class="tab-btn"><span class="lang-zh">片頭片尾</span><span class="lang-en">Intro & Outro</span></button>
+			<button class="tab-btn"><span class="lang-zh">其他作品</span><span class="lang-en">Other Works</span></button>
 		</div>
 		<!-- 內容 1 -->
 		<div class="grid-2" style="margin-bottom: 20px; text-align: center">
 			<div class="tab-content active">
 				<div class="embed-container">
-					<iframe width="560" height="315" src="https://www.youtube.com/embed/1OHTj4RI8UI?si=h1GnoYTb58j5m6Cu" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-					<div style="position:relative; width:100%; height:400px;">
+					<iframe width="560" height="315" src="https://www.youtube.com/embed/1OHTj4RI8UI?si=h1GnoYTb58j5m6Cu" title="YouTube 影片播放器" data-title-zh="YouTube 影片播放器" data-title-en="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+					<div class="drive-embed">
 						<iframe
 								src="https://drive.google.com/embeddedfolderview?id=16i5KxeQE8XiSEJRZ_w2IvEv_9VOhLvRl#list"
-								style="position:absolute; inset:0; width:100%; height:100%; border:0;">
+						>
 						</iframe>
 					</div>
 				</div>
 				<div class="price-content">
-					<p style="font-weight:bold; color:var(--text-highlight);text-align: center">NT$ 3,000 起</p>
+					<p style="font-weight:bold; color:var(--text-highlight);text-align: center">NT$ 3,000 <span class="lang-zh">起</span><span class="lang-en">and up</span></p>
 				</div>
 			</div>
 
@@ -1285,15 +1931,15 @@
 		<div class="grid-2" style="margin-bottom: 20px; text-align: center">
 			<div class="tab-content" style="text-align: center">
 				<div class="embed-container">
-					<div style="position:relative; width:100%; height:400px;">
+					<div class="drive-embed">
 						<iframe
 								src="https://drive.google.com/embeddedfolderview?id=11SX7jtcT-ADZyRHIcvwHQoNjtICfdkAJ#list"
-								style="position:absolute; inset:0; width:100%; height:100%; border:0;">
+						>
 						</iframe>
 					</div>
 				</div>
 				<div class="price-content">
-					<p style="font-weight:bold; color:var(--text-highlight);text-align: center">NT$ 1,000 起</p>
+					<p style="font-weight:bold; color:var(--text-highlight);text-align: center">NT$ 1,000 <span class="lang-zh">起</span><span class="lang-en">and up</span></p>
 				</div>
 			</div>
 		</div>
@@ -1306,18 +1952,18 @@
 							style="width:100%; height:315px; border-radius:12px;"
 							allowfullscreen>
 					</iframe>
-					<div style="position:relative; width:100%; height:400px;">
+					<div class="drive-embed">
 						<iframe
 								src="https://drive.google.com/embeddedfolderview?id=1Z_xqkzqAdArxA4mmvBjmfV6mavif5ZUd#list"
-								style="position:absolute; inset:0; width:100%; height:100%; border:0;">
+						>
 						</iframe>
 					</div>
 				</div>
 				<div class="price-content">
-					<p style="font-weight:bold; color:var(--text-highlight);text-align: center">NT$ 3,000 起</p>
+					<p style="font-weight:bold; color:var(--text-highlight);text-align: center">NT$ 3,000 <span class="lang-zh">起</span><span class="lang-en">and up</span></p>
 				</div>
 				<a href="https://www.youtube.com/watch?v=ndZYV83wQc8&list=PLa-EIrdouSLRpk_O-bHtoLVgWulZXDEw4" target="_blank" class="action-btn">
-					<i class="fas fa-external-link-alt"></i>點擊前往完整播放清單 (Click to full playlist)
+					<i class="fas fa-external-link-alt"></i><span class="lang-zh">點擊前往完整播放清單</span><span class="lang-en">Open full playlist</span>
 				</a>
 			</div>
 			<div class="grid-2" style="margin-bottom: 20px; text-align: center">
@@ -1331,27 +1977,27 @@
 						</iframe>
 					</div>
 					<a href="https://www.youtube.com/watch?v=56qTjNoylbs&list=PLa-EIrdouSLSRO42zKdqy6AqfMvt6uN-5" target="_blank" class="action-btn">
-						<i class="fas fa-external-link-alt"></i>點擊前往完整播放清單 (Click to full playlist)
+						<i class="fas fa-external-link-alt"></i><span class="lang-zh">點擊前往完整播放清單</span><span class="lang-en">Open full playlist</span>
 					</a>
 				</div>
-				<div style="text-align: center>
-					<p style="margin-bottom: 10px; font-size: 0.9rem; opacity: 0.7;">獲取詳細報價</p>
-				<p style="margin-bottom: 10px; font-size: 0.8rem; opacity: 0.6;">Get a detailed quotation</p>
-				<a href="mailto:G950025@gmail.com" class="action-btn email-btn">
-					<i class="fas fa-envelope"></i> 寫信聯絡我 (Email me)
-				</a>
-			</div>
+				<div style="text-align: center">
+					<p class="lang-zh" style="margin-bottom: 10px; font-size: 0.9rem; opacity: 0.7;">獲取詳細報價</p>
+					<p class="lang-en" style="margin-bottom: 10px; font-size: 0.8rem; opacity: 0.6;">Get a detailed quotation</p>
+					<a href="mailto:G950025@gmail.com" class="action-btn email-btn">
+						<i class="fas fa-envelope"></i> <span class="lang-zh">寫信聯絡我</span><span class="lang-en">Email me</span>
+					</a>
+				</div>
 
 		</div>
 	</section>
 
 	<section id="color" class="glass-card tab-container reveal">
-		<h2 class="section-title">影像後製 Post-Production</h2>
+		<h2 class="section-title"><span class="lang-zh">影像後製</span><span class="lang-en">Post-Production</span></h2>
 
 		<!-- ✅ Tabs（你要用 .tabs） -->
 		<div class="tabs">
-			<button class="tab-btn active">影像調色 (Color Grading)</button>
-			<button class="tab-btn">影像追蹤 (Motion Tracking)</button>
+			<button class="tab-btn active"><span class="lang-zh">影像調色</span><span class="lang-en">Color Grading</span></button>
+			<button class="tab-btn"><span class="lang-zh">影像追蹤</span><span class="lang-en">Motion Tracking</span></button>
 		</div>
 
 		<!-- ✅ Panels -->
@@ -1362,34 +2008,36 @@
 
 				<div class="grid-2" style="margin-bottom: 20px; text-align: center">
 					<div>
-						<h4>Premiere Pro</h4>
+						<h4><span class="lang-zh">Premiere Pro</span><span class="lang-en">Premiere Pro</span></h4>
 						<div class="embed-container">
 							<iframe height="315"
 									src="https://www.youtube.com/embed/F0BabcB47sE?si=zibVyln2OcXDZ07b"
-									title="YouTube video player"
+									title="YouTube 影片播放器" data-title-zh="YouTube 影片播放器" data-title-en="YouTube video player"
 									allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
 									referrerpolicy="strict-origin-when-cross-origin"
 									allowfullscreen></iframe>
 						</div>
-						<p style="font-weight:bold; color:var(--text-highlight);text-align: center">NT$ 1,000 起</p>
+						<p style="font-weight:bold; color:var(--text-highlight);text-align: center">NT$ 1,000 <span class="lang-zh">起</span><span class="lang-en">and up</span></p>
 					</div>
 
 					<div>
-						<h4>DaVinci Resolve</h4>
+						<h4><span class="lang-zh">DaVinci Resolve</span><span class="lang-en">DaVinci Resolve</span></h4>
 						<div class="embed-container">
 							<iframe height="315"
 									src="https://www.youtube.com/embed/gnzQzXOoWOE?si=x1G7RsY243feSIC5"
-									title="YouTube video player"
+									title="YouTube 影片播放器" data-title-zh="YouTube 影片播放器" data-title-en="YouTube video player"
 									allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
 									referrerpolicy="strict-origin-when-cross-origin"
 									allowfullscreen></iframe>
 						</div>
-						<p style="font-weight:bold; color:var(--text-highlight);text-align: center">NT$ 3,000 起</p>
-						<a href="https://www.youtube.com/watch?v=gnzQzXOoWOE&list=PLa-EIrdouSLQgM5a2rWEi3-kR4DCRMCKR"
-						   target="_blank" class="action-btn">
-							<i class="fas fa-external-link-alt"></i>點擊前往完整播放清單 (Click to full playlist)
-						</a>
+						<p style="font-weight:bold; color:var(--text-highlight);text-align: center">NT$ 3,000 <span class="lang-zh">起</span><span class="lang-en">and up</span></p>
 					</div>
+				</div>
+				<div style="text-align: center; margin-top: 18px;">
+					<a href="https://www.youtube.com/watch?v=gnzQzXOoWOE&list=PLa-EIrdouSLQgM5a2rWEi3-kR4DCRMCKR"
+					   target="_blank" class="action-btn">
+						<i class="fas fa-external-link-alt"></i><span class="lang-zh">點擊前往完整播放清單</span><span class="lang-en">Open full playlist</span>
+					</a>
 				</div>
 
 				<hr style="margin: 30px 0; border: 0; border-top: 1px solid rgba(0,0,0,0.1);">
@@ -1399,56 +2047,182 @@
 			<div class="tab-content">
 				<div class="grid-2" style="margin-bottom: 20px; text-align: center">
 					<div style="width:100%;">
-						<h4>Fusion Tracking</h4>
+						<h4><span class="lang-zh">Fusion Tracking</span><span class="lang-en">Fusion Tracking</span></h4>
 						<div class="embed-container">
 							<iframe height="315"
-									src="https://www.youtube.com/embed/videoseries?si=Y3Rtm0by7IUWsSXA&amp;list=PLa-EIrdouSLS1fEpcRBxXrGSh99GBxvtg"
-									title="YouTube video player"
+									src="https://www.youtube.com/embed/0Sq3JQ0AI3o?list=PLa-EIrdouSLS1fEpcRBxXrGSh99GBxvtg"
+									title="YouTube 影片播放器" data-title-zh="YouTube 影片播放器" data-title-en="YouTube video player"
 									allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
 									referrerpolicy="strict-origin-when-cross-origin"
 									allowfullscreen></iframe>
 						</div>
-						<p style="margin-bottom: 10px; font-size: 0.9rem; opacity: 0.7;">從37秒開始到40秒</p>
-						<p style="margin-bottom: 10px; font-size: 0.8rem; opacity: 0.6;">Start from 37s to 40s</p>
-						<p style="font-weight:bold; color:var(--text-highlight);text-align: center">NT$ 3,000 起</p>
-						<a href="https://www.youtube.com/watch?v=0Sq3JQ0AI3o&list=PLa-EIrdouSLS1fEpcRBxXrGSh99GBxvtg"
-						   target="_blank" class="action-btn">
-							<i class="fas fa-external-link-alt"></i>點擊前往完整播放清單 (Click to full playlist)
-						</a>
+						<p class="lang-zh" style="margin-bottom: 10px; font-size: 0.9rem; opacity: 0.7;">從 37 秒開始到 40 秒</p>
+						<p class="lang-en" style="margin-bottom: 10px; font-size: 0.8rem; opacity: 0.6;">Start from 37s to 40s</p>
+						<p style="font-weight:bold; color:var(--text-highlight);text-align: center">NT$ 3,000 <span class="lang-zh">起</span><span class="lang-en">and up</span></p>
 					</div>
+					<div style="width:100%;">
+						<div class="embed-container">
+							<iframe height="315"
+									src="https://www.youtube.com/embed/zwLD0taF5wc?si=Kw7fFS8oHZT-C8G-"
+									title="YouTube 影片播放器" data-title-zh="YouTube 影片播放器" data-title-en="YouTube video player"
+									allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+									referrerpolicy="strict-origin-when-cross-origin"
+									allowfullscreen></iframe>
+						</div>
+					</div>
+					<div style="width:100%;">
+						<div class="embed-container">
+							<iframe height="315"
+									src="https://www.youtube.com/embed/IKEgvppmhJE"
+									title="YouTube 影片播放器" data-title-zh="YouTube 影片播放器" data-title-en="YouTube video player"
+									allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+									referrerpolicy="strict-origin-when-cross-origin"
+									allowfullscreen></iframe>
+						</div>
+					</div>
+				</div>
+				<div style="text-align: center; margin-top: 18px;">
+					<a href="https://www.youtube.com/watch?v=0Sq3JQ0AI3o&list=PLa-EIrdouSLS1fEpcRBxXrGSh99GBxvtg"
+					   target="_blank" class="action-btn">
+						<i class="fas fa-external-link-alt"></i><span class="lang-zh">點擊前往完整播放清單</span><span class="lang-en">Open full playlist</span>
+					</a>
 				</div>
 
 			</div>
 			<div style="text-align: center; margin-top: 30px;">
-				<p style="margin-bottom: 10px; font-size: 0.9rem; opacity: 0.7;">獲取詳細報價</p>
-				<p style="margin-bottom: 10px; font-size: 0.8rem; opacity: 0.6;">Get a detailed quotation</p>
+				<p class="lang-zh" style="margin-bottom: 10px; font-size: 0.9rem; opacity: 0.7;">獲取詳細報價</p>
+				<p class="lang-en" style="margin-bottom: 10px; font-size: 0.8rem; opacity: 0.6;">Get a detailed quotation</p>
 				<a href="mailto:G950025@gmail.com" class="action-btn email-btn">
-					<i class="fas fa-envelope"></i> 寫信聯絡我 (Email me)
+					<i class="fas fa-envelope"></i> <span class="lang-zh">寫信聯絡我</span><span class="lang-en">Email me</span>
 				</a>
 			</div>
 	</section>
 </div>
 
+<button id="scrollTopBtn" class="scroll-top-btn" type="button" aria-label="回到最上方" title="回到最上方" data-aria-label-zh="回到最上方" data-aria-label-en="Back to top" data-title-zh="回到最上方" data-title-en="Back to top">
+	<i class="fas fa-arrow-up" aria-hidden="true"></i>
+</button>
+
 <footer>
-	<div class="social-icons">
-		<a href="mailto:g950025@gmail.com" title="Email"><i class="fas fa-envelope"></i></a>
-		<a href="https://www.facebook.com/aunight.cheng" target="_blank" title="Facebook"><i class="fab fa-facebook"></i></a>
-		<a href="https://portaly.cc/aunight" target="_blank" title="Portaly"><img src="img/Portaly.svg" alt="Portaly"></a>
-		<a href="https://www.youtube.com/AuNight" target="_blank" title="YouTube"><i class="fab fa-youtube"></i></a>
-		<a href="https://x.com/aunight_" target="_blank" title="X (Twitter)"><i class="fa-brands fa-x-twitter"></i></a>
-		<a href="https://www.instagram.com/aunight" target="_blank" title="Instagram"><i class="fa-brands fa-square-instagram"></i></a>
-		<a href="https://www.tiktok.com/@au.night" target="_blank" title="TikTok"><i class="fab fa-tiktok"></i></a>
-		<a href="https://open.spotify.com/artist/3AhaLZxsspqiQaFjER1bX0?si=bx6OKqPmR1yLf7QHbig2lw" target="_blank" title="Spotify"><i class="fab fa-spotify"></i></a>
-		<a href="https://discord.com/users/858897462206267433" target="_blank" title="Discord"><i class="fab fa-discord"></i></a>
-		<a href="https://www.threads.net/@aunight" target="_blank" title="Threads"><i class="fa-brands fa-threads"></i></a>
-		<a href="https://line.me/ti/p/an_aidancheng" target="_blank" title="Line"><i class="fab fa-line"></i></a>
-		<a href="https://behance.net/aunight" target="_blank" title="Behance"><i class="fab fa-behance"></i></a>
+	<div class="footer-inner">
+		<p class="footer-lead"><span class="lang-zh">歡迎透過右方平台追蹤我並與我聯絡</span><span class="lang-en">Follow and get in touch via the platforms on the right</span></p>
+		<div class="social-icons">
+			<a href="mailto:g950025@gmail.com" title="信箱" data-title-zh="信箱" data-title-en="Email"><i class="fas fa-envelope"></i></a>
+			<a href="https://line.me/ti/p/an_aidancheng" target="_blank" title="LINE" data-title-zh="LINE" data-title-en="LINE"><i class="fab fa-line"></i></a>
+			<a href="https://x.com/aunight_" target="_blank" title="X" data-title-zh="X" data-title-en="X"><i class="fa-brands fa-x-twitter"></i></a>
+			<a href="https://discord.com/users/858897462206267433" target="_blank" title="Discord" data-title-zh="Discord" data-title-en="Discord"><i class="fab fa-discord"></i></a>
+			<a href="https://www.instagram.com/aunight" target="_blank" title="Instagram" data-title-zh="Instagram" data-title-en="Instagram"><i class="fa-brands fa-square-instagram"></i></a>
+			<a href="https://www.facebook.com/aunight.cheng" target="_blank" title="Facebook" data-title-zh="Facebook" data-title-en="Facebook"><i class="fab fa-facebook"></i></a>
+			<a href="https://portaly.cc/aunight" target="_blank" title="Portaly" data-title-zh="Portaly" data-title-en="Portaly"><img src="img/Portaly.svg" alt="Portaly"></a>
+			<a href="https://www.youtube.com/AuNight" target="_blank" title="YouTube" data-title-zh="YouTube" data-title-en="YouTube"><i class="fab fa-youtube"></i></a>
+			<a href="https://open.spotify.com/artist/3AhaLZxsspqiQaFjER1bX0?si=bx6OKqPmR1yLf7QHbig2lw" target="_blank" title="Spotify" data-title-zh="Spotify" data-title-en="Spotify"><i class="fab fa-spotify"></i></a>
+			<a href="https://behance.net/aunight" target="_blank" title="Behance" data-title-zh="Behance" data-title-en="Behance"><i class="fab fa-behance"></i></a>
+			<a href="https://www.tiktok.com/@au.night" target="_blank" title="TikTok" data-title-zh="TikTok" data-title-en="TikTok"><i class="fab fa-tiktok"></i></a>
+			<a href="https://www.threads.net/@aunight" target="_blank" title="Threads" data-title-zh="Threads" data-title-en="Threads"><i class="fa-brands fa-threads"></i></a>
+		</div>
 	</div>
-	<p style="margin-top: 20px; font-size: 0.8rem; color: #666;">&copy; 2026 AuNight. All Rights Reserved.</p>
+	<div class="footer-bottom">
+		<p class="footer-copy"><span class="lang-zh">© 2026 秋夜.All Rights Reserved. Designed &amp; Fronted By 秋夜</span><span class="lang-en">© 2026 AuNight.All Rights Reserved. Designed &amp; Fronted By AuNight</span></p>
+	</div>
 </footer>
 
 <script>
 	document.addEventListener('DOMContentLoaded', function() {
+		const LANG_STORAGE_KEY = 'aunight_lang';
+
+		const captureScrollAnchor = () => {
+			const probeX = Math.min(Math.max(window.innerWidth / 2, 0), window.innerWidth - 1);
+			const probeY = 120;
+			const stack = typeof document.elementsFromPoint === 'function'
+				? document.elementsFromPoint(probeX, probeY)
+				: [document.elementFromPoint(probeX, probeY)].filter(Boolean);
+
+			const anchor = stack.find((el) => el && el.matches && (el.matches('section.glass-card') || el.matches('footer'))) || null;
+			const fallback = anchor || Array.from(document.querySelectorAll('section.glass-card, footer')).find((el) => {
+				const rect = el.getBoundingClientRect();
+				return rect.bottom > 0 && rect.top < window.innerHeight;
+			}) || null;
+
+			return {
+				el: fallback,
+				top: fallback ? fallback.getBoundingClientRect().top : null,
+				scrollY: window.scrollY
+			};
+		};
+
+		const restoreScrollAnchor = (snapshot) => {
+			if (!snapshot) return;
+			if (snapshot.el && document.contains(snapshot.el) && typeof snapshot.top === 'number') {
+				const nextTop = snapshot.el.getBoundingClientRect().top;
+				window.scrollBy(0, nextTop - snapshot.top);
+				return;
+			}
+			if (typeof snapshot.scrollY === 'number') {
+				window.scrollTo(0, snapshot.scrollY);
+			}
+		};
+
+		const applyLanguage = (lang) => {
+			const nextLang = lang === 'en' ? 'en' : 'zh';
+			document.documentElement.dataset.lang = nextLang;
+			document.documentElement.lang = nextLang === 'en' ? 'en' : 'zh-TW';
+
+			const titleEl = document.querySelector('title[data-title-zh][data-title-en]');
+			if (titleEl) {
+				titleEl.textContent = nextLang === 'en' ? titleEl.dataset.titleEn : titleEl.dataset.titleZh;
+			}
+
+			document.querySelectorAll('[data-title-zh][data-title-en]').forEach((el) => {
+				if (el.tagName === 'TITLE') return;
+				el.setAttribute('title', nextLang === 'en' ? el.dataset.titleEn : el.dataset.titleZh);
+			});
+
+			document.querySelectorAll('[data-alt-zh][data-alt-en]').forEach((el) => {
+				el.setAttribute('alt', nextLang === 'en' ? el.dataset.altEn : el.dataset.altZh);
+			});
+
+			document.querySelectorAll('[data-aria-label-zh][data-aria-label-en]').forEach((el) => {
+				el.setAttribute('aria-label', nextLang === 'en' ? el.dataset.ariaLabelEn : el.dataset.ariaLabelZh);
+			});
+
+			const langToggleBtn = document.getElementById('langToggle');
+			if (langToggleBtn) {
+				langToggleBtn.setAttribute('aria-label', nextLang === 'en' ? '切換到中文' : 'Switch to English');
+			}
+
+			const langToggleLabel = document.getElementById('langToggleLabel');
+			if (langToggleLabel) {
+				langToggleLabel.textContent = nextLang === 'en' ? 'EN' : '中';
+			}
+		};
+
+		const initialLang = localStorage.getItem(LANG_STORAGE_KEY) || 'zh';
+		applyLanguage(initialLang);
+
+		const langToggleBtn = document.getElementById('langToggle');
+		if (langToggleBtn) {
+			langToggleBtn.addEventListener('click', () => {
+				const prefersReducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+				const currentLang = document.documentElement.dataset.lang === 'en' ? 'en' : 'zh';
+				const nextLang = currentLang === 'en' ? 'zh' : 'en';
+				localStorage.setItem(LANG_STORAGE_KEY, nextLang);
+				const scrollSnapshot = captureScrollAnchor();
+				if (prefersReducedMotion) {
+					applyLanguage(nextLang);
+					requestAnimationFrame(() => restoreScrollAnchor(scrollSnapshot));
+					return;
+				}
+
+				const root = document.documentElement;
+				if (root.classList.contains('lang-switching')) return;
+				root.classList.add('lang-switching');
+				window.setTimeout(() => applyLanguage(nextLang), 120);
+				window.setTimeout(() => {
+					root.classList.remove('lang-switching');
+					restoreScrollAnchor(scrollSnapshot);
+				}, 240);
+			});
+		}
 
 		// Tab 切換功能（改良版：自動初始化、避免 index 對不到、兼容原本結構）
 		document.querySelectorAll('.tab-container').forEach(container => {
@@ -1529,6 +2303,24 @@
 		const navLinks = document.querySelectorAll('nav a');
 		const sections = document.querySelectorAll('section');
 
+		const scrollTopBtn = document.getElementById('scrollTopBtn');
+		const musicSection = document.getElementById('music');
+		let musicTop = 0;
+
+		const updateMusicTop = () => {
+			if (!musicSection) return;
+			musicTop = musicSection.offsetTop;
+		};
+
+		updateMusicTop();
+		window.addEventListener('resize', updateMusicTop, { passive: true });
+
+		if (scrollTopBtn) {
+			scrollTopBtn.addEventListener('click', () => {
+				window.scrollTo({ top: 0, behavior: 'smooth' });
+			});
+		}
+
 		let isScrolling;
 		window.addEventListener('scroll', () => {
 			window.cancelAnimationFrame(isScrolling);
@@ -1547,8 +2339,18 @@
 						link.classList.add('active');
 					}
 				});
+
+				if (scrollTopBtn && musicSection) {
+					const shouldShow = window.pageYOffset >= (musicTop - 150);
+					scrollTopBtn.classList.toggle('show', shouldShow);
+				}
 			});
 		}, { passive: true });
+
+		if (scrollTopBtn && musicSection) {
+			const shouldShow = window.pageYOffset >= (musicTop - 150);
+			scrollTopBtn.classList.toggle('show', shouldShow);
+		}
 	});
 
 
