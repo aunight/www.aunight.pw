@@ -150,8 +150,22 @@
 			font-size: 1.1rem;
 			min-width: 20px;
 			text-align: center;
+			opacity: 0;
+			transform: translateY(10px);
+			animation: fadeIn 0.55s ease-out forwards;
 			transition: transform 0.3s ease;
+			will-change: opacity, transform;
 		}
+
+		nav a:nth-child(1) i { animation-delay: 0.06s; }
+		nav a:nth-child(2) i { animation-delay: 0.12s; }
+		nav a:nth-child(3) i { animation-delay: 0.18s; }
+		nav a:nth-child(4) i { animation-delay: 0.24s; }
+		nav a:nth-child(5) i { animation-delay: 0.30s; }
+		nav a:nth-child(6) i { animation-delay: 0.36s; }
+		nav a:nth-child(7) i { animation-delay: 0.42s; }
+		nav a:nth-child(8) i { animation-delay: 0.48s; }
+		nav a:nth-child(9) i { animation-delay: 0.54s; }
 
 		nav a:hover, nav a.active {
 			width: 150px;
@@ -250,7 +264,7 @@
 			align-items: center;
 			justify-content: space-between;
 			min-height: 280px;
-			padding: 30px 60px 18px;
+			padding: 34px 56px 22px;
 			overflow: hidden;
 			position: relative;
 			isolation: isolate;
@@ -279,9 +293,10 @@
 			--skill-sub-size: clamp(0.8rem, 2vw, 0.9rem);
 			display: grid;
 			grid-template-columns: repeat(2, minmax(0, 1fr));
-			gap: 10px 20px;
-			margin-bottom: 20px;
+			gap: 10px 36px;
+			margin-bottom: 16px;
 			text-align: left;
+			max-width: 560px;
 		}
 
 		.skills-container .skill-pair {
@@ -310,6 +325,144 @@
 			font-size: var(--skill-sub-size);
 			opacity: 0.7;
 			font-family: 'Outfit', sans-serif;
+		}
+
+		.hero-highlights {
+			display: grid;
+			grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+			gap: 14px;
+			margin: 10px 0 18px;
+			width: 100%;
+			max-width: 860px;
+			position: relative;
+			z-index: 6;
+		}
+
+		.hero-highlight {
+			display: grid;
+			grid-template-columns: 36px minmax(0, 1fr) auto;
+			grid-template-rows: auto auto;
+			column-gap: 10px;
+			row-gap: 4px;
+			align-items: center;
+			padding: 12px 12px 18px;
+			border-radius: 16px;
+			background: var(--glass-surface);
+			backdrop-filter: blur(var(--glass-blur)) saturate(180%) contrast(1.05);
+			-webkit-backdrop-filter: blur(var(--glass-blur)) saturate(180%) contrast(1.05);
+			border: 1px solid var(--glass-border-strong);
+			box-shadow:
+				0 12px 36px rgba(0,0,0,0.12),
+				inset 0 1px 0 rgba(255,255,255,0.65),
+				inset 0 -1px 0 rgba(255,255,255,0.25);
+			position: relative;
+			overflow: hidden;
+			z-index: 1;
+		}
+
+		.hero-highlight::before {
+			content: "";
+			position: absolute;
+			inset: -40%;
+			background:
+				radial-gradient(60% 60% at 30% 25%, rgba(255,255,255,0.9), rgba(255,255,255,0) 55%),
+				radial-gradient(70% 70% at 80% 80%, rgba(232, 93, 117, 0.25), rgba(232, 93, 117, 0) 60%);
+			transform: rotate(12deg);
+			opacity: 0.75;
+			pointer-events: none;
+		}
+
+		.hero-highlight-icon {
+			width: 36px;
+			height: 36px;
+			display: inline-flex;
+			align-items: center;
+			justify-content: center;
+			border-radius: 11px;
+			background: rgba(255,255,255,0.65);
+			border: 1px solid rgba(255,255,255,0.8);
+			color: var(--text-highlight);
+			box-shadow: 0 6px 16px rgba(0,0,0,0.08);
+			grid-row: 1 / 3;
+			align-self: center;
+			position: relative;
+			z-index: 1;
+		}
+
+		.hero-highlight-kicker {
+			position: relative;
+			grid-row: 1;
+			grid-column: 3;
+			justify-self: end;
+			align-self: center;
+			margin-top: 0;
+			padding: 3px 7px;
+			border-radius: 999px;
+			background: rgba(255,255,255,0.7);
+			border: 1px solid rgba(255,255,255,0.85);
+			font-size: 0.68rem;
+			font-weight: 800;
+			letter-spacing: 0.6px;
+			opacity: 0.92;
+			z-index: 2;
+			white-space: nowrap;
+		}
+
+		.hero-highlight-value {
+			grid-column: 2;
+			grid-row: 1;
+			align-self: center;
+			font-size: clamp(1.05rem, 2.4vw, 1.42rem);
+			font-weight: 800;
+			letter-spacing: 0.5px;
+			line-height: 1.1;
+			white-space: nowrap;
+			min-width: 0;
+			position: relative;
+			z-index: 1;
+			background: linear-gradient(45deg, rgba(232, 93, 117, 1), rgba(255, 154, 139, 1));
+			-webkit-background-clip: text;
+			-webkit-text-fill-color: transparent;
+		}
+
+		.hero-highlight-label {
+			grid-column: 2 / 4;
+			grid-row: 2;
+			font-size: clamp(0.8rem, 1.9vw, 0.92rem);
+			opacity: 0.75;
+			line-height: 1.25;
+			min-width: 0;
+			position: relative;
+			z-index: 1;
+		}
+
+		.hero-highlight-bar {
+			position: absolute;
+			left: 10px;
+			right: 10px;
+			bottom: 9px;
+			height: 5px;
+			border-radius: 999px;
+			background: linear-gradient(90deg, rgba(232, 93, 117, 0.85), rgba(255, 154, 139, 0.85), rgba(232, 93, 117, 0.85));
+			background-size: 180% 100%;
+			opacity: 0.7;
+			z-index: 1;
+			transform-origin: left center;
+			transform: scaleX(var(--bar-scale, 1));
+		}
+
+		@media (max-width: 768px) {
+			.hero-highlights {
+				max-width: 100%;
+				gap: 12px;
+			}
+		}
+
+		@media (max-width: 520px) {
+			.hero-highlights {
+				grid-template-columns: 1fr;
+				transform: none;
+			}
 		}
 
 		.hide-on-computer{
@@ -372,9 +525,61 @@
 			flex: 0 0 auto;
 		}
 
+		.hero-cta {
+			display: flex;
+			flex-wrap: wrap;
+			align-items: center;
+			justify-content: center;
+			gap: 10px;
+			width: 100%;
+			margin-top: 14px;
+		}
+
+		.hero-cta .action-btn {
+			margin-top: 0;
+			padding-left: 34px;
+			padding-right: 34px;
+			min-width: clamp(200px, 22vw, 260px);
+			justify-content: center;
+		}
+
+		.hero-cta-outside {
+			margin-top: -24px;
+			margin-bottom: 28px;
+		}
+
+		.hero-cta-outside .action-btn {
+			opacity: 0;
+			transform: translateY(10px);
+			animation: fadeIn 0.7s ease-out forwards;
+		}
+
+		.hero-cta-outside .action-btn:nth-child(1) {
+			animation-delay: 0.08s;
+		}
+
+		.hero-cta-outside .action-btn:nth-child(2) {
+			animation-delay: 0.16s;
+		}
+
+		@media (prefers-reduced-motion: reduce) {
+			.hero-cta-outside .action-btn {
+				opacity: 1;
+				transform: none;
+				animation: none;
+			}
+		}
+
+		@media (max-width: 520px) {
+			.hero-cta .action-btn {
+				width: min(420px, 100%);
+				min-width: 0;
+			}
+		}
+
 		@media (max-width: 768px) {
 			.hero-socials {
-				justify-content: flex-start;
+				justify-content: center;
 				margin-top: 20px;
 			}
 		}
@@ -628,6 +833,16 @@
 			nav, .lang-toggle-floating, .scroll-top-btn {
 				transition: none;
 			}
+			nav a i {
+				animation: none;
+				opacity: 1;
+				transform: none;
+			}
+			.lang-toggle-floating {
+				animation: none;
+				opacity: 1;
+				transform: none;
+			}
 		}
 
 		.lang-en { display: none; }
@@ -674,6 +889,11 @@
 			transition: all 0.3s ease;
 			overflow: hidden;
 			isolation: isolate;
+			opacity: 0;
+			transform: translateY(10px);
+			animation: fadeIn 0.65s ease-out forwards;
+			animation-delay: 0.62s;
+			will-change: opacity, transform;
 		}
 
 		.lang-toggle-floating::before {
@@ -1087,7 +1307,7 @@
 			html { scroll-padding-top: 20px; }
 
 			.social-icons.hero-socials {
-				justify-content: flex-start;
+				justify-content: center;
 				margin-top: 20px;
 				flex-wrap: wrap;
 				margin-left: 0;
@@ -1181,26 +1401,43 @@
 					<span class="skill-en lang-en">VFX Artist</span>
 				</div>
 			</div>
+			<div class="hero-highlights">
+				<div class="hero-highlight" data-metric-value="100000">
+					<div class="hero-highlight-icon" aria-hidden="true"><i class="fas fa-mobile-screen-button"></i></div>
+					<div class="hero-highlight-kicker"><span class="lang-zh">介面設計</span><span class="lang-en">UI/UX</span></div>
+					<div class="hero-highlight-value"><span class="lang-zh">10萬+</span><span class="lang-en">100K+</span></div>
+					<div class="hero-highlight-label"><span class="lang-zh">APP用戶</span><span class="lang-en">APP Users</span></div>
+					<div class="hero-highlight-bar" aria-hidden="true"></div>
+				</div>
+				<div class="hero-highlight" data-metric-value="1700000">
+					<div class="hero-highlight-icon" aria-hidden="true"><i class="fas fa-video"></i></div>
+					<div class="hero-highlight-kicker"><span class="lang-zh">影片剪輯</span><span class="lang-en">Editing</span></div>
+					<div class="hero-highlight-value"><span class="lang-zh">170萬+</span><span class="lang-en">1.7M+</span></div>
+					<div class="hero-highlight-label"><span class="lang-zh">單支影片觀看</span><span class="lang-en">Single Video Views</span></div>
+					<div class="hero-highlight-bar" aria-hidden="true"></div>
+				</div>
+				<div class="hero-highlight" data-metric-value="30">
+					<div class="hero-highlight-icon" aria-hidden="true"><i class="fas fa-music"></i></div>
+					<div class="hero-highlight-kicker"><span class="lang-zh">音樂製作</span><span class="lang-en">Music</span></div>
+					<div class="hero-highlight-value"><span class="lang-zh">30+</span><span class="lang-en">30+</span></div>
+					<div class="hero-highlight-label"><span class="lang-zh">原創歌曲</span><span class="lang-en">Original Songs</span></div>
+					<div class="hero-highlight-bar" aria-hidden="true"></div>
+				</div>
+			</div>
 			<div class="hero-img">
 				<img src="img/右人物去背.png" alt="秋夜人物" data-alt-zh="秋夜人物" data-alt-en="AuNight character">
-			</div>
-			<div class="social-icons hero-socials">
-				<a href="mailto:g950025@gmail.com" title="信箱" data-title-zh="信箱" data-title-en="Email"><i class="fas fa-envelope"></i></a>
-				<a href="https://line.me/ti/p/an_aidancheng" target="_blank" title="LINE" data-title-zh="LINE" data-title-en="LINE"><i class="fab fa-line"></i></a>
-				<a href="https://x.com/aunight_" target="_blank" title="X" data-title-zh="X" data-title-en="X"><i class="fa-brands fa-x-twitter"></i></a>
-				<a href="https://discord.com/users/858897462206267433" target="_blank" title="Discord" data-title-zh="Discord" data-title-en="Discord"><i class="fab fa-discord"></i></a>
-				<a href="https://www.instagram.com/aunight" target="_blank" title="Instagram" data-title-zh="Instagram" data-title-en="Instagram"><i class="fa-brands fa-square-instagram"></i></a>
-				<a href="https://www.facebook.com/aunight.cheng" target="_blank" title="Facebook" data-title-zh="Facebook" data-title-en="Facebook"><i class="fab fa-facebook"></i></a>
-				<a href="https://portaly.cc/aunight" target="_blank" title="Portaly" data-title-zh="Portaly" data-title-en="Portaly"><img src="img/Portaly.svg" alt="Portaly"></a>
-				<a href="https://www.youtube.com/AuNight" target="_blank" title="YouTube" data-title-zh="YouTube" data-title-en="YouTube"><i class="fab fa-youtube"></i></a>
-				<a href="https://open.spotify.com/artist/3AhaLZxsspqiQaFjER1bX0?si=bx6OKqPmR1yLf7QHbig2lw" target="_blank" title="Spotify" data-title-zh="Spotify" data-title-en="Spotify"><i class="fab fa-spotify"></i></a>
-				<a href="https://behance.net/aunight" target="_blank" title="Behance" data-title-zh="Behance" data-title-en="Behance"><i class="fab fa-behance"></i></a>
-				<a href="https://www.tiktok.com/@au.night" target="_blank" title="TikTok" data-title-zh="TikTok" data-title-en="TikTok"><i class="fab fa-tiktok"></i></a>
-				<a href="https://www.threads.net/@aunight" target="_blank" title="Threads" data-title-zh="Threads" data-title-en="Threads"><i class="fa-brands fa-threads"></i></a>
 			</div>
 		</div>
 
 	</section>
+	<div class="hero-cta hero-cta-outside">
+		<a href="#about" class="action-btn">
+			<i class="fas fa-folder-open"></i><span class="lang-zh">查看作品集</span><span class="lang-en">View Portfolio</span>
+		</a>
+		<a href="mailto:G950025@gmail.com" class="action-btn email-btn">
+			<i class="fas fa-envelope"></i><span class="lang-zh">寫信聯絡我</span><span class="lang-en">Email me</span>
+		</a>
+	</div>
 
 	<section id="about" class="glass-card reveal">
 		<h2 class="section-title"><span class="lang-zh">關於我</span><span class="lang-en">About</span></h2>
@@ -1427,6 +1664,7 @@
 		</div>
 
 		<div class="tab-content active">
+			<img src="img/VALKI.png" alt="VALKI" loading="lazy" style="width: 100%; max-width: 100%; height: auto; display: block; margin: 0 auto 16px; border-radius: 18px;">
 			<div class="grid-2" style="margin-bottom: 20px; text-align: center">
 				<div class="embed-container">
 					<style>
@@ -1560,7 +1798,7 @@
 						</style>
 					</div>
 					</div>
-			</div>
+				</div>
 		</div>
 		<div class="tab-content" style="text-align: center">
 			<div class="embed-container" style="height: 500px">
@@ -2196,8 +2434,31 @@
 			}
 		};
 
+		const applyHighlightBarScales = () => {
+			const items = Array.from(document.querySelectorAll('.hero-highlight[data-metric-value]'));
+			const values = items
+				.map((el) => Number(el.dataset.metricValue))
+				.filter((v) => Number.isFinite(v) && v > 0);
+
+			if (!values.length) return;
+
+			const logValues = values.map((v) => Math.log10(v));
+			const minLog = Math.min(...logValues);
+			const maxLog = Math.max(...logValues);
+			const span = maxLog - minLog || 1;
+
+			items.forEach((el) => {
+				const v = Number(el.dataset.metricValue);
+				if (!Number.isFinite(v) || v <= 0) return;
+				const t = (Math.log10(v) - minLog) / span;
+				const scale = 0.35 + 0.65 * t;
+				el.style.setProperty('--bar-scale', String(scale));
+			});
+		};
+
 		const initialLang = localStorage.getItem(LANG_STORAGE_KEY) || 'zh';
 		applyLanguage(initialLang);
+		applyHighlightBarScales();
 
 		const langToggleBtn = document.getElementById('langToggle');
 		if (langToggleBtn) {
