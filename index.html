@@ -731,6 +731,7 @@
 			flex-wrap: wrap;
 			gap: 10px;
 			margin-bottom: 25px;
+			justify-content: center;
 		}
 		.tab-btn {
 			padding: 8px 20px;
@@ -1485,7 +1486,7 @@
 			<button class="tab-btn"><span class="lang-zh">知識類</span><span class="lang-en">Knowledge</span></button>
 			<button class="tab-btn"><span class="lang-zh">訪談類</span><span class="lang-en">Interview</span></button>
 			<button class="tab-btn"><span class="lang-zh">政治類</span><span class="lang-en">Political</span></button>
-			<button class="tab-btn"><span class="lang-zh">Podcast</span><span class="lang-en">Podcast</span></button>
+			<button class="tab-btn"><span class="lang-zh">Podcast類</span><span class="lang-en">Podcast</span></button>
 		</div>
 
 		<div class="tab-content active">
@@ -1611,7 +1612,23 @@
 
 		<div class="tab-content active">
 			<div class="grid-2">
-				<div class="embed-container"><iframe width="560" height="315" src="https://www.youtube.com/embed/FsfN4p2r9rw?si=xLeKA_PsW-jMsiqp" title="YouTube 影片播放器" data-title-zh="YouTube 影片播放器" data-title-en="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div>
+				<div style="display: flex; flex-direction: column; gap: 18px;">
+					<div>
+						<div class="embed-container"><iframe width="560" height="315" src="https://www.youtube.com/embed/ZF5uBD1L-2U" title="YouTube 影片播放器" data-title-zh="YouTube 影片播放器" data-title-en="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div>
+						<p class="lang-zh" style="margin: 10px 0 12px; font-size: 0.9rem; opacity: 0.75; text-align: center;">混音/母帶/PV By AuNight</p>
+						<p class="lang-en" style="margin: 6px 0 12px; font-size: 0.85rem; opacity: 0.65; text-align: center;">Mixing / Mastering / PV By AuNight</p>
+					</div>
+					<div>
+						<div class="embed-container"><iframe width="560" height="315" src="https://www.youtube.com/embed/TL1GwwwM7Ck" title="YouTube 影片播放器" data-title-zh="YouTube 影片播放器" data-title-en="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div>
+						<p class="lang-zh" style="margin: 10px 0 12px; font-size: 0.9rem; opacity: 0.75; text-align: center;">混音/母帶 By AuNight</p>
+						<p class="lang-en" style="margin: 6px 0 12px; font-size: 0.85rem; opacity: 0.65; text-align: center;">Mixing / Mastering By AuNight</p>
+					</div>
+					<div>
+						<div class="embed-container"><iframe width="560" height="315" src="https://www.youtube.com/embed/FsfN4p2r9rw?si=xLeKA_PsW-jMsiqp" title="YouTube 影片播放器" data-title-zh="YouTube 影片播放器" data-title-en="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div>
+						<p class="lang-zh" style="margin: 10px 0 12px; font-size: 0.9rem; opacity: 0.75; text-align: center;">混音 By AuNight</p>
+						<p class="lang-en" style="margin: 6px 0 12px; font-size: 0.85rem; opacity: 0.65; text-align: center;">Mixing By AuNight</p>
+					</div>
+				</div>
 				<div class="embed-container"><div class="drive-embed"><iframe src="https://drive.google.com/embeddedfolderview?id=1ruumdg8SWO1CXAJDYTMePnAa3PP0n55w#list" allowfullscreen></iframe></div></div>
 			</div>
 		</div>
@@ -2149,6 +2166,9 @@
 		<!-- 內容 1 -->
 		<div class="grid-2" style="margin-bottom: 20px; text-align: center">
 			<div class="tab-content active">
+				<div class="embed-container"><iframe width="560" height="315" src="https://www.youtube.com/embed/ZF5uBD1L-2U" title="YouTube 影片播放器" data-title-zh="YouTube 影片播放器" data-title-en="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div>
+				<p class="lang-zh" style="margin: 10px 0 12px; font-size: 0.9rem; opacity: 0.75; text-align: center;">混音/母帶/PV By AuNight</p>
+				<p class="lang-en" style="margin: 6px 0 12px; font-size: 0.85rem; opacity: 0.65; text-align: center;">Mixing / Mastering / PV By AuNight</p>
 				<div class="embed-container">
 					<iframe width="560" height="315" src="https://www.youtube.com/embed/1OHTj4RI8UI?si=h1GnoYTb58j5m6Cu" title="YouTube 影片播放器" data-title-zh="YouTube 影片播放器" data-title-en="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 					<div class="drive-embed">
@@ -2246,7 +2266,7 @@
 
 				<div class="grid-2" style="margin-bottom: 20px; text-align: center">
 					<div>
-						<h4><span class="lang-zh">Premiere Pro</span><span class="lang-en">Premiere Pro</span></h4>
+						<h4 style="margin-bottom: 12px;"><span class="lang-zh">Premiere Pro</span><span class="lang-en">Premiere Pro</span></h4>
 						<div class="embed-container">
 							<iframe height="315"
 									src="https://www.youtube.com/embed/F0BabcB47sE?si=zibVyln2OcXDZ07b"
@@ -2259,7 +2279,7 @@
 					</div>
 
 					<div>
-						<h4><span class="lang-zh">DaVinci Resolve</span><span class="lang-en">DaVinci Resolve</span></h4>
+						<h4 style="margin-bottom: 12px;"><span class="lang-zh">DaVinci Resolve</span><span class="lang-en">DaVinci Resolve</span></h4>
 						<div class="embed-container">
 							<iframe height="315"
 									src="https://www.youtube.com/embed/gnzQzXOoWOE?si=x1G7RsY243feSIC5"
@@ -2343,7 +2363,7 @@
 
 <footer>
 	<div class="footer-inner">
-		<p class="footer-lead"><span class="lang-zh">歡迎透過右方平台追蹤我並與我聯絡</span><span class="lang-en">Follow and get in touch via the platforms on the right</span></p>
+		<p class="footer-lead"><span class="lang-zh">歡迎透過右方平台追蹤我並與我聯絡</span><span class="lang-en">Follow and get in touch via the platforms</span></p>
 		<div class="social-icons">
 			<a href="mailto:g950025@gmail.com" title="信箱" data-title-zh="信箱" data-title-en="Email"><i class="fas fa-envelope"></i></a>
 			<a href="https://line.me/ti/p/an_aidancheng" target="_blank" title="LINE" data-title-zh="LINE" data-title-en="LINE"><i class="fab fa-line"></i></a>
