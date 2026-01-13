@@ -100,6 +100,9 @@
 			transition: all 0.3s ease;
 			overflow: hidden;
 			isolation: isolate;
+			opacity: 0;
+			animation: navFadeIn 0.9s ease-out forwards;
+			animation-delay: 0.05s;
 		}
 
 		nav::before {
@@ -619,11 +622,11 @@
 		}
 
 		.hero-cta-outside .action-btn:nth-child(1) {
-			animation-delay: 0.2s;
+			animation-delay: 0.65s;
 		}
 
 		.hero-cta-outside .action-btn:nth-child(2) {
-			animation-delay: 0.32s;
+			animation-delay: 0.85s;
 		}
 
 		.hero-cta-outside .action-btn:hover {
@@ -994,6 +997,10 @@
 			from { opacity: 0; transform: translateY(10px); }
 			to { opacity: 1; transform: translateY(0); }
 		}
+		@keyframes navFadeIn {
+			from { opacity: 0; }
+			to { opacity: 1; }
+		}
 
 		/* --- Scroll Reveal 動畫 --- */
 		.reveal {
@@ -1056,7 +1063,12 @@
 			.container, footer {
 				transition: none;
 			}
-			nav, .lang-toggle-floating, .scroll-top-btn {
+			nav {
+				transition: none;
+				animation: none;
+				opacity: 1;
+			}
+			.lang-toggle-floating, .scroll-top-btn {
 				transition: none;
 			}
 			nav a i {
