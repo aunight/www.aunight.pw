@@ -105,23 +105,6 @@
 			animation-delay: 0.05s;
 		}
 
-		nav::before {
-			content: "";
-			position: absolute;
-			inset: 0;
-			border-radius: inherit;
-			background:
-				linear-gradient(135deg, rgba(255,255,255,0.9), rgba(255,255,255,0.25) 45%, rgba(255,255,255,0.15));
-			opacity: 0.55;
-			pointer-events: none;
-			z-index: 0;
-		}
-
-		nav > * {
-			position: relative;
-			z-index: 1;
-		}
-
 		nav a {
 			text-decoration: none;
 			color: var(--text-main);
@@ -592,29 +575,6 @@
 			overflow: hidden;
 		}
 
-		.hero-cta-outside .action-btn::before {
-			content: "";
-			position: absolute;
-			inset: -50%;
-			background:
-				radial-gradient(60% 60% at 30% 25%, rgba(255,255,255,0.9), rgba(255,255,255,0) 55%),
-				radial-gradient(70% 70% at 80% 80%, rgba(232, 93, 117, 0.28), rgba(232, 93, 117, 0) 60%);
-			transform: rotate(12deg);
-			opacity: 0;
-			pointer-events: none;
-			transition: opacity 0.25s ease;
-			z-index: 0;
-		}
-
-		.hero-cta-outside .action-btn > * {
-			position: relative;
-			z-index: 1;
-		}
-
-		.hero-cta-outside .action-btn:hover::before {
-			opacity: 0.9;
-		}
-
 		.hero-cta-outside .action-btn {
 			opacity: 1;
 			transform: none;
@@ -798,6 +758,36 @@
 			gap: 24px;
 		}
 
+		.behance-square-pair .iframely-responsive {
+			width: 100%;
+			aspect-ratio: 1 / 1;
+			position: relative;
+			overflow: hidden;
+		}
+
+		.behance-square-pair .iframely-responsive iframe {
+			position: absolute;
+			inset: 0;
+			width: 100%;
+			height: 100%;
+		}
+
+		.behance-square {
+			width: 100%;
+			aspect-ratio: 1 / 1;
+			position: relative;
+			overflow: hidden;
+			border-radius: 16px;
+		}
+		.behance-square iframe {
+			position: absolute;
+			inset: 0;
+			width: 100%;
+			height: 100%;
+			border: 0;
+			display: block;
+		}
+
 		.grid-2 > :only-child {
 			grid-column: 1 / -1;
 		}
@@ -848,7 +838,7 @@
 			gap: 12px;                    /* 物件間距 */
 
 			color: #999;
-			border: 1px dashed #ccc;
+			border: 0;
 		}
 
 		.embed-container.embed-stack {
@@ -913,6 +903,8 @@
 
 		.drive-open-btn {
 			margin: 12px auto 0;
+			min-width: clamp(240px, 22vw, 360px);
+			justify-content: center;
 		}
 
 		@media (max-width: 768px) {
@@ -1134,24 +1126,6 @@
 			will-change: opacity, transform;
 		}
 
-		.lang-toggle-floating::before {
-			content: "";
-			position: absolute;
-			inset: 0;
-			border-radius: inherit;
-			background:
-				radial-gradient(120% 120% at 20% 15%, rgba(255,255,255,0.95), rgba(255,255,255,0) 60%),
-				linear-gradient(135deg, rgba(255,255,255,0.55), rgba(255,255,255,0.15));
-			opacity: 0.55;
-			pointer-events: none;
-			z-index: 0;
-		}
-
-		.lang-toggle-floating > * {
-			position: relative;
-			z-index: 1;
-		}
-
 		.lang-toggle-floating:hover {
 			background: var(--glass-surface-strong);
 			color: var(--text-highlight);
@@ -1219,24 +1193,6 @@
 			transition: all 0.3s ease;
 			overflow: hidden;
 			isolation: isolate;
-		}
-
-		.scroll-top-btn::before {
-			content: "";
-			position: absolute;
-			inset: 0;
-			border-radius: inherit;
-			background:
-				radial-gradient(120% 120% at 20% 15%, rgba(255,255,255,0.95), rgba(255,255,255,0) 60%),
-				linear-gradient(135deg, rgba(255,255,255,0.55), rgba(255,255,255,0.15));
-			opacity: 0.55;
-			pointer-events: none;
-			z-index: 0;
-		}
-
-		.scroll-top-btn > * {
-			position: relative;
-			z-index: 1;
 		}
 
 		.scroll-top-btn i {
@@ -1762,11 +1718,7 @@
 			</div>
 		</div>
 	</section>
-	<div class="hero-cta" style="text-align: center; margin-top: 22px; margin-bottom: 22px;">
-		<a href="#video" class="action-btn" style="position: relative; top: -20px;">
-			<i class="fas fa-folder-open"></i><span class="lang-zh">查看作品集</span><span class="lang-en">View Portfolio</span>
-		</a>
-	</div>
+	
 
 	<section id="video" class="glass-card tab-container reveal">
 		<h2 class="section-title"><span class="lang-zh">影片剪輯</span><span class="lang-en">Video Editing</span></h2>
@@ -1909,16 +1861,20 @@
 			<p class="lang-zh" style="margin: 10px 0 12px; font-size: 0.9rem; opacity: 0.75; text-align: center;">作詞/作曲/編曲/混音 By AuNight</p>
 			<p class="lang-en" style="margin: 6px 0 12px; font-size: 0.85rem; opacity: 0.65; text-align: center;">Lyrics / Composition / Arrangement / Mixing By AuNight</p>
 			<div class="grid-2">
-				<div class="embed-container" style="margin-bottom: 0;">
-					<iframe data-testid="embed-iframe" style="border-radius:12px;width: 100%; height: 352px;" src="https://open.spotify.com/embed/artist/3AhaLZxsspqiQaFjER1bX0?utm_source=generator" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+				<div class="embed-container" style="margin-bottom: 0; height: 520px;">
+					<iframe data-testid="embed-iframe" style="border-radius:12px;width: 100%; height: 100%;" src="https://open.spotify.com/embed/artist/3AhaLZxsspqiQaFjER1bX0?utm_source=generator" width="100%" height="520" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
 				</div>
-				<div class="embed-container" style="margin-bottom: 0;">
-					<div class="drive-embed" style="height: 352px;">
-						<iframe src="https://drive.google.com/embeddedfolderview?id=1_T3m2YcBYb_T8Z-jqgthuQWOAUdqbIh7#list" allowfullscreen></iframe>
+				<div style="height: 520px; position: relative;">
+					<div class="embed-container" style="margin-bottom: 0; height: calc(100% - 64px);">
+						<div class="drive-embed" style="height: 100%;">
+							<iframe src="https://drive.google.com/embeddedfolderview?id=1_T3m2YcBYb_T8Z-jqgthuQWOAUdqbIh7#list" allowfullscreen></iframe>
+						</div>
 					</div>
-					<a href="https://drive.google.com/drive/folders/1_T3m2YcBYb_T8Z-jqgthuQWOAUdqbIh7" target="_blank" rel="noopener" class="action-btn mobile-only drive-open-btn">
-						<i class="fas fa-external-link-alt"></i><span class="lang-zh">在雲端開啟</span><span class="lang-en">Open in Drive</span>
-					</a>
+					<div style="position: absolute; left: 0; right: 0; bottom: 0; display: flex; justify-content: center;">
+						<a href="https://drive.google.com/drive/folders/1_T3m2YcBYb_T8Z-jqgthuQWOAUdqbIh7" target="_blank" rel="noopener" class="action-btn drive-open-btn" style="margin: 0;">
+							<i class="fab fa-google-drive"></i><span class="lang-zh">在雲端開啟</span><span class="lang-en">Open in Drive</span>
+						</a>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -1944,10 +1900,12 @@
 					<p class="lang-zh" style="margin: 10px 0 12px; font-size: 0.9rem; opacity: 0.75; text-align: center;">混音 By AuNight</p>
 					<p class="lang-en" style="margin: 6px 0 12px; font-size: 0.85rem; opacity: 0.65; text-align: center;">Mixing By AuNight</p>
 				</div>
-				<div class="embed-container grid-span-2">
-					<div class="drive-embed"><iframe src="https://drive.google.com/embeddedfolderview?id=1ruumdg8SWO1CXAJDYTMePnAa3PP0n55w#list" allowfullscreen></iframe></div>
-					<a href="https://drive.google.com/drive/folders/1ruumdg8SWO1CXAJDYTMePnAa3PP0n55w" target="_blank" rel="noopener" class="action-btn mobile-only drive-open-btn">
-						<i class="fas fa-external-link-alt"></i><span class="lang-zh">在雲端開啟</span><span class="lang-en">Open in Drive</span>
+				<div class="grid-span-2" style="margin-bottom: 15px; display: flex; flex-direction: column; align-items: center;">
+					<div class="embed-container" style="margin-bottom: 0;">
+						<div class="drive-embed"><iframe src="https://drive.google.com/embeddedfolderview?id=1ruumdg8SWO1CXAJDYTMePnAa3PP0n55w#list" allowfullscreen></iframe></div>
+					</div>
+					<a href="https://drive.google.com/drive/folders/1ruumdg8SWO1CXAJDYTMePnAa3PP0n55w" target="_blank" rel="noopener" class="action-btn drive-open-btn">
+						<i class="fab fa-google-drive"></i><span class="lang-zh">在雲端開啟</span><span class="lang-en">Open in Drive</span>
 					</a>
 				</div>
 			</div>
@@ -1964,10 +1922,12 @@
 					<p class="lang-zh" style="margin: 10px 0 12px; font-size: 0.9rem; opacity: 0.75; text-align: center;">Remix By AuNight</p>
 					<p class="lang-en" style="margin: 6px 0 12px; font-size: 0.85rem; opacity: 0.65; text-align: center;">Remix By AuNight</p>
 				</div>
-				<div class="embed-container grid-span-2">
-					<div class="drive-embed" style="height: clamp(220px, 40vh, 360px);"><iframe src="https://drive.google.com/embeddedfolderview?id=1IF2ICFebOFNN1c2lOCa1WC_5QeZLDpEq#list" allowfullscreen></iframe></div>
-					<a href="https://drive.google.com/drive/folders/1IF2ICFebOFNN1c2lOCa1WC_5QeZLDpEq" target="_blank" rel="noopener" class="action-btn mobile-only drive-open-btn">
-						<i class="fas fa-external-link-alt"></i><span class="lang-zh">在雲端開啟</span><span class="lang-en">Open in Drive</span>
+				<div class="grid-span-2" style="margin-bottom: 15px; display: flex; flex-direction: column; align-items: center;">
+					<div class="embed-container" style="margin-bottom: 0;">
+						<div class="drive-embed" style="height: clamp(220px, 40vh, 360px);"><iframe src="https://drive.google.com/embeddedfolderview?id=1IF2ICFebOFNN1c2lOCa1WC_5QeZLDpEq#list" allowfullscreen></iframe></div>
+					</div>
+					<a href="https://drive.google.com/drive/folders/1IF2ICFebOFNN1c2lOCa1WC_5QeZLDpEq" target="_blank" rel="noopener" class="action-btn drive-open-btn">
+						<i class="fab fa-google-drive"></i><span class="lang-zh">在雲端開啟</span><span class="lang-en">Open in Drive</span>
 					</a>
 				</div>
 			</div>
@@ -1975,10 +1935,12 @@
 		<div class="tab-content">
 			<div class="embed-container"><iframe width="560" height="315" src="https://www.youtube.com/embed/nbigvuUnhWA?autoplay=1&mute=1&playsinline=1" title="YouTube 影片播放器" data-title-zh="YouTube 影片播放器" data-title-en="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div>
 			<p class="lang-zh" style="margin: 10px 0 12px; font-size: 0.9rem; opacity: 0.75; text-align: center;">無版權歌曲 作曲/編曲/混音 By AuNight</p>
-			<div class="embed-container">
-				<div class="drive-embed"><iframe src="https://drive.google.com/embeddedfolderview?id=1DUDpAtf6UcFKufMk5fX4ENo6XiMlcPDE#list" allowfullscreen></iframe></div>
-				<a href="https://drive.google.com/drive/folders/1DUDpAtf6UcFKufMk5fX4ENo6XiMlcPDE" target="_blank" rel="noopener" class="action-btn mobile-only drive-open-btn">
-					<i class="fas fa-external-link-alt"></i><span class="lang-zh">在雲端開啟</span><span class="lang-en">Open in Drive</span>
+			<div style="margin-bottom: 15px; display: flex; flex-direction: column; align-items: center;">
+				<div class="embed-container" style="margin-bottom: 0;">
+					<div class="drive-embed"><iframe src="https://drive.google.com/embeddedfolderview?id=1DUDpAtf6UcFKufMk5fX4ENo6XiMlcPDE#list" allowfullscreen></iframe></div>
+				</div>
+				<a href="https://drive.google.com/drive/folders/1DUDpAtf6UcFKufMk5fX4ENo6XiMlcPDE" target="_blank" rel="noopener" class="action-btn drive-open-btn">
+					<i class="fab fa-google-drive"></i><span class="lang-zh">在雲端開啟</span><span class="lang-en">Open in Drive</span>
 				</a>
 			</div>
 		</div>
@@ -2073,7 +2035,8 @@
 
 						/* ✅ Behance：給足高度（不裁切） */
 						.embed-behance > .iframely-embed > .iframely-responsive{
-							height: 40vh !important;
+							height: clamp(260px, 42vh, 420px) !important;
+							padding: 0 !important;
 						}
 
 						/* 手機：一欄 */
@@ -2086,6 +2049,7 @@
 							.embed-behance > .iframely-embed > .iframely-responsive{
 								height: 320px !important; /* 你可調 360~520 */
 								border-radius: 32px!important;
+								padding: 0 !important;
 							}
 						}
 					</style>
@@ -2113,11 +2077,31 @@
 					<script async src="https://iframely.net/embed.js"></script>
 
 					<div class="embed-container embed-behance">
-						<div class="iframely-embed"><div class="iframely-responsive" style="padding-bottom: 71.4286%; padding-top: 120px;"><a href="https://www.behance.net/gallery/166426097/2023UIUX-Taipei-MRT-GO-App-Redesign" data-iframely-url="https://iframely.net/bOnQ3hPO?media=0&theme=dark"></a></div></div><script async src="https://iframely.net/embed.js"></script>
-						<div class="iframely-embed"><div class="iframely-responsive" style="padding-bottom: 50.2857%; padding-top: 120px;"><a href="https://www.behance.net/gallery/140733047/Dcard-App-Redesign-20" data-iframely-url="https://iframely.net/tmKNCeRd?media=0&theme=dark"></a></div></div><script async src="https://iframely.net/embed.js"></script>
-						<div class="iframely-embed"><div class="iframely-responsive" style="padding-bottom: 58.2143%; padding-top: 120px;"><a href="https://www.behance.net/gallery/140596775/APP-20-Ani-Gamer-APP-Redesign-20" data-iframely-url="https://iframely.net/ECXQY57i?media=0&theme=dark"></a></div></div><script async src="https://iframely.net/embed.js"></script>
-						<div class="iframely-embed"><div class="iframely-responsive" style="padding-bottom: 58.2143%; padding-top: 120px;"><a href="https://www.behance.net/gallery/135587759/APP-Gamercomtw-App-Social-Tab-Redesign" data-iframely-url="https://iframely.net/lFNIw9sW?media=0&theme=dark"></a></div></div><script async src="https://iframely.net/embed.js"></script>
-						<div class="iframely-embed"><div class="iframely-responsive" style="padding-bottom: 75%; padding-top: 120px;"><a href="https://www.behance.net/gallery/104117711/Discord-Android-App-Share-System-Redesign-Concept" data-iframely-url="https://iframely.net/R65WSHQG?media=0&theme=dark"></a></div></div><script async src="https://iframely.net/embed.js"></script>
+						<div class="iframely-embed">
+							<div class="iframely-responsive">
+								<iframe src="https://www.behance.net/embed/project/166426097?ilo0=1" loading="lazy" allowfullscreen></iframe>
+							</div>
+						</div>
+						<div class="iframely-embed">
+							<div class="iframely-responsive">
+								<iframe src="https://www.behance.net/embed/project/140733047?ilo0=1" loading="lazy" allowfullscreen></iframe>
+							</div>
+						</div>
+						<div class="iframely-embed">
+							<div class="iframely-responsive">
+								<iframe src="https://www.behance.net/embed/project/140596775?ilo0=1" loading="lazy" allowfullscreen></iframe>
+							</div>
+						</div>
+						<div class="iframely-embed">
+							<div class="iframely-responsive">
+								<iframe src="https://www.behance.net/embed/project/135587759?ilo0=1" loading="lazy" allowfullscreen></iframe>
+							</div>
+						</div>
+						<div class="iframely-embed">
+							<div class="iframely-responsive">
+								<iframe src="https://www.behance.net/embed/project/104117711?ilo0=1" loading="lazy" allowfullscreen></iframe>
+							</div>
+						</div>
 						<!-- Figma Embed (1:1 RWD) -->
 						<div class="figma-embed">
 							<iframe
@@ -2131,7 +2115,7 @@
 							/* 1:1 容器：丟進任何欄位都會剛好填滿 */
 							.figma-embed{
 								width: 48%;
-								aspect-ratio: 1 / 1;          /* ✅ 1:1 */
+								height: clamp(260px, 42vh, 420px);
 								position: relative;
 								overflow: hidden;
 								border-radius: 18px;
@@ -2150,7 +2134,7 @@
 							@media (max-width: 900px){
 								.figma-embed{
 									width: 100%;
-									aspect-ratio: 9 / 16;
+									height: 320px;
 									top: 0;
 								}
 							}
@@ -2168,8 +2152,14 @@
 				<i class="fas fa-external-link-alt"></i> <span class="lang-zh">前往網站</span><span class="lang-en">Open Site</span>
 			</a>
 			<br>	<br>	<br>
-			<div class="iframely-embed"><div class="iframely-responsive" style="height: 140px; padding-bottom: 0; border-radius: 16px 16px 0px 0px"><a href="https://www.behance.net/gallery/133125757/20-Gamercomtw-Main-Page-Redesign-20" data-iframely-url="https://iframely.net/RPN0poIE?media=0&theme=dark"></a></div></div><script async src="https://iframely.net/embed.js"></script>
-			<div class="iframely-embed"><div class="iframely-responsive" style="height: 140px; padding-bottom: 0; border-radius: 0px 0px 16px 16px"><a href="https://www.behance.net/gallery/138174115/-Redesign-20-Ani-Gamer-Redesign-20" data-iframely-url="https://iframely.net/ouOxSLbV?media=0&theme=dark"></a></div></div><script async src="https://iframely.net/embed.js"></script>
+			<div class="grid-2 behance-square-pair">
+				<div class="behance-square">
+					<iframe src="https://www.behance.net/embed/project/133125757?ilo0=1" loading="lazy" allowfullscreen></iframe>
+				</div>
+				<div class="behance-square">
+					<iframe src="https://www.behance.net/embed/project/138174115?ilo0=1" loading="lazy" allowfullscreen></iframe>
+				</div>
+			</div>
 		</div>
 		<div class="tab-content">
 			<div>
@@ -2178,8 +2168,11 @@
 				<p class="lang-en" style="margin: 0 0 10px; font-size: 0.85rem; opacity: 0.65; text-align: center;">UI/Animation Redesign By AuNight</p>
 			</div>
 			<div class="embed-container">
-				<div class="iframely-embed"><div class="iframely-responsive" style="padding-bottom: 56.2857%; padding-top: 120px; boader-radius:20px;"><a href="https://www.behance.net/gallery/155784499/Overwatch-2-UI-Animation-Redesign-Concept" data-iframely-url="https://iframely.net/aq3tHwyi?media=0&theme=dark"></a></div></div>
-				<script async src="https://iframely.net/embed.js"></script>
+				<div class="iframely-embed">
+					<div class="iframely-responsive" style="height: clamp(320px, 60vh, 520px); padding: 0;">
+						<iframe src="https://www.behance.net/embed/project/155784499?ilo0=1" loading="lazy" allowfullscreen></iframe>
+					</div>
+				</div>
 			</div>
 		</div>
 		<div style="text-align: center; margin-top: 30px;">
@@ -2206,7 +2199,7 @@
 			<button class="tab-btn"><span class="lang-zh">其他作品</span><span class="lang-en">Other Works</span></button>
 		</div>
 		<!-- 內容 1 -->
-		<div class="grid-2" style="margin-bottom: 20px; text-align: center">
+		<div class="grid-2" style="margin-bottom: 10px; text-align: center">
 			<div class="tab-content active">
 				<div class="grid-2" style="margin-bottom: 8px;">
 					<div>
@@ -2239,10 +2232,12 @@
 						<p class="lang-zh" style="margin: 0 0 10px; font-size: 0.9rem; opacity: 0.75; text-align: center;">設計/動畫 By AuNight</p>
 						<p class="lang-en" style="margin: 0 0 10px; font-size: 0.85rem; opacity: 0.65; text-align: center;">Design / Animation By AuNight</p>
 					</div>
-					<div class="embed-container grid-span-2">
-						<div class="drive-embed"><iframe src="https://drive.google.com/embeddedfolderview?id=16i5KxeQE8XiSEJRZ_w2IvEv_9VOhLvRl#list" allowfullscreen></iframe></div>
-						<a href="https://drive.google.com/drive/folders/16i5KxeQE8XiSEJRZ_w2IvEv_9VOhLvRl" target="_blank" rel="noopener" class="action-btn mobile-only drive-open-btn">
-							<i class="fas fa-external-link-alt"></i><span class="lang-zh">在雲端開啟</span><span class="lang-en">Open in Drive</span>
+					<div class="grid-span-2" style="margin-bottom: 8px; display: flex; flex-direction: column; align-items: center;">
+						<div class="embed-container" style="margin-bottom: 0;">
+							<div class="drive-embed"><iframe src="https://drive.google.com/embeddedfolderview?id=16i5KxeQE8XiSEJRZ_w2IvEv_9VOhLvRl#list" allowfullscreen></iframe></div>
+						</div>
+						<a href="https://drive.google.com/drive/folders/16i5KxeQE8XiSEJRZ_w2IvEv_9VOhLvRl" target="_blank" rel="noopener" class="action-btn drive-open-btn">
+							<i class="fab fa-google-drive"></i><span class="lang-zh">在雲端開啟</span><span class="lang-en">Open in Drive</span>
 						</a>
 					</div>
 				</div>
@@ -2254,17 +2249,19 @@
 		</div>
 
 		<!-- 內容 2 -->
-		<div class="grid-2" style="margin-bottom: 20px; text-align: center">
+		<div class="grid-2" style="margin-bottom: 10px; text-align: center">
 			<div class="tab-content" style="text-align: center">
-				<div class="embed-container">
-					<div class="drive-embed">
-						<iframe
-								src="https://drive.google.com/embeddedfolderview?id=11SX7jtcT-ADZyRHIcvwHQoNjtICfdkAJ#list"
-						>
-						</iframe>
+				<div style="margin-bottom: 8px; display: flex; flex-direction: column; align-items: center;">
+					<div class="embed-container" style="margin-bottom: 0;">
+						<div class="drive-embed">
+							<iframe
+									src="https://drive.google.com/embeddedfolderview?id=11SX7jtcT-ADZyRHIcvwHQoNjtICfdkAJ#list"
+							>
+							</iframe>
+						</div>
 					</div>
-					<a href="https://drive.google.com/drive/folders/11SX7jtcT-ADZyRHIcvwHQoNjtICfdkAJ" target="_blank" rel="noopener" class="action-btn mobile-only drive-open-btn">
-						<i class="fas fa-external-link-alt"></i><span class="lang-zh">在雲端開啟</span><span class="lang-en">Open in Drive</span>
+					<a href="https://drive.google.com/drive/folders/11SX7jtcT-ADZyRHIcvwHQoNjtICfdkAJ" target="_blank" rel="noopener" class="action-btn drive-open-btn">
+						<i class="fab fa-google-drive"></i><span class="lang-zh">在雲端開啟</span><span class="lang-en">Open in Drive</span>
 					</a>
 				</div>
 				<div class="price-content">
@@ -2273,21 +2270,25 @@
 			</div>
 		</div>
 		<!-- 內容 3（修正價格顯示） -->
-		<div class="grid-2" style="margin-bottom: 20px; text-align: center">
+		<div class="grid-2" style="margin-bottom: 10px; text-align: center">
 			<div class="tab-content" style="text-align: center">
-				<div class="embed-container embed-stack">
-					<iframe
-							src="https://www.youtube.com/embed/ndZYV83wQc8?si=FlZ2vpJ0DlBW2Qw-"
-							allowfullscreen>
-					</iframe>
-					<div class="drive-embed">
+				<div style="margin-bottom: 8px; display: flex; flex-direction: column; align-items: center;">
+					<div class="embed-container">
 						<iframe
-								src="https://drive.google.com/embeddedfolderview?id=1Z_xqkzqAdArxA4mmvBjmfV6mavif5ZUd#list"
-						>
+								src="https://www.youtube.com/embed/ndZYV83wQc8?si=FlZ2vpJ0DlBW2Qw-"
+								allowfullscreen>
 						</iframe>
 					</div>
-					<a href="https://drive.google.com/drive/folders/1Z_xqkzqAdArxA4mmvBjmfV6mavif5ZUd" target="_blank" rel="noopener" class="action-btn mobile-only drive-open-btn">
-						<i class="fas fa-external-link-alt"></i><span class="lang-zh">在雲端開啟</span><span class="lang-en">Open in Drive</span>
+					<div class="embed-container" style="margin-bottom: 0;">
+						<div class="drive-embed">
+							<iframe
+									src="https://drive.google.com/embeddedfolderview?id=1Z_xqkzqAdArxA4mmvBjmfV6mavif5ZUd#list"
+							>
+							</iframe>
+						</div>
+					</div>
+					<a href="https://drive.google.com/drive/folders/1Z_xqkzqAdArxA4mmvBjmfV6mavif5ZUd" target="_blank" rel="noopener" class="action-btn drive-open-btn">
+						<i class="fab fa-google-drive"></i><span class="lang-zh">在雲端開啟</span><span class="lang-en">Open in Drive</span>
 					</a>
 				</div>
 				<div class="price-content">
@@ -2300,7 +2301,7 @@
 		</div>
 
 		<!-- 內容 4 -->
-		<div class="grid-2" style="margin-bottom: 20px; text-align: center">
+		<div class="grid-2" style="margin-bottom: 10px; text-align: center">
 			<div class="tab-content" style="text-align: center">
 				<div class="embed-container">
 					<iframe
@@ -2499,59 +2500,16 @@
 					box-shadow: 0 14px 30px rgba(0,0,0,.18);
 				}
 
-				/* --- Embed Mask + Fade (CSS only, safer for YouTube) --- */
-				/* Idea: keep a cover on top long enough so late-loading embeds don't "pop". */
-
-				/* Make sure these wrappers can host overlays */
 				.embed-container,
 				.iframely-responsive {
 					position: relative;
 					overflow: hidden;
 				}
 
-				/* Do NOT force iframe height:100% globally (can mess with some providers). */
 				.embed-container iframe,
 				.iframely-responsive iframe {
 					width: 100%;
 					border: 0;
-				}
-
-				/* Optional shimmer placeholder */
-				.embed-container,
-				.iframely-responsive {
-					background: linear-gradient(90deg, rgba(0,0,0,.35), rgba(0,0,0,.65), rgba(0,0,0,.35));
-					background-size: 200% 100%;
-					animation: embedShimmer 1.25s linear infinite;
-				}
-
-				/* Cover that fades out slowly (masking late loads). No backdrop-filter to avoid any weird provider issues. */
-				.embed-container::after,
-				.iframely-responsive::after {
-					content: "";
-					position: absolute;
-					inset: 0;
-					background: rgba(0,0,0,0.88);
-					opacity: 1;
-					pointer-events: none;
-					animation: embedReveal 3.2s ease forwards; /* longer = less "pop" */
-				}
-
-				/* If you switch tabs (display toggles), animations will replay when element re-enters layout. */
-				@keyframes embedReveal {
-					0%   { opacity: 1; }
-					75%  { opacity: 1; }  /* hold cover for most of the duration */
-					100% { opacity: 0; }
-				}
-
-				@keyframes embedShimmer {
-					from { background-position: 200% 0; }
-					to   { background-position: -200% 0; }
-				}
-
-				/* Stop shimmer after reveal roughly finishes (visual-only; shimmer continues behind the cover anyway). */
-				.embed-container,
-				.iframely-responsive {
-					animation-duration: 1.25s;
 				}
 
 			</style>
@@ -2588,7 +2546,12 @@
 					}
 				}
 				</style>
-				<div class="iframely-embed"><div class="iframely-responsive" style="padding-bottom: 78.2178%; padding-top: 120px;"><a href="https://www.behance.net/gallery/104118153/Graphic-Design-" data-iframely-url="https://iframely.net/SkYaVsOo?media=0&theme=dark"></a></div></div><script async src="https://iframely.net/embed.js"></script></div>
+				<div class="iframely-embed">
+					<div class="iframely-responsive" style="height: clamp(320px, 60vh, 520px); padding: 0;">
+						<iframe src="https://www.behance.net/embed/project/104118153?ilo0=1" loading="lazy" allowfullscreen></iframe>
+					</div>
+				</div>
+			</div>
 		</div>
 		<div style="text-align: center; margin-top: 30px;">
 			<p class="lang-zh" style="margin-bottom: 10px; font-size: 0.9rem; opacity: 0.7;">獲取詳細報價</p>
@@ -2612,7 +2575,7 @@
 			</a>
 		</div>
 
-		<hr style="margin: 40px 0; border:0; border-top: 1px dashed rgba(0,0,0,0.1);">
+		<hr style="margin: 40px 0; border:0; border-top: 1px solid rgba(0,0,0,0.08);">
 
 		<div style="margin-bottom: 30px; text-align: center;">
 			<h3 style="margin-bottom: 15px;">Beconrolt</h3>
