@@ -904,6 +904,20 @@
 			display: block;
 		}
 
+		.mobile-only {
+			display: none;
+		}
+
+		.drive-open-btn {
+			margin: 12px auto 0;
+		}
+
+		@media (max-width: 768px) {
+			.mobile-only {
+				display: inline-flex;
+			}
+		}
+
 
 		/* --- Tab 切換樣式 --- */
 		.tabs {
@@ -937,6 +951,31 @@
 			color: var(--text-highlight);
 			box-shadow: 0 4px 12px rgba(232, 93, 117, 0.2);
 			font-weight: 600;
+		}
+
+		@media (max-width: 520px) {
+			.tabs {
+				display: grid;
+				grid-template-columns: repeat(2, minmax(0, 1fr));
+				justify-items: center;
+				gap: 10px 12px;
+				margin-top: 12px;
+				margin-bottom: 14px;
+				padding: 14px 0;
+			}
+
+			.tab-btn {
+				width: 100%;
+				max-width: 160px;
+				padding: 8px 0;
+				text-align: center;
+			}
+
+			.tabs > .tab-btn:last-child:nth-child(odd) {
+				grid-column: 1 / -1;
+				justify-self: center;
+				max-width: 200px;
+			}
 		}
 
 		.tab-content {
@@ -1560,9 +1599,9 @@
 	<a href="#video"><i class="fas fa-video"></i><span><span class="lang-zh">影片剪輯</span><span class="lang-en">Video</span></span></a>
 	<a href="#music"><i class="fas fa-music"></i><span><span class="lang-zh">音樂製作</span><span class="lang-en">Music</span></span></a>
 	<a href="#uiux"><i class="fas fa-desktop"></i><span><span class="lang-zh">介面設計</span><span class="lang-en">UI/UX</span></span></a>
+	<a href="#animation"><i class="fas fa-film"></i><span><span class="lang-zh">動畫</span><span class="lang-en">Animation</span></span></a>
 	<a href="#graphic"><i class="fas fa-palette"></i><span><span class="lang-zh">平面設計</span><span class="lang-en">Graphic</span></span></a>
 	<a href="#web"><i class="fas fa-code"></i><span><span class="lang-zh">網頁前端</span><span class="lang-en">Web</span></span></a>
-	<a href="#animation"><i class="fas fa-film"></i><span><span class="lang-zh">動畫</span><span class="lang-en">Animation</span></span></a>
 	<a href="#color"><i class="fas fa-photo-film"></i><span><span class="lang-zh">影像後製</span><span class="lang-en">Post-Production</span></span></a>
 </nav>
 
@@ -1649,9 +1688,6 @@
 
 	</section>
 	<div class="hero-cta hero-cta-outside">
-		<a href="#about" class="action-btn">
-			<i class="fas fa-folder-open"></i><span class="lang-zh">查看作品集</span><span class="lang-en">View Portfolio</span>
-		</a>
 		<a href="mailto:G950025@gmail.com" class="action-btn email-btn">
 			<i class="fas fa-envelope"></i><span class="lang-zh">寫信聯絡我</span><span class="lang-en">Email me</span>
 		</a>
@@ -1677,7 +1713,7 @@
 				<ul class="about-list">
 					<li><span class="lang-zh">我不滿足於視覺層面,且進一步跨足UI/UX領域。</span><span class="lang-en">Driven to go beyond surface-level aesthetics,I expanded my expertise into UI/UX design.</span></li>
 					<li><span class="lang-zh">我主導設計的Valki(Valorant輔助工具),成功服務超過10萬名活躍用戶,展現了兼具美感與易用性的產品設計力,並且我也設計了其官方網站。</span><span class="lang-en">I led the design of the Valki APP (a Valorant utility),which successfully serves over 100,000 active users,demonstrating product design capabilities that balance aesthetics and usability,and I also designed its official website.</span></li>
-					<li><span class="lang-zh">同時,我也設計了巴哈姆特首頁及動畫瘋,台北捷運Go,Dcard等大型App及網頁的Redesign專案,並致力於優化使用者的體驗。</span><span class="lang-en">I also design comprehensive App and Web redesign projects for major platforms like Taipei MRT Go,Dcard,and Bahamut,dedicated to optimizing digital user experiences.</span></li>
+					<li><span class="lang-zh">同時,我也設計了巴哈姆特首頁,動畫瘋及社群頁面,<span style="white-space: nowrap;">台北捷運Go</span>,Dcard等大型App及網頁的Redesign專案,並致力於優化使用者的體驗。</span><span class="lang-en">I also design comprehensive App and Web redesign projects for major platforms like Bahamut (homepage,Anime Crazy,and community pages),Taipei MRT Go,and Dcard,dedicated to optimizing digital user experiences.</span></li>
 				</ul>
 			</div>
 
@@ -1714,6 +1750,11 @@
 			</div>
 		</div>
 	</section>
+	<div style="text-align: center; margin-top: 22px; margin-bottom: 22px;">
+		<a href="#video" class="action-btn" style="position: relative; top: -20px;">
+			<i class="fas fa-folder-open"></i><span class="lang-zh">查看作品集</span><span class="lang-en">View Portfolio</span>
+		</a>
+	</div>
 
 	<section id="video" class="glass-card tab-container reveal">
 		<h2 class="section-title"><span class="lang-zh">影片剪輯</span><span class="lang-en">Video Editing</span></h2>
@@ -1845,12 +1886,31 @@
 	<section id="music" class="glass-card tab-container reveal">
 		<h2 class="section-title"><span class="lang-zh">音樂製作</span><span class="lang-en">Music Production</span></h2>
 		<div class="tabs">
-			<button class="tab-btn active"><span class="lang-zh">Cover混音</span><span class="lang-en">Cover Mixing</span></button>
-			<button class="tab-btn"><span class="lang-zh">BGM製作</span><span class="lang-en">Background Music</span></button>
-			<button class="tab-btn"><span class="lang-zh">原創曲</span><span class="lang-en">Original Music</span></button>
+			<button class="tab-btn active"><span class="lang-zh">原創曲</span><span class="lang-en">Original Music</span></button>
+			<button class="tab-btn"><span class="lang-zh">Cover混音</span><span class="lang-en">Cover Mixing</span></button>
+			<button class="tab-btn"><span class="lang-zh">Remix歌曲</span><span class="lang-en">Remix</span></button>
+			<button class="tab-btn"><span class="lang-zh">背景音樂</span><span class="lang-en">BGM</span></button>
 		</div>
 
 		<div class="tab-content active">
+			<div class="embed-container"><iframe width="560" height="315" src="https://www.youtube.com/embed/fU7yak5erqQ" title="YouTube 影片播放器" data-title-zh="YouTube 影片播放器" data-title-en="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div>
+			<p class="lang-zh" style="margin: 10px 0 12px; font-size: 0.9rem; opacity: 0.75; text-align: center;">作詞/作曲/編曲/混音 By AuNight</p>
+			<p class="lang-en" style="margin: 6px 0 12px; font-size: 0.85rem; opacity: 0.65; text-align: center;">Lyrics / Composition / Arrangement / Mixing By AuNight</p>
+			<div class="grid-2">
+				<div class="embed-container" style="margin-bottom: 0;">
+					<iframe data-testid="embed-iframe" style="border-radius:12px;width: 100%; height: 352px;" src="https://open.spotify.com/embed/artist/3AhaLZxsspqiQaFjER1bX0?utm_source=generator" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+				</div>
+				<div class="embed-container" style="margin-bottom: 0;">
+					<div class="drive-embed" style="height: 352px;">
+						<iframe src="https://drive.google.com/embeddedfolderview?id=1_T3m2YcBYb_T8Z-jqgthuQWOAUdqbIh7#list" allowfullscreen></iframe>
+					</div>
+					<a href="https://drive.google.com/drive/folders/1_T3m2YcBYb_T8Z-jqgthuQWOAUdqbIh7" target="_blank" rel="noopener" class="action-btn mobile-only drive-open-btn">
+						<i class="fas fa-external-link-alt"></i><span class="lang-zh">在雲端開啟</span><span class="lang-en">Open in Drive</span>
+					</a>
+				</div>
+			</div>
+		</div>
+		<div class="tab-content">
 			<div class="music-grid">
 				<div>
 					<div class="embed-container"><iframe width="560" height="315" src="https://www.youtube.com/embed/ZF5uBD1L-2U" title="YouTube 影片播放器" data-title-zh="YouTube 影片播放器" data-title-en="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div>
@@ -1859,23 +1919,56 @@
 				</div>
 				<div>
 					<div class="embed-container"><iframe width="560" height="315" src="https://www.youtube.com/embed/TL1GwwwM7Ck" title="YouTube 影片播放器" data-title-zh="YouTube 影片播放器" data-title-en="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div>
-					<p class="lang-zh" style="margin: 10px 0 12px; font-size: 0.9rem; opacity: 0.75; text-align: center;">混音/母帶 By AuNight</p>
+					<p class="lang-zh" style="margin: 10px 0 12px; font-size: 0.9rem; opacity: 0.75; text-align: center;">混音/調音/母帶 By AuNight</p>
 					<p class="lang-en" style="margin: 6px 0 12px; font-size: 0.85rem; opacity: 0.65; text-align: center;">Mixing / Mastering By AuNight</p>
+				</div>
+				<div>
+					<div class="embed-container"><iframe width="560" height="315" src="https://www.youtube.com/embed/3AEQXe8eWAg" title="YouTube 影片播放器" data-title-zh="YouTube 影片播放器" data-title-en="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div>
+					<p class="lang-zh" style="margin: 10px 0 12px; font-size: 0.9rem; opacity: 0.75; text-align: center;">混音/影片 By AuNight</p>
+					<p class="lang-en" style="margin: 6px 0 12px; font-size: 0.85rem; opacity: 0.65; text-align: center;">Mixing / Video By AuNight</p>
 				</div>
 				<div>
 					<div class="embed-container"><iframe width="560" height="315" src="https://www.youtube.com/embed/FsfN4p2r9rw?si=xLeKA_PsW-jMsiqp" title="YouTube 影片播放器" data-title-zh="YouTube 影片播放器" data-title-en="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div>
 					<p class="lang-zh" style="margin: 10px 0 12px; font-size: 0.9rem; opacity: 0.75; text-align: center;">混音 By AuNight</p>
 					<p class="lang-en" style="margin: 6px 0 12px; font-size: 0.85rem; opacity: 0.65; text-align: center;">Mixing By AuNight</p>
 				</div>
-				<div class="embed-container"><div class="drive-embed drive-embed-normal"><iframe src="https://drive.google.com/embeddedfolderview?id=1ruumdg8SWO1CXAJDYTMePnAa3PP0n55w#list" allowfullscreen></iframe></div></div>
+				<div class="embed-container grid-span-2">
+					<div class="drive-embed"><iframe src="https://drive.google.com/embeddedfolderview?id=1ruumdg8SWO1CXAJDYTMePnAa3PP0n55w#list" allowfullscreen></iframe></div>
+					<a href="https://drive.google.com/drive/folders/1ruumdg8SWO1CXAJDYTMePnAa3PP0n55w" target="_blank" rel="noopener" class="action-btn mobile-only drive-open-btn">
+						<i class="fas fa-external-link-alt"></i><span class="lang-zh">在雲端開啟</span><span class="lang-en">Open in Drive</span>
+					</a>
+				</div>
 			</div>
 		</div>
 		<div class="tab-content">
-			<div class="embed-container"><div class="drive-embed"><iframe src="https://drive.google.com/embeddedfolderview?id=1DUDpAtf6UcFKufMk5fX4ENo6XiMlcPDE#list" allowfullscreen></iframe></div></div>
+			<div class="music-grid">
+				<div>
+					<div class="embed-container"><iframe width="560" height="315" src="https://www.youtube.com/embed/BuEfogXpsK4" title="YouTube 影片播放器" data-title-zh="YouTube 影片播放器" data-title-en="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div>
+					<p class="lang-zh" style="margin: 10px 0 12px; font-size: 0.9rem; opacity: 0.75; text-align: center;">Remix By AuNight</p>
+					<p class="lang-en" style="margin: 6px 0 12px; font-size: 0.85rem; opacity: 0.65; text-align: center;">Remix By AuNight</p>
+				</div>
+				<div>
+					<div class="embed-container"><iframe width="560" height="315" src="https://www.youtube.com/embed/4WfNf2DOT48" title="YouTube 影片播放器" data-title-zh="YouTube 影片播放器" data-title-en="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div>
+					<p class="lang-zh" style="margin: 10px 0 12px; font-size: 0.9rem; opacity: 0.75; text-align: center;">Remix By AuNight</p>
+					<p class="lang-en" style="margin: 6px 0 12px; font-size: 0.85rem; opacity: 0.65; text-align: center;">Remix By AuNight</p>
+				</div>
+				<div class="embed-container grid-span-2">
+					<div class="drive-embed" style="height: clamp(220px, 40vh, 360px);"><iframe src="https://drive.google.com/embeddedfolderview?id=1IF2ICFebOFNN1c2lOCa1WC_5QeZLDpEq#list" allowfullscreen></iframe></div>
+					<a href="https://drive.google.com/drive/folders/1IF2ICFebOFNN1c2lOCa1WC_5QeZLDpEq" target="_blank" rel="noopener" class="action-btn mobile-only drive-open-btn">
+						<i class="fas fa-external-link-alt"></i><span class="lang-zh">在雲端開啟</span><span class="lang-en">Open in Drive</span>
+					</a>
+				</div>
+			</div>
 		</div>
 		<div class="tab-content">
-			<iframe data-testid="embed-iframe" style="border-radius:12px;width: 100%; height: 352px;" src="https://open.spotify.com/embed/artist/3AhaLZxsspqiQaFjER1bX0?utm_source=generator" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
-			<div class="embed-container"><div class="drive-embed"><iframe src="https://drive.google.com/embeddedfolderview?id=1_T3m2YcBYb_T8Z-jqgthuQWOAUdqbIh7#list" allowfullscreen></iframe></div></div>
+			<div class="embed-container"><iframe width="560" height="315" src="https://www.youtube.com/embed/nbigvuUnhWA?autoplay=1&mute=1&playsinline=1" title="YouTube 影片播放器" data-title-zh="YouTube 影片播放器" data-title-en="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div>
+			<p class="lang-zh" style="margin: 10px 0 12px; font-size: 0.9rem; opacity: 0.75; text-align: center;">無版權歌曲 作曲/編曲/混音 By AuNight</p>
+			<div class="embed-container">
+				<div class="drive-embed"><iframe src="https://drive.google.com/embeddedfolderview?id=1DUDpAtf6UcFKufMk5fX4ENo6XiMlcPDE#list" allowfullscreen></iframe></div>
+				<a href="https://drive.google.com/drive/folders/1DUDpAtf6UcFKufMk5fX4ENo6XiMlcPDE" target="_blank" rel="noopener" class="action-btn mobile-only drive-open-btn">
+					<i class="fas fa-external-link-alt"></i><span class="lang-zh">在雲端開啟</span><span class="lang-en">Open in Drive</span>
+				</a>
+			</div>
 		</div>
 
 
@@ -1968,7 +2061,7 @@
 
 						/* ✅ Behance：給足高度（不裁切） */
 						.embed-behance > .iframely-embed > .iframely-responsive{
-							height: 40vh;!important;
+							height: 40vh !important;
 						}
 
 						/* 手機：一欄 */
@@ -2067,6 +2160,11 @@
 			<div class="iframely-embed"><div class="iframely-responsive" style="height: 140px; padding-bottom: 0; border-radius: 0px 0px 16px 16px"><a href="https://www.behance.net/gallery/138174115/-Redesign-20-Ani-Gamer-Redesign-20" data-iframely-url="https://iframely.net/ouOxSLbV?media=0&theme=dark"></a></div></div><script async src="https://iframely.net/embed.js"></script>
 		</div>
 		<div class="tab-content">
+			<div>
+				<div class="embed-container"><iframe width="560" height="315" src="https://www.youtube.com/embed/zRivlAWVyew" title="YouTube 影片播放器" data-title-zh="YouTube 影片播放器" data-title-en="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div>
+				<p class="lang-zh" style="margin: 0 0 10px; font-size: 0.9rem; opacity: 0.75; text-align: center;">遊戲介面/動畫重製 By AuNight</p>
+				<p class="lang-en" style="margin: 0 0 10px; font-size: 0.85rem; opacity: 0.65; text-align: center;">UI/Animation Redesign By AuNight</p>
+			</div>
 			<div class="embed-container">
 				<div class="iframely-embed"><div class="iframely-responsive" style="padding-bottom: 56.2857%; padding-top: 120px; boader-radius:20px;"><a href="https://www.behance.net/gallery/155784499/Overwatch-2-UI-Animation-Redesign-Concept" data-iframely-url="https://iframely.net/aq3tHwyi?media=0&theme=dark"></a></div></div>
 				<script async src="https://iframely.net/embed.js"></script>
@@ -2084,6 +2182,133 @@
 			</a>
 		</div>
 
+	</section>
+
+	<section id="animation" class="glass-card tab-container reveal">
+		<h2 class="section-title"><span class="lang-zh">動畫設計</span><span class="lang-en">Animation</span></h2>
+
+		<div class="tabs">
+			<button class="tab-btn active"><span class="lang-zh">逐格動畫</span><span class="lang-en">Frame Animation</span></button>
+			<button class="tab-btn"><span class="lang-zh">範本修改</span><span class="lang-en">Template Edit</span></button>
+			<button class="tab-btn"><span class="lang-zh">YouTuber 片頭片尾</span><span class="lang-en">YouTuber Intro & Outro</span></button>
+			<button class="tab-btn"><span class="lang-zh">其他作品</span><span class="lang-en">Other Works</span></button>
+		</div>
+		<!-- 內容 1 -->
+		<div class="grid-2" style="margin-bottom: 20px; text-align: center">
+			<div class="tab-content active">
+				<div class="grid-2" style="margin-bottom: 8px;">
+					<div>
+						<div class="embed-container"><iframe width="560" height="315" src="https://www.youtube.com/embed/ZF5uBD1L-2U" title="YouTube 影片播放器" data-title-zh="YouTube 影片播放器" data-title-en="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div>
+						<p class="lang-zh" style="margin: 10px 0 12px; font-size: 0.9rem; opacity: 0.75; text-align: center;">混音/母帶/PV By AuNight</p>
+						<p class="lang-en" style="margin: 6px 0 12px; font-size: 0.85rem; opacity: 0.65; text-align: center;">Mixing / Mastering / PV By AuNight</p>
+					</div>
+					<div>
+						<div class="embed-container"><iframe width="560" height="315" src="https://www.youtube.com/embed/1OHTj4RI8UI?si=h1GnoYTb58j5m6Cu" title="YouTube 影片播放器" data-title-zh="YouTube 影片播放器" data-title-en="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div>
+						<p class="lang-zh" style="margin: 0 0 10px; font-size: 0.9rem; opacity: 0.75; text-align: center;">PV By AuNight</p>
+						<p class="lang-en" style="margin: 0 0 10px; font-size: 0.85rem; opacity: 0.65; text-align: center;">PV By AuNight</p>
+					</div>
+					<div>
+						<div class="embed-container"><iframe width="560" height="315" src="https://www.youtube.com/embed/VbwTgM2yNi8" title="YouTube 影片播放器" data-title-zh="YouTube 影片播放器" data-title-en="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div>
+						<p class="lang-zh" style="margin: 0 0 10px; font-size: 0.9rem; opacity: 0.75; text-align: center;">PV By AuNight</p>
+						<p class="lang-en" style="margin: 0 0 10px; font-size: 0.85rem; opacity: 0.65; text-align: center;">PV By AuNight</p>
+					</div>
+					<div>
+						<div class="embed-container"><iframe width="560" height="315" src="https://www.youtube.com/embed/zRivlAWVyew" title="YouTube 影片播放器" data-title-zh="YouTube 影片播放器" data-title-en="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div>
+						<p class="lang-zh" style="margin: 0 0 10px; font-size: 0.9rem; opacity: 0.75; text-align: center;">遊戲介面/動畫重製 By AuNight</p>
+						<p class="lang-en" style="margin: 0 0 10px; font-size: 0.85rem; opacity: 0.65; text-align: center;">UI/Animation Redesign By AuNight</p>
+					</div>
+					<div>
+						<div class="embed-container"><iframe width="560" height="315" src="https://www.youtube.com/embed/EN92NBxXdM4" title="YouTube 影片播放器" data-title-zh="YouTube 影片播放器" data-title-en="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div>
+						<p class="lang-zh" style="margin: 0 0 10px; font-size: 0.9rem; opacity: 0.75; text-align: center;">設計/動畫 By AuNight</p>
+						<p class="lang-en" style="margin: 0 0 10px; font-size: 0.85rem; opacity: 0.65; text-align: center;">Design / Animation By AuNight</p>
+					</div>
+					<div>
+						<div class="embed-container"><iframe width="560" height="315" src="https://www.youtube.com/embed/FkBATPsbnQ8" title="YouTube 影片播放器" data-title-zh="YouTube 影片播放器" data-title-en="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div>
+						<p class="lang-zh" style="margin: 0 0 10px; font-size: 0.9rem; opacity: 0.75; text-align: center;">設計/動畫 By AuNight</p>
+						<p class="lang-en" style="margin: 0 0 10px; font-size: 0.85rem; opacity: 0.65; text-align: center;">Design / Animation By AuNight</p>
+					</div>
+					<div class="embed-container grid-span-2">
+						<div class="drive-embed"><iframe src="https://drive.google.com/embeddedfolderview?id=16i5KxeQE8XiSEJRZ_w2IvEv_9VOhLvRl#list" allowfullscreen></iframe></div>
+						<a href="https://drive.google.com/drive/folders/16i5KxeQE8XiSEJRZ_w2IvEv_9VOhLvRl" target="_blank" rel="noopener" class="action-btn mobile-only drive-open-btn">
+							<i class="fas fa-external-link-alt"></i><span class="lang-zh">在雲端開啟</span><span class="lang-en">Open in Drive</span>
+						</a>
+					</div>
+				</div>
+				<div class="price-content">
+					<p style="font-weight:bold; color:var(--text-highlight);text-align: center">NT$ 3,000 <span class="lang-zh">起</span><span class="lang-en">and up</span></p>
+				</div>
+			</div>
+
+		</div>
+
+		<!-- 內容 2 -->
+		<div class="grid-2" style="margin-bottom: 20px; text-align: center">
+			<div class="tab-content" style="text-align: center">
+				<div class="embed-container">
+					<div class="drive-embed">
+						<iframe
+								src="https://drive.google.com/embeddedfolderview?id=11SX7jtcT-ADZyRHIcvwHQoNjtICfdkAJ#list"
+						>
+						</iframe>
+					</div>
+					<a href="https://drive.google.com/drive/folders/11SX7jtcT-ADZyRHIcvwHQoNjtICfdkAJ" target="_blank" rel="noopener" class="action-btn mobile-only drive-open-btn">
+						<i class="fas fa-external-link-alt"></i><span class="lang-zh">在雲端開啟</span><span class="lang-en">Open in Drive</span>
+					</a>
+				</div>
+				<div class="price-content">
+					<p style="font-weight:bold; color:var(--text-highlight);text-align: center">NT$ 1,000 <span class="lang-zh">起</span><span class="lang-en">and up</span></p>
+				</div>
+			</div>
+		</div>
+		<!-- 內容 3（修正價格顯示） -->
+		<div class="grid-2" style="margin-bottom: 20px; text-align: center">
+			<div class="tab-content" style="text-align: center">
+				<div class="embed-container embed-stack">
+					<iframe
+							src="https://www.youtube.com/embed/ndZYV83wQc8?si=FlZ2vpJ0DlBW2Qw-"
+							allowfullscreen>
+					</iframe>
+					<div class="drive-embed">
+						<iframe
+								src="https://drive.google.com/embeddedfolderview?id=1Z_xqkzqAdArxA4mmvBjmfV6mavif5ZUd#list"
+						>
+						</iframe>
+					</div>
+					<a href="https://drive.google.com/drive/folders/1Z_xqkzqAdArxA4mmvBjmfV6mavif5ZUd" target="_blank" rel="noopener" class="action-btn mobile-only drive-open-btn">
+						<i class="fas fa-external-link-alt"></i><span class="lang-zh">在雲端開啟</span><span class="lang-en">Open in Drive</span>
+					</a>
+				</div>
+				<div class="price-content">
+					<p style="font-weight:bold; color:var(--text-highlight);text-align: center">NT$ 3,000 <span class="lang-zh">起</span><span class="lang-en">and up</span></p>
+				</div>
+				<a href="https://www.youtube.com/playlist?list=PLa-EIrdouSLRpk_O-bHtoLVgWulZXDEw4" target="_blank" class="action-btn">
+					<i class="fas fa-external-link-alt"></i><span class="lang-zh">點擊前往完整播放清單</span><span class="lang-en">Open full playlist</span>
+				</a>
+			</div>
+		</div>
+
+		<!-- 內容 4 -->
+		<div class="grid-2" style="margin-bottom: 20px; text-align: center">
+			<div class="tab-content" style="text-align: center">
+				<div class="embed-container">
+					<iframe
+							src="https://www.youtube.com/embed/56qTjNoylbs?si=1jXydk4VW04agpAh"
+							allowfullscreen>
+					</iframe>
+				</div>
+				<a href="https://www.youtube.com/watch?v=56qTjNoylbs&list=PLa-EIrdouSLSRO42zKdqy6AqfMvt6uN-5" target="_blank" class="action-btn">
+					<i class="fas fa-external-link-alt"></i><span class="lang-zh">點擊前往完整播放清單</span><span class="lang-en">Open full playlist</span>
+				</a>
+			</div>
+		</div>
+
+		<div style="text-align: center">
+			<p class="lang-zh" style="margin-bottom: 10px; font-size: 0.9rem; opacity: 0.7;">獲取詳細報價</p>
+			<p class="lang-en" style="margin-bottom: 10px; font-size: 0.8rem; opacity: 0.6;">Get a detailed quotation</p>
+			<a href="mailto:G950025@gmail.com" class="action-btn email-btn">
+				<i class="fas fa-envelope"></i> <span class="lang-zh">寫信聯絡我</span><span class="lang-en">Email me</span>
+			</a>
+		</div>
 	</section>
 
 	<section id="graphic" class="glass-card tab-container reveal">
@@ -2217,43 +2442,49 @@
 		</div>
 		<div class="tab-content">
 			<style>
-				.video-grid {
-					max-width: 1200px;
+				.video-grid.video-grid-vtuber {
+					max-width: 1400px;
 					margin: 0 auto;
 					display: grid;
-					grid-template-columns: repeat(3, 1fr);
-					gap: 20px;
-
+					grid-template-columns: repeat(3, minmax(0, 1fr));
+					gap: 12px;
+					align-items: center;
 				}
 
-				.video-grid a {
-					display: block;
+				@media (min-width: 901px) {
+					.video-grid.video-grid-vtuber {
+						max-width: 1560px;
+						gap: 14px;
+					}
 				}
 
-				.video-grid img {
+				@media (max-width: 900px) {
+					.video-grid.video-grid-vtuber {
+						grid-template-columns: repeat(2, minmax(0, 1fr));
+						gap: 12px;
+					}
+				}
+
+				@media (max-width: 520px) {
+					.video-grid.video-grid-vtuber {
+						grid-template-columns: 1fr;
+						gap: 12px;
+					}
+				}
+
+				.video-grid.video-grid-vtuber img {
 					width: 100%;
-					height: auto;          /* ⭐ 高度隨圖片 */
-					aspect-ratio: auto;    /* ⭐ 取消 16:9 */
-					object-fit: contain;   /* ⭐ 不裁切 */
+					height: auto;
+					object-fit: contain;
 					border-radius: 14px;
 					display: block;
 					cursor: pointer;
 					transition: transform .2s ease, box-shadow .2s ease;
 				}
 
-				.video-grid img:hover {
+				.video-grid.video-grid-vtuber img:hover {
 					transform: translateY(-4px);
 					box-shadow: 0 14px 30px rgba(0,0,0,.18);
-				}
-
-				/* 平板 */
-				@media (max-width: 900px) {
-					.video-grid { grid-template-columns: repeat(2, 1fr); }
-				}
-
-				/* 手機 */
-				@media (max-width: 520px) {
-					.video-grid { grid-template-columns: 1fr; }
 				}
 
 				/* --- Embed Mask + Fade (CSS only, safer for YouTube) --- */
@@ -2312,8 +2543,8 @@
 				}
 
 			</style>
-			<div class="video-grid">
-				<a href="https://x.com/WaraDoNDoNVTP/status/1832388336960598088?s=20" target="_blank" rel="noopener">
+			<div class="video-grid video-grid-vtuber">
+				<a href="https://x.com/WaraDoNDoNVTP/status/1832388336960598088?s=20" target="_blank" rel="noopener" class="vtuber-feature">
 					<img src="https://img.cake.me/cdn-cgi/image/fit=scale-down,format=auto,w=1920/https://images.cakeresume.com/D4REB/aunight/11818a8b-4b14-4465-86b2-43540b115d78.png" alt="">
 				</a>
 				<a href="https://x.com/WaraDoNDoNVTP/status/1786373241281688063?s=20" target="_blank" rel="noopener">
@@ -2322,7 +2553,7 @@
 				<a href="https://x.com/0715Munai/status/1769385265599234270?s=20" target="_blank" rel="noopener">
 					<img src="https://img.cake.me/cdn-cgi/image/fit=scale-down,format=auto,w=1920/https://images.cakeresume.com/D4REB/aunight/97a43d7a-4019-4da2-856c-1b1960c9e6a0.png" alt="">
 				</a>
-				<img src="https://img.cake.me/cdn-cgi/image/fit=scale-down,format=auto,w=1920/https://images.cakeresume.com/D4REB/aunight/2f4f8cb3-72af-4a21-9e33-2658edb5cd50.png" alt="">
+				<img class="vtuber-feature" src="https://img.cake.me/cdn-cgi/image/fit=scale-down,format=auto,w=1920/https://images.cakeresume.com/D4REB/aunight/2f4f8cb3-72af-4a21-9e33-2658edb5cd50.png" alt="">
 				<a href="https://x.com/WaraDoNDoNVTP/status/1817905676766818779?s=20" target="_blank" rel="noopener">
 					<img src="https://pbs.twimg.com/media/GTp6wXJbYAAYtaB?format=jpg&name=medium" alt="">
 				</a>
@@ -2333,7 +2564,7 @@
 		</div>
 		<div class="tab-content">
 			<div class="embed-container">
-				<style>		/* 手機：一欄 */
+				<style>
 				@media (max-width: 900px){
 					.embed-container > .iframely-embed > .iframely-responsive {
 						width: 100% !important;
@@ -2343,8 +2574,8 @@
 						position: relative !important;
 						height: 40vh !important;
 					}
-					}
-				}</style>
+				}
+				</style>
 				<div class="iframely-embed"><div class="iframely-responsive" style="padding-bottom: 78.2178%; padding-top: 120px;"><a href="https://www.behance.net/gallery/104118153/Graphic-Design-" data-iframely-url="https://iframely.net/SkYaVsOo?media=0&theme=dark"></a></div></div><script async src="https://iframely.net/embed.js"></script></div>
 		</div>
 		<div style="text-align: center; margin-top: 30px;">
@@ -2382,102 +2613,6 @@
 		</div>
 
 		<div style="text-align: center; margin-top: 30px;">
-			<p class="lang-zh" style="margin-bottom: 10px; font-size: 0.9rem; opacity: 0.7;">獲取詳細報價</p>
-			<p class="lang-en" style="margin-bottom: 10px; font-size: 0.8rem; opacity: 0.6;">Get a detailed quotation</p>
-			<a href="mailto:G950025@gmail.com" class="action-btn email-btn">
-				<i class="fas fa-envelope"></i> <span class="lang-zh">寫信聯絡我</span><span class="lang-en">Email me</span>
-			</a>
-		</div>
-	</section>
-
-	<section id="animation" class="glass-card tab-container reveal">
-		<h2 class="section-title"><span class="lang-zh">動畫設計</span><span class="lang-en">Animation</span></h2>
-
-		<div class="tabs">
-			<button class="tab-btn active"><span class="lang-zh">逐格動畫</span><span class="lang-en">Frame Animation</span></button>
-			<button class="tab-btn"><span class="lang-zh">範本修改</span><span class="lang-en">Template Edit</span></button>
-			<button class="tab-btn"><span class="lang-zh">片頭片尾</span><span class="lang-en">Intro & Outro</span></button>
-			<button class="tab-btn"><span class="lang-zh">其他作品</span><span class="lang-en">Other Works</span></button>
-		</div>
-		<!-- 內容 1 -->
-		<div class="grid-2" style="margin-bottom: 20px; text-align: center">
-			<div class="tab-content active">
-				<div class="grid-2" style="margin-bottom: 8px;">
-					<div>
-						<div class="embed-container"><iframe width="560" height="315" src="https://www.youtube.com/embed/ZF5uBD1L-2U" title="YouTube 影片播放器" data-title-zh="YouTube 影片播放器" data-title-en="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div>
-						<p class="lang-zh" style="margin: 10px 0 12px; font-size: 0.9rem; opacity: 0.75; text-align: center;">混音/母帶/PV By AuNight</p>
-						<p class="lang-en" style="margin: 6px 0 12px; font-size: 0.85rem; opacity: 0.65; text-align: center;">Mixing / Mastering / PV By AuNight</p>
-					</div>
-					<div>
-						<div class="embed-container"><iframe width="560" height="315" src="https://www.youtube.com/embed/1OHTj4RI8UI?si=h1GnoYTb58j5m6Cu" title="YouTube 影片播放器" data-title-zh="YouTube 影片播放器" data-title-en="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div>
-						<p class="lang-zh" style="margin: 0 0 10px; font-size: 0.9rem; opacity: 0.75; text-align: center;">PV By AuNight</p>
-						<p class="lang-en" style="margin: 0 0 10px; font-size: 0.85rem; opacity: 0.65; text-align: center;">PV By AuNight</p>
-					</div>
-					<div class="embed-container grid-span-2"><div class="drive-embed"><iframe src="https://drive.google.com/embeddedfolderview?id=16i5KxeQE8XiSEJRZ_w2IvEv_9VOhLvRl#list" allowfullscreen></iframe></div></div>
-				</div>
-				<div class="price-content">
-					<p style="font-weight:bold; color:var(--text-highlight);text-align: center">NT$ 3,000 <span class="lang-zh">起</span><span class="lang-en">and up</span></p>
-				</div>
-			</div>
-
-		</div>
-
-		<!-- 內容 2 -->
-		<div class="grid-2" style="margin-bottom: 20px; text-align: center">
-			<div class="tab-content" style="text-align: center">
-				<div class="embed-container">
-					<div class="drive-embed">
-						<iframe
-								src="https://drive.google.com/embeddedfolderview?id=11SX7jtcT-ADZyRHIcvwHQoNjtICfdkAJ#list"
-						>
-						</iframe>
-					</div>
-				</div>
-				<div class="price-content">
-					<p style="font-weight:bold; color:var(--text-highlight);text-align: center">NT$ 1,000 <span class="lang-zh">起</span><span class="lang-en">and up</span></p>
-				</div>
-			</div>
-		</div>
-		<!-- 內容 3（修正價格顯示） -->
-		<div class="grid-2" style="margin-bottom: 20px; text-align: center">
-			<div class="tab-content" style="text-align: center">
-				<div class="embed-container embed-stack">
-					<iframe
-							src="https://www.youtube.com/embed/ndZYV83wQc8?si=FlZ2vpJ0DlBW2Qw-"
-							allowfullscreen>
-					</iframe>
-					<div class="drive-embed">
-						<iframe
-								src="https://drive.google.com/embeddedfolderview?id=1Z_xqkzqAdArxA4mmvBjmfV6mavif5ZUd#list"
-						>
-						</iframe>
-					</div>
-				</div>
-				<div class="price-content">
-					<p style="font-weight:bold; color:var(--text-highlight);text-align: center">NT$ 3,000 <span class="lang-zh">起</span><span class="lang-en">and up</span></p>
-				</div>
-				<a href="https://www.youtube.com/watch?v=ndZYV83wQc8&list=PLa-EIrdouSLRpk_O-bHtoLVgWulZXDEw4" target="_blank" class="action-btn">
-					<i class="fas fa-external-link-alt"></i><span class="lang-zh">點擊前往完整播放清單</span><span class="lang-en">Open full playlist</span>
-				</a>
-			</div>
-		</div>
-
-		<!-- 內容 4 -->
-		<div class="grid-2" style="margin-bottom: 20px; text-align: center">
-			<div class="tab-content" style="text-align: center">
-				<div class="embed-container">
-					<iframe
-							src="https://www.youtube.com/embed/56qTjNoylbs?si=1jXydk4VW04agpAh"
-							allowfullscreen>
-					</iframe>
-				</div>
-				<a href="https://www.youtube.com/watch?v=56qTjNoylbs&list=PLa-EIrdouSLSRO42zKdqy6AqfMvt6uN-5" target="_blank" class="action-btn">
-					<i class="fas fa-external-link-alt"></i><span class="lang-zh">點擊前往完整播放清單</span><span class="lang-en">Open full playlist</span>
-				</a>
-			</div>
-		</div>
-
-		<div style="text-align: center">
 			<p class="lang-zh" style="margin-bottom: 10px; font-size: 0.9rem; opacity: 0.7;">獲取詳細報價</p>
 			<p class="lang-en" style="margin-bottom: 10px; font-size: 0.8rem; opacity: 0.6;">Get a detailed quotation</p>
 			<a href="mailto:G950025@gmail.com" class="action-btn email-btn">
@@ -2556,14 +2691,12 @@
 					<div class="tracking-item" style="width:100%;">
 						<div class="embed-container">
 							<iframe height="315"
-									src="https://www.youtube.com/embed/0Sq3JQ0AI3o?list=PLa-EIrdouSLS1fEpcRBxXrGSh99GBxvtg"
+									src="https://www.youtube.com/embed/0Sq3JQ0AI3o?start=37&list=PLa-EIrdouSLS1fEpcRBxXrGSh99GBxvtg"
 									title="YouTube 影片播放器" data-title-zh="YouTube 影片播放器" data-title-en="YouTube video player"
 									allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
 									referrerpolicy="strict-origin-when-cross-origin"
 									allowfullscreen></iframe>
 						</div>
-						<p class="lang-zh" style="margin-bottom: 10px; font-size: 0.9rem; opacity: 0.7;">從 37 秒開始到 40 秒</p>
-						<p class="lang-en" style="margin-bottom: 10px; font-size: 0.8rem; opacity: 0.6;">Start from 37s to 40s</p>
 						<p class="lang-zh" style="margin: 0 0 10px; font-size: 0.9rem; opacity: 0.75; text-align: center;">使用 Fusion 製作</p>
 						<p class="lang-en" style="margin: 0 0 10px; font-size: 0.85rem; opacity: 0.65; text-align: center;">Made with Fusion</p>
 					</div>
@@ -2616,7 +2749,7 @@
 
 <footer>
 	<div class="footer-inner">
-		<p class="footer-lead"><span class="lang-zh">歡迎透過右方平台追蹤我並與我聯絡</span><span class="lang-en">Follow and get in touch via the platforms</span></p>
+		<p class="footer-lead"><span class="lang-zh">歡迎透過社群平台追蹤我並與我聯絡</span><span class="lang-en">Follow and get in touch via the platforms</span></p>
 		<div class="social-icons">
 			<a href="mailto:g950025@gmail.com" title="信箱" data-title-zh="信箱" data-title-en="Email"><i class="fas fa-envelope"></i></a>
 			<a href="https://line.me/ti/p/an_aidancheng" target="_blank" title="LINE" data-title-zh="LINE" data-title-en="LINE"><i class="fab fa-line"></i></a>
