@@ -897,6 +897,17 @@
 			display: block;
 		}
 
+		.drive-floor {
+			height: clamp(28px, 7vh, 54px);
+			margin: 10px 12px 0;
+			border-radius: 20px;
+			background: var(--glass-surface);
+			border: 1px solid var(--glass-border-strong);
+			backdrop-filter: blur(var(--glass-blur)) saturate(180%) contrast(1.05);
+			-webkit-backdrop-filter: blur(var(--glass-blur)) saturate(180%) contrast(1.05);
+			box-shadow: var(--hover-glow-shadow);
+		}
+
 		.mobile-only {
 			display: none;
 		}
@@ -1904,6 +1915,7 @@
 					<div class="embed-container" style="margin-bottom: 0;">
 						<div class="drive-embed"><iframe src="https://drive.google.com/embeddedfolderview?id=1ruumdg8SWO1CXAJDYTMePnAa3PP0n55w#list" allowfullscreen></iframe></div>
 					</div>
+					<div class="drive-floor" aria-hidden="true"></div>
 					<a href="https://drive.google.com/drive/folders/1ruumdg8SWO1CXAJDYTMePnAa3PP0n55w" target="_blank" rel="noopener" class="action-btn drive-open-btn">
 						<i class="fab fa-google-drive"></i><span class="lang-zh">在雲端開啟</span><span class="lang-en">Open in Drive</span>
 					</a>
@@ -1926,6 +1938,7 @@
 					<div class="embed-container" style="margin-bottom: 0;">
 						<div class="drive-embed" style="height: clamp(220px, 40vh, 360px);"><iframe src="https://drive.google.com/embeddedfolderview?id=1IF2ICFebOFNN1c2lOCa1WC_5QeZLDpEq#list" allowfullscreen></iframe></div>
 					</div>
+					<div class="drive-floor" aria-hidden="true"></div>
 					<a href="https://drive.google.com/drive/folders/1IF2ICFebOFNN1c2lOCa1WC_5QeZLDpEq" target="_blank" rel="noopener" class="action-btn drive-open-btn">
 						<i class="fab fa-google-drive"></i><span class="lang-zh">在雲端開啟</span><span class="lang-en">Open in Drive</span>
 					</a>
@@ -1939,6 +1952,7 @@
 				<div class="embed-container" style="margin-bottom: 0;">
 					<div class="drive-embed"><iframe src="https://drive.google.com/embeddedfolderview?id=1DUDpAtf6UcFKufMk5fX4ENo6XiMlcPDE#list" allowfullscreen></iframe></div>
 				</div>
+				<div class="drive-floor" aria-hidden="true"></div>
 				<a href="https://drive.google.com/drive/folders/1DUDpAtf6UcFKufMk5fX4ENo6XiMlcPDE" target="_blank" rel="noopener" class="action-btn drive-open-btn">
 					<i class="fab fa-google-drive"></i><span class="lang-zh">在雲端開啟</span><span class="lang-en">Open in Drive</span>
 				</a>
@@ -2005,6 +2019,10 @@
 							max-width: calc(50% - 10px);
 							min-width: 0;               /* ✅ Flex RWD 必備，避免撐爆 */
 							border-radius: 32px!important;
+						}
+						.embed-container.embed-wide > .iframely-embed{
+							flex: 1 1 100%;
+							max-width: 100%;
 						}
 
 						/* ✅ Iframely 外框：不要固定 420px，改成吃滿欄寬 */
@@ -2167,7 +2185,7 @@
 				<p class="lang-zh" style="margin: 0 0 10px; font-size: 0.9rem; opacity: 0.75; text-align: center;">遊戲介面/動畫重製 By AuNight</p>
 				<p class="lang-en" style="margin: 0 0 10px; font-size: 0.85rem; opacity: 0.65; text-align: center;">UI/Animation Redesign By AuNight</p>
 			</div>
-			<div class="embed-container">
+			<div class="embed-container embed-wide">
 				<div class="iframely-embed">
 					<div class="iframely-responsive" style="height: clamp(320px, 60vh, 520px); padding: 0;">
 						<iframe src="https://www.behance.net/embed/project/155784499?ilo0=1" loading="lazy" allowfullscreen></iframe>
@@ -2234,8 +2252,9 @@
 					</div>
 					<div class="grid-span-2" style="margin-bottom: 8px; display: flex; flex-direction: column; align-items: center;">
 						<div class="embed-container" style="margin-bottom: 0;">
-							<div class="drive-embed"><iframe src="https://drive.google.com/embeddedfolderview?id=16i5KxeQE8XiSEJRZ_w2IvEv_9VOhLvRl#list" allowfullscreen></iframe></div>
+							<div class="drive-embed" style="height: clamp(260px, 60vh, 520px);"><iframe src="https://drive.google.com/embeddedfolderview?id=16i5KxeQE8XiSEJRZ_w2IvEv_9VOhLvRl#list" allowfullscreen></iframe></div>
 						</div>
+						<div class="drive-floor" aria-hidden="true"></div>
 						<a href="https://drive.google.com/drive/folders/16i5KxeQE8XiSEJRZ_w2IvEv_9VOhLvRl" target="_blank" rel="noopener" class="action-btn drive-open-btn">
 							<i class="fab fa-google-drive"></i><span class="lang-zh">在雲端開啟</span><span class="lang-en">Open in Drive</span>
 						</a>
@@ -2253,13 +2272,14 @@
 			<div class="tab-content" style="text-align: center">
 				<div style="margin-bottom: 8px; display: flex; flex-direction: column; align-items: center;">
 					<div class="embed-container" style="margin-bottom: 0;">
-						<div class="drive-embed">
+						<div class="drive-embed" style="height: clamp(240px, 36vh, 420px);">
 							<iframe
 									src="https://drive.google.com/embeddedfolderview?id=11SX7jtcT-ADZyRHIcvwHQoNjtICfdkAJ#list"
 							>
 							</iframe>
 						</div>
 					</div>
+					<div class="drive-floor" aria-hidden="true"></div>
 					<a href="https://drive.google.com/drive/folders/11SX7jtcT-ADZyRHIcvwHQoNjtICfdkAJ" target="_blank" rel="noopener" class="action-btn drive-open-btn">
 						<i class="fab fa-google-drive"></i><span class="lang-zh">在雲端開啟</span><span class="lang-en">Open in Drive</span>
 					</a>
@@ -2279,24 +2299,27 @@
 								allowfullscreen>
 						</iframe>
 					</div>
-					<div class="embed-container" style="margin-bottom: 0;">
-						<div class="drive-embed">
+				</div>
+				<div class="price-content">
+					<p style="font-weight:bold; color:var(--text-highlight);text-align: center">NT$ 3,000 <span class="lang-zh">起</span><span class="lang-en">and up</span></p>
+				</div>
+				<div style="margin-top: 18px; display: flex; flex-direction: column; align-items: center;">
+					<a href="https://www.youtube.com/playlist?list=PLa-EIrdouSLRpk_O-bHtoLVgWulZXDEw4" target="_blank" class="action-btn" style="margin: 0 0 18px; position: relative; top: -20px;">
+						<i class="fas fa-external-link-alt"></i><span class="lang-zh">點擊前往完整播放清單</span><span class="lang-en">Open full playlist</span>
+					</a>
+					<div class="embed-container" style="margin-top: 36px; margin-bottom: 0;">
+						<div class="drive-embed" style="height: clamp(260px, 60vh, 520px);">
 							<iframe
 									src="https://drive.google.com/embeddedfolderview?id=1Z_xqkzqAdArxA4mmvBjmfV6mavif5ZUd#list"
 							>
 							</iframe>
 						</div>
 					</div>
-					<a href="https://drive.google.com/drive/folders/1Z_xqkzqAdArxA4mmvBjmfV6mavif5ZUd" target="_blank" rel="noopener" class="action-btn drive-open-btn">
+					<div class="drive-floor" aria-hidden="true"></div>
+					<a href="https://drive.google.com/drive/folders/1Z_xqkzqAdArxA4mmvBjmfV6mavif5ZUd" target="_blank" rel="noopener" class="action-btn drive-open-btn" style="margin-top: 10px;">
 						<i class="fab fa-google-drive"></i><span class="lang-zh">在雲端開啟</span><span class="lang-en">Open in Drive</span>
 					</a>
 				</div>
-				<div class="price-content">
-					<p style="font-weight:bold; color:var(--text-highlight);text-align: center">NT$ 3,000 <span class="lang-zh">起</span><span class="lang-en">and up</span></p>
-				</div>
-				<a href="https://www.youtube.com/playlist?list=PLa-EIrdouSLRpk_O-bHtoLVgWulZXDEw4" target="_blank" class="action-btn">
-					<i class="fas fa-external-link-alt"></i><span class="lang-zh">點擊前往完整播放清單</span><span class="lang-en">Open full playlist</span>
-				</a>
 			</div>
 		</div>
 
@@ -2533,7 +2556,7 @@
 			</div>
 		</div>
 		<div class="tab-content">
-			<div class="embed-container">
+			<div class="embed-container embed-wide">
 				<style>
 				@media (max-width: 900px){
 					.embed-container > .iframely-embed > .iframely-responsive {
