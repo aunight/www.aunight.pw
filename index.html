@@ -50,6 +50,8 @@
 			padding-bottom: 00px;
 			min-height: 100vh;
 			position: relative;
+			transition: opacity 200ms ease;
+			will-change: opacity;
 		}
 		hr {
 			display: none;
@@ -84,10 +86,10 @@
 			background: var(--glass-surface);
 			backdrop-filter: blur(var(--glass-blur)) saturate(180%) contrast(1.05);
 			-webkit-backdrop-filter: blur(var(--glass-blur)) saturate(180%) contrast(1.05);
-			padding: 10px 25px;
+			padding: 9px 18px;
 			border-radius: 50px;
 			display: flex;
-			gap: 12px;
+			gap: 10px;
 			box-shadow:
 				0 12px 40px rgba(0,0,0,0.14),
 				inset 0 1px 0 rgba(255,255,255,0.65),
@@ -97,9 +99,10 @@
 			max-width: 95%;
 			border: 1px solid var(--glass-border-strong);
 			transform: translateX(-50%) translateZ(0);
-			transition: all 0.3s ease;
+			transition: opacity 0.3s ease, transform 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
 			overflow: hidden;
 			isolation: isolate;
+			contain: layout paint;
 			opacity: 0;
 			animation: navFadeIn 0.9s ease-out forwards;
 			animation-delay: 0.05s;
@@ -109,17 +112,16 @@
 			text-decoration: none;
 			color: var(--text-main);
 			font-size: 0.95rem;
-			transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
-			padding: 8px 15px;
+			transition: width 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), background-color 0.35s ease, color 0.35s ease, transform 0.35s ease, box-shadow 0.35s ease;
+			padding: 6px 10px;
 			border-radius: 50px;
 			display: flex;
 			align-items: center;
 			gap: 0;
-			width: 42px; /* 更加緊湊的初始寬度 */
+			width: 38px;
 			justify-content: center;
 			overflow: hidden;
 			white-space: nowrap;
-			will-change: width, background-color, transform;
 		}
 
 		nav a > span {
@@ -154,7 +156,7 @@
 		nav a:nth-child(9) i { animation-delay: 0.54s; }
 
 		nav a:hover, nav a.active {
-			width: 150px;
+			width: 148px;
 			gap: 8px;
 			color: white;
 			background: var(--text-highlight);
@@ -165,22 +167,36 @@
 
 		nav a:hover > span, nav a.active > span {
 			opacity: 1;
-			max-width: 100px;
+			max-width: 120px;
+		}
+
+		a {
+			transition: transform 0.25s ease;
+			will-change: transform;
+		}
+		a:hover {
+			transform: translateY(-3px);
+		}
+
+		@media (hover: none) {
+			a:active {
+				transform: translateY(-3px);
+			}
 		}
 
 		nav a[href="#color"]:hover,
 		nav a[href="#color"].active {
-			width: 245px;
+			width: 128px;
 		}
 
 		nav a[href="#color"]:hover > span,
 		nav a[href="#color"].active > span {
-			max-width: 200px;
+			max-width: 100px;
 		}
 
 		nav a[href="#animation"]:hover,
 		nav a[href="#animation"].active {
-			width: 180px;
+			width: 156px;
 		}
 
 		nav a[href="#animation"]:hover > span,
@@ -558,9 +574,6 @@
 
 		.hero-cta .action-btn {
 			margin-top: 0;
-			padding-left: 34px;
-			padding-right: 34px;
-			min-width: clamp(200px, 22vw, 260px);
 			justify-content: center;
 		}
 
@@ -577,7 +590,6 @@
 
 		.hero-cta-outside .action-btn {
 			opacity: 1;
-			transform: none;
 			animation: fadeIn 1.2s ease-out both;
 		}
 
@@ -590,7 +602,6 @@
 		}
 
 		.hero-cta-outside .action-btn:hover {
-			transform: translateY(-6px);
 			box-shadow:
 				0 12px 34px rgba(0,0,0,0.12),
 				0 18px 46px rgba(232, 93, 117, 0.24);
@@ -599,7 +610,6 @@
 		@media (prefers-reduced-motion: reduce) {
 			.hero-cta-outside .action-btn {
 				opacity: 1;
-				transform: none;
 				animation: none;
 			}
 		}
@@ -874,6 +884,107 @@
 		.embed-container > iframe[src*="youtube-nocookie.com/embed"] {
 			aspect-ratio: 16 / 9;
 			height: auto;
+			background: #000;
+			outline: none;
+			border-radius: 12px;
+			-webkit-transform: translateZ(0);
+			transform: translateZ(0);
+			-webkit-backface-visibility: hidden;
+			backface-visibility: hidden;
+		}
+
+		.embed-container:is(.yt-loading, .yt-loaded)::after {
+			content: "";
+			position: absolute;
+			inset: 0;
+			background: rgba(0, 0, 0, 0.52);
+			border-radius: 12px;
+			z-index: 2;
+			pointer-events: none;
+			opacity: 1;
+			transition: opacity 320ms ease;
+			will-change: opacity;
+		}
+
+		.embed-container:is(.yt-loading, .yt-loaded)::before {
+			content: attr(data-yt-loading-text);
+			position: absolute;
+			left: 50%;
+			top: 50%;
+			transform: translate(-50%, -50%);
+			padding: 10px 14px;
+			border-radius: 999px;
+			background: rgba(0, 0, 0, 0.38);
+			backdrop-filter: blur(10px) saturate(140%);
+			-webkit-backdrop-filter: blur(10px) saturate(140%);
+			border: 1px solid rgba(255, 255, 255, 0.22);
+			color: rgba(255, 255, 255, 0.92);
+			font-size: 0.95rem;
+			letter-spacing: 0.02em;
+			box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+			z-index: 3;
+			pointer-events: none;
+			opacity: 1;
+			transition: opacity 320ms ease;
+			will-change: opacity, transform;
+		}
+
+		.embed-container.yt-loading::before {
+			animation: ytLoadingPulse 1.15s ease-in-out infinite;
+		}
+
+		.embed-container.yt-loaded::before,
+		.embed-container.yt-loaded::after {
+			opacity: 0;
+		}
+
+		@keyframes ytLoadingPulse {
+			0%, 100% { opacity: 0.85; transform: translate(-50%, -50%) scale(0.985); }
+			50% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+		}
+
+		.embed-container.behance-loading::after,
+		.embed-container.behance-loaded::after {
+			content: "";
+			position: absolute;
+			inset: 0;
+			background: rgba(0, 0, 0, 0.18);
+			border-radius: inherit;
+			z-index: 2;
+			pointer-events: none;
+			opacity: 1;
+			transition: opacity 420ms ease;
+			will-change: opacity;
+		}
+
+		.embed-container.behance-loaded::after {
+			opacity: 0;
+		}
+
+		.embed-container.behance-loading iframe[src*="behance.net/embed/project/"] {
+			opacity: 0;
+			transform: translateY(10px);
+			transition: opacity 420ms ease, transform 420ms ease;
+			will-change: opacity, transform;
+		}
+
+		.embed-container.behance-loaded iframe[src*="behance.net/embed/project/"] {
+			opacity: 1;
+			transform: translateY(0);
+		}
+
+		.figma-embed.figma-loading iframe[src*="embed.figma.com"],
+		.embed-container.figma-loading iframe[src*="embed.figma.com"] {
+			opacity: 0;
+			transform: translateY(10px);
+			transition: opacity 420ms cubic-bezier(0.22, 1, 0.36, 1), transform 420ms cubic-bezier(0.22, 1, 0.36, 1);
+			will-change: opacity, transform;
+		}
+
+		.figma-embed.figma-loaded iframe[src*="embed.figma.com"],
+		.embed-container.figma-loaded iframe[src*="embed.figma.com"] {
+			opacity: 1;
+			transform: translateY(0);
 		}
 
 		.drive-embed {
@@ -999,14 +1110,13 @@
 		/* --- Scroll Reveal 動畫 --- */
 		.reveal {
 			opacity: 0;
-			transform: translateY(20px) scale(0.98);
-			transition: opacity 1s cubic-bezier(0.22, 1, 0.36, 1),
-			transform 1s cubic-bezier(0.22, 1, 0.36, 1);
-			will-change: transform, opacity;
+			transform: translate3d(0, 18px, 0);
+			transition: opacity 700ms cubic-bezier(0.22, 1, 0.36, 1),
+			transform 700ms cubic-bezier(0.22, 1, 0.36, 1);
 		}
 		.reveal.active {
 			opacity: 1;
-			transform: translateY(0) scale(1);
+			transform: translate3d(0, 0, 0);
 		}
 
 		/* --- 按鈕樣式 --- */
@@ -1014,7 +1124,7 @@
 			display: inline-flex;
 			align-items: center;
 			gap: 10px;
-			padding: 10px 24px;
+			padding: 9px 26px;
 			background: linear-gradient(45deg, #e85d75, #ff9a8b);
 			color: white;
 			text-decoration: none;
@@ -1024,33 +1134,47 @@
 			transition: all 0.3s ease;
 			border: none;
 			cursor: pointer;
-			font-size: 0.95rem;
+			font-size: 0.92rem;
 			margin-top: 10px;
 		}
 		.action-btn:hover {
-			transform: translateY(-3px);
 			box-shadow: 0 8px 25px rgba(232, 93, 117, 0.6);
 		}
 
 		.container, footer {
 			transition: opacity 180ms ease, transform 180ms ease;
-			will-change: opacity, transform;
 		}
 
-		html.lang-switching body {
-			pointer-events: none;
+		
+
+		html.is-initializing .container,
+		html.is-initializing footer,
+		html.is-initializing .lang-toggle-floating,
+		html.is-initializing .scroll-top-btn {
+			transition: none;
+			backdrop-filter: none;
+			-webkit-backdrop-filter: none;
 		}
 
-		html.lang-switching .container,
-		html.lang-switching footer {
-			opacity: 0;
-			transform: translateY(2px);
+		html.is-scrolling .container,
+		html.is-scrolling footer {
+			transition: none;
 		}
-
-		html.lang-switching nav,
-		html.lang-switching .lang-toggle-floating,
-		html.lang-switching .scroll-top-btn {
-			opacity: 0;
+		html.is-scrolling nav,
+		html.is-scrolling .lang-toggle-floating {
+			transition: none;
+		}
+		html.is-smooth-scrolling .container,
+		html.is-smooth-scrolling footer {
+			transition: none;
+		}
+		html.is-smooth-scrolling .lang-toggle-floating {
+			backdrop-filter: none;
+			-webkit-backdrop-filter: none;
+			transition: none;
+		}
+		html.is-smooth-scrolling .reveal {
+			transition: none;
 		}
 
 		@media (prefers-reduced-motion: reduce) {
@@ -1062,7 +1186,7 @@
 				animation: none;
 				opacity: 1;
 			}
-			.lang-toggle-floating, .scroll-top-btn {
+			.lang-toggle-floating {
 				transition: none;
 			}
 			nav a i {
@@ -1087,11 +1211,31 @@
 			opacity: 1 !important;
 			font-family: inherit !important;
 		}
+		
+		.lang-zh, .lang-en {
+			transition: opacity 180ms ease, transform 180ms ease;
+		}
+		html.lang-switching .lang-zh,
+		html.lang-switching .lang-en {
+			transition: none;
+		}
+		html.lang-switching[data-next-lang="en"] .lang-en {}
+		html.lang-switching[data-next-lang="zh"] .lang-zh {}
 
 		.lang-toggle-btn {
 			background: transparent;
 			border: 0;
 			font: inherit;
+		}
+		@keyframes langPageCrossFade { from { opacity: 1; } to { opacity: 0; } }
+		html.lang-switching body::after {
+			content: "";
+			position: fixed;
+			inset: 0;
+			background: white;
+			z-index: 2000;
+			pointer-events: none;
+			animation: langPageCrossFade 1500ms cubic-bezier(0.22, 1, 0.36, 1) both;
 		}
 
 		.lang-toggle-floating {
@@ -1160,11 +1304,12 @@
 			color: #333;
 			border: 1px solid rgba(0,0,0,0.1);
 			box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+			transition: background-color 0.35s ease, color 0.35s ease, transform 0.35s ease, box-shadow 0.35s ease;
+			will-change: transform;
 		}
 		.email-btn:hover {
-			background: white;
-			color: var(--text-highlight);
-			transform: translateY(-5px);
+			background: var(--text-highlight);
+			color: white;
 			box-shadow: var(--hover-glow-shadow);
 		}
 
@@ -1192,9 +1337,20 @@
 			opacity: 0;
 			transform: translateY(10px);
 			pointer-events: none;
-			transition: all 0.3s ease;
+			transition: opacity 0.3s ease, transform 0.3s ease, background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
 			overflow: hidden;
 			isolation: isolate;
+		}
+
+		html.is-scrolling .lang-toggle-floating,
+		html.is-scrolling .scroll-top-btn {
+			backdrop-filter: none;
+			-webkit-backdrop-filter: none;
+		}
+
+		.glass-card {
+			content-visibility: auto;
+			contain-intrinsic-size: 600px 320px;
 		}
 
 		.scroll-top-btn i {
@@ -1549,7 +1705,7 @@
 		@media (min-width: 769px) {
 			.hide-on-computer img {display: none;}
 			.hero-img { display: block }
-			.hero-img img { margin-bottom: 0px; width: clamp(300px, 42vw, 560px); height: auto; left: auto; right: clamp(-160px, calc(-160px + (1200px - 100vw) * 0.25), -60px) !important; bottom: -35px !important; margin-left: 0 !important; }
+			.hero-img img { margin-bottom: 0px; width: clamp(300px, 38vw, 520px); height: auto; left: auto; right: clamp(-140px, calc(-140px + (1200px - 100vw) * 0.25), -50px) !important; bottom: -20px !important; margin-left: 0 !important; }
 			.tabs {
 				flex-wrap: nowrap;
 				overflow-x: auto;
@@ -1557,7 +1713,7 @@
 			}
 		}
 		@media (min-width: 1200px) {
-			.hero-img img { right: -160px !important; }
+			.hero-img img { right: -140px !important; }
 		}
 	</style>
 </head>
@@ -1569,10 +1725,10 @@
 	<a href="#video"><i class="fas fa-video"></i><span><span class="lang-zh">影片剪輯</span><span class="lang-en">Video</span></span></a>
 	<a href="#music"><i class="fas fa-music"></i><span><span class="lang-zh">音樂製作</span><span class="lang-en">Music</span></span></a>
 	<a href="#uiux"><i class="fas fa-desktop"></i><span><span class="lang-zh">介面設計</span><span class="lang-en">UI/UX</span></span></a>
-	<a href="#animation"><i class="fas fa-film"></i><span><span class="lang-zh">動畫</span><span class="lang-en">Animation</span></span></a>
+	<a href="#animation"><i class="fas fa-film"></i><span><span class="lang-zh">動畫設計</span><span class="lang-en">Animation</span></span></a>
 	<a href="#graphic"><i class="fas fa-palette"></i><span><span class="lang-zh">平面設計</span><span class="lang-en">Graphic</span></span></a>
 	<a href="#web"><i class="fas fa-code"></i><span><span class="lang-zh">網頁前端</span><span class="lang-en">Web</span></span></a>
-	<a href="#color"><i class="fas fa-photo-film"></i><span><span class="lang-zh">影像後製</span><span class="lang-en">Post-Production</span></span></a>
+	<a href="#color"><i class="fas fa-photo-film"></i><span><span class="lang-zh">影像後製</span><span class="lang-en">VFX</span></span></a>
 </nav>
 
 <button id="langToggle" class="lang-toggle-btn lang-toggle-floating" type="button" aria-label="切換語言">
@@ -1657,11 +1813,7 @@
 		</div>
 
 	</section>
-	<div class="hero-cta hero-cta-outside">
-		<a href="mailto:G950025@gmail.com" class="action-btn email-btn">
-			<i class="fas fa-envelope"></i><span class="lang-zh">寫信聯絡我</span><span class="lang-en">Email me</span>
-		</a>
-	</div>
+	
 
 	<section id="about" class="glass-card reveal">
 		<h2 class="section-title"><span class="lang-zh">關於我</span><span class="lang-en">About Me</span></h2>
@@ -1738,7 +1890,7 @@
 
 		<div class="tab-content active">
 			<div class="embed-container">
-				<iframe width="560" height="315" src="https://www.youtube.com/embed/4nF57zCu3bo?si=Iewf2fuTSGq-sNk3" title="YouTube 影片播放器" data-title-zh="YouTube 影片播放器" data-title-en="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div>
+				<iframe width="560" height="315" src="https://www.youtube.com/embed/bomnw91gavc?list=PLa-EIrdouSLTMi7kIjihCblsjm8VbDK21&index=1" data-watch-url="https://youtu.be/bomnw91gavc?list=PLa-EIrdouSLTMi7kIjihCblsjm8VbDK21&index=1" title="YouTube 影片播放器" data-title-zh="YouTube 影片播放器" data-title-en="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div>
 			<div style="text-align: center; margin-top: 30px;">
 			<a href="http://vlog.aunight.pw"
 			   target="_blank" class="action-btn">
@@ -1746,7 +1898,7 @@
 			</a>
 			</div>
 		</div>
-		<div class="tab-content"><div class="embed-container"><iframe width="560" height="315" src="https://www.youtube.com/embed/tVqLHKkiXZw?si=RA37Z64RKUUwxLx_" title="YouTube 影片播放器" data-title-zh="YouTube 影片播放器" data-title-en="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div>
+		<div class="tab-content"><div class="embed-container"><iframe width="560" height="315" src="https://www.youtube.com/embed/tVqLHKkiXZw?list=PLa-EIrdouSLQhzxHGHCt4iTEywTq8Nvk7&index=1&si=okNafsNfh_uhfK1h" data-watch-url="https://youtu.be/tVqLHKkiXZw?si=okNafsNfh_uhfK1h&list=PLa-EIrdouSLQhzxHGHCt4iTEywTq8Nvk7&index=1" title="YouTube 影片播放器" data-title-zh="YouTube 影片播放器" data-title-en="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div>
 			<div style="text-align: center; margin-top: 30px;">
 			<a href="http://game.aunight.pw"
 			   target="_blank" class="action-btn">
@@ -1754,7 +1906,7 @@
 			</a>
 		</div>
 		</div>
-		<div class="tab-content"><div class="embed-container"><iframe width="560" height="315" src="https://www.youtube.com/embed/mmHnj6MvMv4?si=VP1AHJtZhVP7KqzQ" title="YouTube 影片播放器" data-title-zh="YouTube 影片播放器" data-title-en="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div>
+		<div class="tab-content"><div class="embed-container"><iframe width="560" height="315" src="https://www.youtube.com/embed/RKPMLQsrwE8?list=PLa-EIrdouSLTetF1tQgIb14pPioOGtXiM&index=39" title="YouTube 影片播放器" data-title-zh="YouTube 影片播放器" data-title-en="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div>
 			<div style="text-align: center; margin-top: 30px;">
 			<a href="http://shorts.aunight.pw"
 			   target="_blank" class="action-btn">
@@ -1762,7 +1914,7 @@
 			</a>
 		</div>
 		</div>
-		<div class="tab-content"><div class="embed-container"><iframe width="560" height="315" src="https://www.youtube.com/embed/Ah3bcnrSfjg?si=NLrIrfUe8ax-2P9-" title="YouTube 影片播放器" data-title-zh="YouTube 影片播放器" data-title-en="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div>
+		<div class="tab-content"><div class="embed-container"><iframe width="560" height="315" src="https://www.youtube.com/embed/pGAeaPSVkPE?list=PLa-EIrdouSLR_u-lakH9peu19hjeXVzJn&index=1&si=gDkBrf4GzHjtNGkx" data-watch-url="https://youtu.be/pGAeaPSVkPE?list=PLa-EIrdouSLR_u-lakH9peu19hjeXVzJn&index=1&si=gDkBrf4GzHjtNGkx" title="YouTube 影片播放器" data-title-zh="YouTube 影片播放器" data-title-en="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div>
 			<div style="text-align: center; margin-top: 30px;">
 			<a href="http://vtuber.aunight.pw"
 			   target="_blank" class="action-btn">
@@ -1770,7 +1922,7 @@
 			</a>
 		</div>
 		</div>
-		<div class="tab-content"><div class="embed-container"><iframe width="560" height="315" src="https://www.youtube.com/embed/4nF57zCu3bo?si=CfqrhNb_Y8WHkmfT" title="YouTube 影片播放器" data-title-zh="YouTube 影片播放器" data-title-en="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div>
+		<div class="tab-content"><div class="embed-container"><iframe width="560" height="315" src="https://www.youtube.com/embed/snPpsNRvNis?list=PLa-EIrdouSLQzEUH25xEZtj1l5knXa_Wy&index=1&si=AfXRadk3Jvgu0dI3" data-watch-url="https://youtu.be/snPpsNRvNis?list=PLa-EIrdouSLQzEUH25xEZtj1l5knXa_Wy&index=1&si=AfXRadk3Jvgu0dI3" title="YouTube 影片播放器" data-title-zh="YouTube 影片播放器" data-title-en="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div>
 			<div style="text-align: center; margin-top: 30px;">
 			<a href="http://kn.aunight.pw"
 			   target="_blank" class="action-btn">
@@ -1778,7 +1930,7 @@
 			</a>
 		</div>
 		</div>
-		<div class="tab-content"><div class="embed-container"><iframe width="560" height="315" src="https://www.youtube.com/embed/ovgiz_l9Wzw?si=HgTuHxZeeDfWC0Wu" title="YouTube 影片播放器" data-title-zh="YouTube 影片播放器" data-title-en="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div>
+		<div class="tab-content"><div class="embed-container"><iframe width="560" height="315" src="https://www.youtube.com/embed/ovgiz_l9Wzw?list=PLa-EIrdouSLRDVDsjENeuUgsENzTinT95&index=1" title="YouTube 影片播放器" data-title-zh="YouTube 影片播放器" data-title-en="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div>
 			<div style="text-align: center; margin-top: 30px;">
 			<a href="http://interview.aunight.pw"
 			   target="_blank" class="action-btn">
@@ -1786,7 +1938,7 @@
 			</a>
 		</div>
 		</div>
-		<div class="tab-content"><div class="embed-container"><iframe width="560" height="315" src="https://www.youtube.com/embed/-TcO0M6mSBw?si=8hicYF13yyMc2xLV" title="YouTube 影片播放器" data-title-zh="YouTube 影片播放器" data-title-en="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div>
+		<div class="tab-content"><div class="embed-container"><iframe width="560" height="315" src="https://www.youtube.com/embed/-TcO0M6mSBw?list=PLa-EIrdouSLS9j73HuKUyxjDKQCYcOWVn&index=1&si=iiSZwyGrNN96YimS" title="YouTube 影片播放器" data-title-zh="YouTube 影片播放器" data-title-en="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div>
 			<div style="text-align: center; margin-top: 30px;">
 			<a href="http://political.aunight.pw"
 			   target="_blank" class="action-btn">
@@ -1796,10 +1948,12 @@
 		</div>
 		<div class="tab-content">
 			<div class="embed-container">
-				<iframe width="560" height="315" src="https://www.youtube.com/embed/tK3E_ZH3las?list=PLa-EIrdouSLRs5gNgM8SdggADrqHT86L8" title="YouTube 影片播放器" data-title-zh="YouTube 影片播放器" data-title-en="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+				<iframe width="560" height="315" src="https://www.youtube.com/embed/tnUD-T73xx4?list=PLa-EIrdouSLRs5gNgM8SdggADrqHT86L8&index=1&si=NyJCenZ6rCFJL2MZ" title="YouTube 影片播放器" data-title-zh="YouTube 影片播放器" data-title-en="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 			</div>
+			<p class="lang-zh" style="margin: 10px 0 0; font-size: 0.9rem; opacity: 0.75; text-align: center;">Podcast影片會包含專業音樂用插件進行混音</p>
+			<p class="lang-en" style="margin: 6px 0 0; font-size: 0.85rem; opacity: 0.65; text-align: center;">Podcast videos are mixed using professional audio plugins.</p>
 			<div style="text-align: center; margin-top: 30px;">
-				<a href="https://www.youtube.com/watch?v=tK3E_ZH3las&list=PLa-EIrdouSLRs5gNgM8SdggADrqHT86L8" target="_blank" class="action-btn">
+				<a href="https://www.youtube.com/playlist?list=PLa-EIrdouSLRs5gNgM8SdggADrqHT86L8" target="_blank" class="action-btn">
 					<i class="fas fa-external-link-alt"></i><span class="lang-zh">點擊前往完整播放清單</span><span class="lang-en">Open full playlist</span>
 				</a>
 			</div>
@@ -1935,7 +2089,7 @@
 			</div>
 		</div>
 		<div class="tab-content">
-			<div class="embed-container"><iframe width="560" height="315" src="https://www.youtube.com/embed/nbigvuUnhWA?autoplay=1&mute=1&playsinline=1" title="YouTube 影片播放器" data-title-zh="YouTube 影片播放器" data-title-en="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div>
+			<div class="embed-container"><iframe width="560" height="315" src="https://www.youtube.com/embed/nbigvuUnhWA?playsinline=1" title="YouTube 影片播放器" data-title-zh="YouTube 影片播放器" data-title-en="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div>
 			<p class="lang-zh" style="margin: 10px 0 12px; font-size: 0.9rem; opacity: 0.75; text-align: center;">無版權歌曲 作曲/編曲/混音 By AuNight</p>
 			<div style="margin-bottom: 15px; display: flex; flex-direction: column; align-items: center;">
 				<div class="embed-container" style="margin-bottom: 0;">
@@ -2109,7 +2263,7 @@
 							</div>
 						</div>
 						<!-- Figma Embed (1:1 RWD) -->
-						<div class="figma-embed">
+						<div class="figma-embed figma-loading">
 							<iframe
 									src="https://embed.figma.com/proto/Ic4lR10G3wck8ENe7IVX7X/Food-Delivery-App?page-id=0%3A1&node-id=1-2&p=f&viewport=233%2C317%2C0.37&scaling=scale-down&content-scaling=fixed&starting-point-node-id=1%3A2&embed-host=share"
 									allowfullscreen
@@ -2202,7 +2356,6 @@
 			<button class="tab-btn active"><span class="lang-zh">逐格動畫</span><span class="lang-en">Frame Animation</span></button>
 			<button class="tab-btn"><span class="lang-zh">範本修改</span><span class="lang-en">Template Edit</span></button>
 			<button class="tab-btn"><span class="lang-zh">YouTuber 片頭片尾</span><span class="lang-en">YouTuber Intro & Outro</span></button>
-			<button class="tab-btn"><span class="lang-zh">其他作品</span><span class="lang-en">Other Works</span></button>
 		</div>
 		<!-- 內容 1 -->
 		<div class="grid-2" style="margin-bottom: 10px; text-align: center">
@@ -2281,7 +2434,7 @@
 				<div style="margin-bottom: 8px; display: flex; flex-direction: column; align-items: center;">
 					<div class="embed-container">
 						<iframe
-								src="https://www.youtube.com/embed/ndZYV83wQc8?si=FlZ2vpJ0DlBW2Qw-"
+								src="https://www.youtube.com/embed/videoseries?list=PLa-EIrdouSLRpk_O-bHtoLVgWulZXDEw4"
 								allowfullscreen>
 						</iframe>
 					</div>
@@ -2305,21 +2458,6 @@
 						<i class="fab fa-google-drive"></i><span class="lang-zh">在雲端開啟</span><span class="lang-en">Open in Drive</span>
 					</a>
 				</div>
-			</div>
-		</div>
-
-		<!-- 內容 4 -->
-		<div class="grid-2" style="margin-bottom: 10px; text-align: center">
-			<div class="tab-content" style="text-align: center">
-				<div class="embed-container">
-					<iframe
-							src="https://www.youtube.com/embed/56qTjNoylbs?si=1jXydk4VW04agpAh"
-							allowfullscreen>
-					</iframe>
-				</div>
-				<a href="https://www.youtube.com/watch?v=56qTjNoylbs&list=PLa-EIrdouSLSRO42zKdqy6AqfMvt6uN-5" target="_blank" class="action-btn">
-					<i class="fas fa-external-link-alt"></i><span class="lang-zh">點擊前往完整播放清單</span><span class="lang-en">Open full playlist</span>
-				</a>
 			</div>
 		</div>
 
@@ -2605,7 +2743,7 @@
 	</section>
 
 	<section id="color" class="glass-card tab-container reveal">
-		<h2 class="section-title"><span class="lang-zh">影像後製</span><span class="lang-en">Post-Production</span></h2>
+		<h2 class="section-title"><span class="lang-zh">影像後製</span><span class="lang-en">VFX</span></h2>
 
 		<!-- ✅ Tabs（你要用 .tabs） -->
 		<div class="tabs">
@@ -2756,6 +2894,14 @@
 <script>
 	document.addEventListener('DOMContentLoaded', function() {
 		const LANG_STORAGE_KEY = 'aunight_lang';
+		const root = document.documentElement;
+		root.classList.add('is-initializing');
+		const endInit = () => root.classList.remove('is-initializing');
+		if ('requestIdleCallback' in window) {
+			requestIdleCallback(endInit, { timeout: 1200 });
+		} else {
+			setTimeout(endInit, 1000);
+		}
 
 		const captureScrollAnchor = () => {
 			const probeX = Math.min(Math.max(window.innerWidth / 2, 0), window.innerWidth - 1);
@@ -2787,6 +2933,15 @@
 			if (typeof snapshot.scrollY === 'number') {
 				window.scrollTo(0, snapshot.scrollY);
 			}
+		};
+
+		const getYouTubeLoadingText = () => (document.documentElement.dataset.lang === 'en' ? 'Loading…' : '載入中…');
+
+		const syncYouTubeLoadingTexts = () => {
+			const text = getYouTubeLoadingText();
+			document.querySelectorAll('.embed-container.yt-loading, .embed-container.yt-loaded').forEach((container) => {
+				container.dataset.ytLoadingText = text;
+			});
 		};
 
 		const applyLanguage = (lang) => {
@@ -2821,6 +2976,8 @@
 			if (langToggleLabel) {
 				langToggleLabel.textContent = nextLang === 'en' ? 'EN' : '中';
 			}
+
+			syncYouTubeLoadingTexts();
 		};
 
 		const applyHighlightBarScales = () => {
@@ -2863,6 +3020,259 @@
 		applyLanguage(initialLang);
 		applyHighlightBarScales();
 
+		const setupYouTubeLoadingIndicators = () => {
+			const ytSelector = [
+				'.embed-container > iframe[src*="youtube.com/embed"]',
+				'.embed-container > iframe[src*="youtube-nocookie.com/embed"]'
+			].join(', ');
+
+			const fadeOut = (container) => {
+				if (container.classList.contains('yt-loaded')) return;
+				container.classList.add('yt-loaded');
+				requestAnimationFrame(() => container.classList.remove('yt-loading'));
+				window.setTimeout(() => {
+					container.classList.remove('yt-loaded');
+				}, 360);
+			};
+
+			document.querySelectorAll(ytSelector).forEach((iframe) => {
+				if (!iframe.hasAttribute('loading')) iframe.setAttribute('loading', 'lazy');
+				const container = iframe.closest('.embed-container');
+				if (!container) return;
+
+				container.dataset.ytLoadingText = getYouTubeLoadingText();
+
+				container.classList.add('yt-loading');
+
+				const safetyTimer = window.setTimeout(() => {
+					fadeOut(container);
+				}, 15000);
+
+				iframe.addEventListener('load', () => {
+					window.clearTimeout(safetyTimer);
+					fadeOut(container);
+				}, { once: true });
+			});
+		};
+
+		setupYouTubeLoadingIndicators();
+
+		const setupBehanceLoadingIndicators = () => {
+			const selector = 'iframe[src*="behance.net/embed/project/"]';
+
+			const fadeOut = (container) => {
+				if (container.classList.contains('behance-loaded')) return;
+				container.classList.add('behance-loaded');
+				window.setTimeout(() => {
+					container.classList.remove('behance-loading');
+				}, 520);
+			};
+
+			document.querySelectorAll(selector).forEach((iframe) => {
+				if (!iframe.hasAttribute('loading')) iframe.setAttribute('loading', 'lazy');
+				const container = iframe.closest('.embed-container') || iframe.closest('.behance-square, .iframely-responsive');
+				if (!container) return;
+
+				container.classList.add('behance-loading');
+
+				const safetyTimer = window.setTimeout(() => fadeOut(container), 4500);
+
+				iframe.addEventListener('load', () => {
+					window.clearTimeout(safetyTimer);
+					fadeOut(container);
+				}, { once: true });
+			});
+		};
+
+		setupBehanceLoadingIndicators();
+		const setupFigmaLoadingIndicators = () => {
+			const selector = 'iframe[src*="embed.figma.com"]';
+			document.querySelectorAll(selector).forEach((iframe) => {
+				if (!iframe.hasAttribute('loading')) iframe.setAttribute('loading', 'lazy');
+				const container = iframe.closest('.figma-embed') || iframe.closest('.embed-container');
+				if (!container) return;
+				container.classList.add('figma-loading');
+				const safetyTimer = window.setTimeout(() => {
+					container.classList.add('figma-loaded');
+					window.setTimeout(() => container.classList.remove('figma-loading'), 60);
+				}, 6000);
+				iframe.addEventListener('load', () => {
+					window.clearTimeout(safetyTimer);
+					container.classList.add('figma-loaded');
+					window.setTimeout(() => container.classList.remove('figma-loading'), 60);
+				}, { once: true });
+			});
+		};
+		setupFigmaLoadingIndicators();
+
+		const getRootScrollPaddingTop = () => {
+			const value = window.getComputedStyle(document.documentElement).scrollPaddingTop;
+			const parsed = Number.parseFloat(value);
+			return Number.isFinite(parsed) ? parsed : 0;
+		};
+
+		const getAnchorScrollOffsetTop = () => {
+			const nav = document.querySelector('nav');
+			if (!nav) return 0;
+
+			const styles = window.getComputedStyle(nav);
+			const isBottom = styles.bottom !== 'auto' && styles.bottom !== '';
+			if (isBottom) return 0;
+
+			const rect = nav.getBoundingClientRect();
+			const rootPaddingTop = getRootScrollPaddingTop();
+			return Math.max(0, rootPaddingTop, rect.bottom + 12);
+		};
+
+		const getScrollTopForTarget = (target) => {
+			if (!target) return 0;
+			const offset = getAnchorScrollOffsetTop();
+			const extra = 50;
+			return Math.max(0, target.getBoundingClientRect().top + window.scrollY - offset - extra);
+		};
+
+		let smoothScrollTimer = 0;
+		const beginSmoothScroll = () => {
+			window.clearTimeout(smoothScrollTimer);
+			document.documentElement.classList.add('is-smooth-scrolling');
+		};
+		const endSmoothScroll = () => {
+			window.clearTimeout(smoothScrollTimer);
+			document.documentElement.classList.remove('is-smooth-scrolling');
+		};
+		const scheduleEndSmoothScroll = (distance) => {
+			const t = Math.min(1400, Math.max(320, Math.round(distance * 0.45)));
+			window.clearTimeout(smoothScrollTimer);
+			smoothScrollTimer = window.setTimeout(endSmoothScroll, t);
+		};
+		const animateScrollTo = (top) => {
+			const start = window.scrollY || window.pageYOffset || 0;
+			const distance = Math.max(0, top) - start;
+			if (Math.abs(distance) < 1) {
+				endSmoothScroll();
+				return;
+			}
+			const duration = Math.min(480, Math.max(160, 220 + Math.min(180, Math.abs(distance) * 0.12)));
+			const t0 = performance.now();
+			beginSmoothScroll();
+			const ease = (x) => 1 - Math.pow(1 - x, 3);
+			// 立即啟動：先小幅移動，避免第一幀前的停頓感
+			const kick = Math.sign(distance) * Math.max(24, Math.abs(distance) * 0.06);
+			window.scrollTo(0, start + kick);
+			const step = (now) => {
+				const p = Math.min(1, (now - t0) / duration);
+				const y = start + distance * ease(p);
+				window.scrollTo(0, y);
+				if (p < 1) {
+					requestAnimationFrame(step);
+				} else {
+					endSmoothScroll();
+				}
+			};
+			requestAnimationFrame(step);
+			scheduleEndSmoothScroll(Math.abs(distance));
+		};
+
+		const scrollToHome = (behavior) => {
+			const hero = document.getElementById('hero');
+			const top = hero ? getScrollTopForTarget(hero) : 0;
+			window.scrollTo({ top, behavior: behavior || 'auto' });
+			return true;
+		};
+
+		const scrollToHashTarget = (behavior) => {
+			const hash = window.location.hash;
+			if (!hash || hash === '#') return false;
+
+			const id = decodeURIComponent(hash.slice(1));
+			const target = document.getElementById(id);
+			if (!target) return false;
+
+			if (target.classList.contains('reveal') && !target.classList.contains('active')) {
+				target.classList.add('active');
+			}
+
+			const top = getScrollTopForTarget(target);
+			window.scrollTo({ top, behavior: behavior || 'auto' });
+			return true;
+		};
+
+		const settleHashScroll = () => {
+			if (document.documentElement.classList.contains('is-smooth-scrolling')) return;
+			if (!window.location.hash) return;
+			let attempts = 0;
+
+			const tick = () => {
+				attempts += 1;
+				const hash = window.location.hash;
+				if (!hash || hash === '#') return;
+
+				const id = decodeURIComponent(hash.slice(1));
+				const target = document.getElementById(id);
+				if (!target) return;
+
+				const offset = getAnchorScrollOffsetTop();
+				const delta = target.getBoundingClientRect().top - offset - 50;
+				if (Math.abs(delta) <= 2) return;
+
+				window.scrollBy({ top: delta, behavior: 'auto' });
+				if (attempts < 12) window.setTimeout(tick, 140);
+			};
+
+			window.setTimeout(tick, 0);
+			window.setTimeout(tick, 250);
+			window.setTimeout(tick, 900);
+		};
+
+		document.addEventListener('click', (event) => {
+			const anchor = event.target && event.target.closest ? event.target.closest('a[href^="#"]') : null;
+			if (!anchor) return;
+
+			const href = anchor.getAttribute('href');
+			if (!href || href === '#' || !href.startsWith('#')) return;
+
+			event.preventDefault();
+			if (window.location.hash !== href) {
+				history.pushState(null, '', href);
+			}
+			const id = decodeURIComponent(href.slice(1));
+			const target = document.getElementById(id);
+			const top = target ? getScrollTopForTarget(target) : window.scrollY;
+			const distance = Math.abs(window.scrollY - top);
+			beginSmoothScroll();
+			animateScrollTo(top);
+			scheduleEndSmoothScroll(distance);
+			settleHashScroll();
+		});
+
+		window.addEventListener('hashchange', () => {
+			if (document.documentElement.classList.contains('is-smooth-scrolling')) return;
+			scrollToHashTarget('auto');
+			settleHashScroll();
+		}, { passive: true });
+
+		window.addEventListener('popstate', () => {
+			if (document.documentElement.classList.contains('is-smooth-scrolling')) return;
+			scrollToHashTarget('auto');
+			settleHashScroll();
+		}, { passive: true });
+
+		window.addEventListener('load', () => {
+			if (document.documentElement.classList.contains('is-smooth-scrolling')) return;
+			scrollToHashTarget('auto');
+			settleHashScroll();
+		}, { once: true });
+
+		scrollToHashTarget('auto');
+		settleHashScroll();
+
+		if (document.fonts && typeof document.fonts.ready?.then === 'function') {
+			document.fonts.ready.then(() => {
+				scrollToHashTarget('auto');
+				settleHashScroll();
+			}).catch(() => {});
+		}
+
 		const updateSiteEmbedScrollbars = () => {
 			const isMobile = window.matchMedia && window.matchMedia('(max-width: 768px)').matches;
 			const value = isMobile ? 'no' : 'yes';
@@ -2890,12 +3300,14 @@
 
 				const root = document.documentElement;
 				if (root.classList.contains('lang-switching')) return;
+				root.setAttribute('data-next-lang', nextLang);
 				root.classList.add('lang-switching');
-				window.setTimeout(() => applyLanguage(nextLang), 120);
+				applyLanguage(nextLang);
 				window.setTimeout(() => {
 					root.classList.remove('lang-switching');
+					root.removeAttribute('data-next-lang');
 					restoreScrollAnchor(scrollSnapshot);
-				}, 240);
+				}, 1520);
 			});
 		}
 
@@ -2963,9 +3375,14 @@
 		};
 
 		const observer = new IntersectionObserver((entries, observer) => {
-			entries.forEach(entry => {
+			entries.forEach((entry) => {
 				if (entry.isIntersecting) {
+					entry.target.style.willChange = 'transform, opacity';
+					entry.target.addEventListener('transitionend', () => {
+						entry.target.style.willChange = '';
+					}, { once: true });
 					entry.target.classList.add('active');
+					observer.unobserve(entry.target);
 				}
 			});
 		}, observerOptions);
@@ -2992,14 +3409,25 @@
 
 		if (scrollTopBtn) {
 			scrollTopBtn.addEventListener('click', () => {
-				window.scrollTo({ top: 0, behavior: 'smooth' });
+				const hero = document.getElementById('hero');
+				const top = hero ? getScrollTopForTarget(hero) : 0;
+				beginSmoothScroll();
+				animateScrollTo(top);
 			});
 		}
 
 		let isScrolling;
+		let scrollIdleTimer = 0;
 		window.addEventListener('scroll', () => {
+			document.documentElement.classList.add('is-scrolling');
+			window.clearTimeout(scrollIdleTimer);
+			scrollIdleTimer = window.setTimeout(() => {
+				document.documentElement.classList.remove('is-scrolling');
+			}, 360);
+
 			window.cancelAnimationFrame(isScrolling);
 			isScrolling = window.requestAnimationFrame(() => {
+			if (document.documentElement.classList.contains('is-smooth-scrolling')) return;
 				let current = '';
 				sections.forEach(section => {
 					const sectionTop = section.offsetTop;
@@ -3008,12 +3436,15 @@
 					}
 				});
 
-				navLinks.forEach(link => {
-					link.classList.remove('active');
-					if (link.getAttribute('href') === `#${current}`) {
-						link.classList.add('active');
+				if (current) {
+					const targetHref = `#${current}`;
+					const prev = document.querySelector('nav a.active');
+					const next = Array.from(navLinks).find(link => link.getAttribute('href') === targetHref) || null;
+					if (prev !== next) {
+						if (prev) prev.classList.remove('active');
+						if (next) next.classList.add('active');
 					}
-				});
+				}
 
 				if (scrollTopBtn && musicSection) {
 					const shouldShow = window.pageYOffset >= (musicTop - 150);
