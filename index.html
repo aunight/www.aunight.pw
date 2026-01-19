@@ -943,17 +943,29 @@
 			50% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
 		}
 
+		iframe[src*="behance.net/embed/project/"] {
+			opacity: 0;
+			transform: translateY(10px);
+			transition: opacity 1000ms cubic-bezier(0.22, 1, 0.36, 1), transform 1000ms cubic-bezier(0.22, 1, 0.36, 1);
+			will-change: opacity, transform;
+		}
+
+		iframe[src*="behance.net/embed/project/"].behance-iframe-loaded {
+			opacity: 1;
+			transform: translateY(0);
+		}
+
 		.embed-container.behance-loading::after,
 		.embed-container.behance-loaded::after {
 			content: "";
 			position: absolute;
 			inset: 0;
-			background: rgba(0, 0, 0, 0.18);
+			background: rgba(255, 255, 255, 0.85);
 			border-radius: inherit;
 			z-index: 2;
 			pointer-events: none;
 			opacity: 1;
-			transition: opacity 420ms ease;
+			transition: opacity 1000ms cubic-bezier(0.22, 1, 0.36, 1);
 			will-change: opacity;
 		}
 
@@ -964,11 +976,23 @@
 		.embed-container.behance-loading iframe[src*="behance.net/embed/project/"] {
 			opacity: 0;
 			transform: translateY(10px);
-			transition: opacity 420ms ease, transform 420ms ease;
+			transition: opacity 1000ms cubic-bezier(0.22, 1, 0.36, 1), transform 1000ms cubic-bezier(0.22, 1, 0.36, 1);
 			will-change: opacity, transform;
 		}
 
 		.embed-container.behance-loaded iframe[src*="behance.net/embed/project/"] {
+			opacity: 1;
+			transform: translateY(0);
+		}
+		.iframely-responsive.behance-loading iframe[src*="behance.net/embed/project/"],
+		.behance-square.behance-loading iframe[src*="behance.net/embed/project/"] {
+			opacity: 0;
+			transform: translateY(10px);
+			transition: opacity 1000ms cubic-bezier(0.22, 1, 0.36, 1), transform 1000ms cubic-bezier(0.22, 1, 0.36, 1);
+			will-change: opacity, transform;
+		}
+		.iframely-responsive.behance-loaded iframe[src*="behance.net/embed/project/"],
+		.behance-square.behance-loaded iframe[src*="behance.net/embed/project/"] {
 			opacity: 1;
 			transform: translateY(0);
 		}
@@ -977,7 +1001,7 @@
 		.embed-container.figma-loading iframe[src*="embed.figma.com"] {
 			opacity: 0;
 			transform: translateY(10px);
-			transition: opacity 420ms cubic-bezier(0.22, 1, 0.36, 1), transform 420ms cubic-bezier(0.22, 1, 0.36, 1);
+			transition: opacity 1000ms cubic-bezier(0.22, 1, 0.36, 1), transform 1000ms cubic-bezier(0.22, 1, 0.36, 1);
 			will-change: opacity, transform;
 		}
 
@@ -3060,26 +3084,36 @@
 		const setupBehanceLoadingIndicators = () => {
 			const selector = 'iframe[src*="behance.net/embed/project/"]';
 
-			const fadeOut = (container) => {
+			const fadeOut = (container, iframe) => {
+				if (iframe) iframe.classList.add('behance-iframe-loaded');
 				if (container.classList.contains('behance-loaded')) return;
 				container.classList.add('behance-loaded');
 				window.setTimeout(() => {
 					container.classList.remove('behance-loading');
-				}, 520);
+				}, 1020);
 			};
 
 			document.querySelectorAll(selector).forEach((iframe) => {
 				if (!iframe.hasAttribute('loading')) iframe.setAttribute('loading', 'lazy');
 				const container = iframe.closest('.embed-container') || iframe.closest('.behance-square, .iframely-responsive');
-				if (!container) return;
+				if (!container) {
+					const safetyTimer = window.setTimeout(() => {
+						iframe.classList.add('behance-iframe-loaded');
+					}, 4500);
+					iframe.addEventListener('load', () => {
+						window.clearTimeout(safetyTimer);
+						iframe.classList.add('behance-iframe-loaded');
+					}, { once: true });
+					return;
+				}
 
 				container.classList.add('behance-loading');
 
-				const safetyTimer = window.setTimeout(() => fadeOut(container), 4500);
+				const safetyTimer = window.setTimeout(() => fadeOut(container, iframe), 4500);
 
 				iframe.addEventListener('load', () => {
 					window.clearTimeout(safetyTimer);
-					fadeOut(container);
+					fadeOut(container, iframe);
 				}, { once: true });
 			});
 		};
