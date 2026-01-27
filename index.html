@@ -2732,10 +2732,28 @@
 
 	</section>
 
-	<section id="web" class="glass-card reveal">
+	<section id="web" class="glass-card tab-container reveal">
 		<h2 class="section-title"><span class="lang-zh">網頁前端</span><span class="lang-en">Web Frontend</span></h2>
 
-		<div style="margin-bottom: 50px; text-align: center;">
+		<div class="tabs">
+			<button class="tab-btn active"><span class="lang-zh">國外APP官網</span><span class="lang-en">International App</span></button>
+			<button class="tab-btn"><span class="lang-zh">政府網站</span><span class="lang-en">Government Site</span></button>
+			<button class="tab-btn"><span class="lang-zh">練習網站</span><span class="lang-en">Practice Site</span></button>
+		</div>
+
+		<div class="tab-content active" style="text-align: center;">
+			<h3 style="margin-bottom: 15px;"><span class="lang-zh">Lispresso</span><span class="lang-en">Lispresso</span></h3>
+			<div class="embed-container site-embed">
+				<iframe src="https://lispresso.ai" title="Lispresso" data-title-zh="Lispresso" data-title-en="Lispresso" data-scroll="always" loading="lazy" scrolling="yes"></iframe>
+			</div>
+			<a href="https://lispresso.ai" target="_blank" class="action-btn">
+				<i class="fas fa-external-link-alt"></i> <span class="lang-zh">前往網站</span><span class="lang-en">Open Site</span>
+			</a>
+			<p class="lang-zh" style="margin: 10px 0 0; font-size: 0.85rem; opacity: 0.6;">部分前端與設計透過 AI 協助</p>
+			<p class="lang-en" style="margin: 8px 0 0; font-size: 0.82rem; opacity: 0.55;">Some frontend and design were assisted by AI.</p>
+		</div>
+
+		<div class="tab-content" style="text-align: center;">
 			<h3 style="margin-bottom: 15px;"><span class="lang-zh">貢寮女路</span><span class="lang-en">Gongliao Female Road</span></h3>
 			<div class="embed-container site-embed">
 				<iframe src="https://gongliaofemalediver.ddns.net/" title="貢寮海女" loading="lazy" scrolling="no"></iframe>
@@ -2743,11 +2761,11 @@
 			<a href="https://gongliaofemalediver.ddns.net/" target="_blank" class="action-btn">
 				<i class="fas fa-external-link-alt"></i> <span class="lang-zh">前往網站</span><span class="lang-en">Open Site</span>
 			</a>
+			<p class="lang-zh" style="margin: 10px 0 0; font-size: 0.85rem; opacity: 0.6;">除彈窗委外外，網站透過模板修改，純手寫代碼，無透過 AI 協助</p>
+			<p class="lang-en" style="margin: 8px 0 0; font-size: 0.82rem; opacity: 0.55;">Except the outsourced pop-up, the site was based on template edits and hand-coded without AI assistance.</p>
 		</div>
 
-		<hr style="margin: 40px 0; border:0; border-top: 1px solid rgba(0,0,0,0.08);">
-
-		<div style="margin-bottom: 30px; text-align: center;">
+		<div class="tab-content" style="text-align: center;">
 			<h3 style="margin-bottom: 15px;">Beconrolt</h3>
 			<div class="embed-container site-embed">
 				<iframe src="https://beconrolt.aunight.pw" title="Beconrolt" loading="lazy" scrolling="no"></iframe>
@@ -2755,9 +2773,13 @@
 			<a href="https://beconrolt.aunight.pw" target="_blank" class="action-btn">
 				<i class="fas fa-external-link-alt"></i> <span class="lang-zh">前往網站</span><span class="lang-en">Open Site</span>
 			</a>
+			<p class="lang-zh" style="margin: 10px 0 0; font-size: 0.85rem; opacity: 0.6;">部分前端與設計透過 AI 協助</p>
+			<p class="lang-en" style="margin: 8px 0 0; font-size: 0.82rem; opacity: 0.55;">Some frontend and design were assisted by AI.</p>
 		</div>
 
 		<div style="text-align: center; margin-top: 30px;">
+			<p class="lang-zh" style="margin-bottom: 10px; font-size: 0.85rem; opacity: 0.6;">（網站請直接前往原網站觀看以獲得更好的體驗）</p>
+			<p class="lang-en" style="margin-bottom: 10px; font-size: 0.8rem; opacity: 0.55;">(For the best viewing experience, please visit the official website directly.)</p>
 			<p class="lang-zh" style="margin-bottom: 10px; font-size: 0.9rem; opacity: 0.7;">獲取詳細報價</p>
 			<p class="lang-en" style="margin-bottom: 10px; font-size: 0.8rem; opacity: 0.6;">Get a detailed quotation</p>
 			<a href="mailto:G950025@gmail.com" class="action-btn email-btn">
@@ -3311,7 +3333,8 @@
 			const isMobile = window.matchMedia && window.matchMedia('(max-width: 768px)').matches;
 			const value = isMobile ? 'no' : 'yes';
 			document.querySelectorAll('.embed-container.site-embed iframe').forEach((iframe) => {
-				iframe.setAttribute('scrolling', value);
+				const forceScroll = iframe.dataset.scroll === 'always';
+				iframe.setAttribute('scrolling', forceScroll ? 'yes' : value);
 			});
 		};
 
