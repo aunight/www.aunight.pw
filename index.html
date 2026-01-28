@@ -37,7 +37,6 @@
 
 		/* --- 全局設定 & 字體 --- */
 		html {
-			scroll-behavior: smooth;
 			scroll-padding-top: 100px; /* 避免導航欄遮住標題 */
 			height: 100%;
 
@@ -184,13 +183,13 @@
 			}
 		}
 
-		nav a[href="#color"]:hover,
-		nav a[href="#color"].active {
+		nav a[href="#vfx"]:hover,
+		nav a[href="#vfx"].active {
 			width: 128px;
 		}
 
-		nav a[href="#color"]:hover > span,
-		nav a[href="#color"].active > span {
+		nav a[href="#vfx"]:hover > span,
+		nav a[href="#vfx"].active > span {
 			max-width: 100px;
 		}
 
@@ -289,6 +288,18 @@
 			-webkit-text-fill-color: transparent;
 			letter-spacing: 2px;
 		}
+		.hero-text h1 .h1-subtitle {
+			font-size: 0.48em;
+			opacity: 0.95;
+			margin-left: 10px;
+			letter-spacing: 0.2px;
+			color: var(--text-highlight);
+			-webkit-text-fill-color: var(--text-highlight);
+			-webkit-background-clip: border-box;
+			background: none;
+		}
+		.hero-text h1 .lang-zh.h1-subtitle { font-weight: 300; }
+		.hero-text h1 .lang-en.h1-subtitle { font-weight: 400; }
 
 		.skill-pair {
 			margin-bottom: 5px;
@@ -1373,8 +1384,8 @@
 		}
 
 		.glass-card {
-			content-visibility: auto;
-			contain-intrinsic-size: 600px 320px;
+			content-visibility: visible;
+			contain-intrinsic-size: auto;
 		}
 
 		.scroll-top-btn i {
@@ -1673,8 +1684,8 @@
 				min-width: 0;
 			}
 			nav a:hover, nav a.active { width: clamp(22px, 7vw, 34px); height: clamp(22px, 7vw, 34px); padding: 0; justify-content: center; transform: none; box-shadow: none; gap: 0; }
-			nav a[href="#color"]:hover,
-			nav a[href="#color"].active {
+			nav a[href="#vfx"]:hover,
+			nav a[href="#vfx"].active {
 				width: clamp(22px, 7vw, 34px);
 				height: clamp(22px, 7vw, 34px);
 			}
@@ -1752,7 +1763,7 @@
 	<a href="#animation"><i class="fas fa-film"></i><span><span class="lang-zh">動畫設計</span><span class="lang-en">Animation</span></span></a>
 	<a href="#graphic"><i class="fas fa-palette"></i><span><span class="lang-zh">平面設計</span><span class="lang-en">Graphic</span></span></a>
 	<a href="#web"><i class="fas fa-code"></i><span><span class="lang-zh">網頁前端</span><span class="lang-en">Web</span></span></a>
-	<a href="#color"><i class="fas fa-photo-film"></i><span><span class="lang-zh">影像後製</span><span class="lang-en">VFX</span></span></a>
+	<a href="#vfx"><i class="fas fa-photo-film"></i><span><span class="lang-zh">影像後製</span><span class="lang-en">VFX</span></span></a>
 </nav>
 
 <button id="langToggle" class="lang-toggle-btn lang-toggle-floating" type="button" aria-label="切換語言">
@@ -1766,7 +1777,7 @@
 			<img src="img/秋夜.png" alt="秋夜" data-alt-zh="秋夜" data-alt-en="AuNight">
 		</div>
 		<div class="hero-text">
-			<h1><span class="lang-zh">秋夜 </span>AuNight</h1>
+			<h1><span class="lang-zh">秋夜</span><span class="lang-en">AuNight</span> <span class="lang-zh h1-subtitle">全能創作者</span><span class="lang-en h1-subtitle">All‑Round Creator</span></h1>
 
 			<div class="skills-container">
 				<div class="skill-pair">
@@ -2788,7 +2799,7 @@
 		</div>
 	</section>
 
-	<section id="color" class="glass-card tab-container reveal">
+	<section id="vfx" class="glass-card tab-container reveal">
 		<h2 class="section-title"><span class="lang-zh">影像後製</span><span class="lang-en">VFX</span></h2>
 
 		<!-- ✅ Tabs（你要用 .tabs） -->
@@ -2939,7 +2950,6 @@
 
 <script>
 	document.addEventListener('DOMContentLoaded', function() {
-		const LANG_STORAGE_KEY = 'aunight_lang';
 		const root = document.documentElement;
 		root.classList.add('is-initializing');
 		const endInit = () => root.classList.remove('is-initializing');
@@ -3050,8 +3060,19 @@
 
 		const detectBrowserLanguage = () => {
 			const candidates = [];
-			if (Array.isArray(navigator.languages)) candidates.push(...navigator.languages);
-			if (navigator.language) candidates.push(navigator.language);
+			const nav = typeof navigator !== 'undefined' ? navigator : null;
+			if (document.documentElement.lang) candidates.push(document.documentElement.lang);
+
+			const languages = nav && nav.languages ? nav.languages : null;
+			if (languages) {
+				if (Array.isArray(languages)) {
+					candidates.push(...languages);
+				} else if (typeof languages.length === 'number') {
+					candidates.push(...Array.from(languages));
+				}
+			}
+
+			if (nav && nav.language) candidates.push(nav.language);
 
 			const isChinese = candidates
 				.filter(Boolean)
@@ -3061,8 +3082,8 @@
 			return isChinese ? 'zh' : 'en';
 		};
 
-		const storedLang = localStorage.getItem(LANG_STORAGE_KEY);
-		const initialLang = storedLang || detectBrowserLanguage() || 'zh';
+		try { localStorage.removeItem('aunight_lang'); } catch (e) {}
+		const initialLang = detectBrowserLanguage() || 'zh';
 		applyLanguage(initialLang);
 		applyHighlightBarScales();
 
@@ -3197,36 +3218,81 @@
 			document.documentElement.classList.remove('is-smooth-scrolling');
 		};
 		const scheduleEndSmoothScroll = (distance) => {
-			const t = Math.min(1400, Math.max(320, Math.round(distance * 0.45)));
+			const t = Math.min(2000, Math.max(360, Math.round(distance * 0.55)));
 			window.clearTimeout(smoothScrollTimer);
 			smoothScrollTimer = window.setTimeout(endSmoothScroll, t);
 		};
-		const animateScrollTo = (top) => {
-			const start = window.scrollY || window.pageYOffset || 0;
-			const distance = Math.max(0, top) - start;
-			if (Math.abs(distance) < 1) {
+		let scrollAnimToken = 0;
+		const animateScrollTo = (target) => {
+			const prefersReducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+			const el = typeof target === 'number' ? null : target;
+			const token = ++scrollAnimToken;
+
+			const getDesiredTop = () => {
+				if (el && document.contains(el)) return getScrollTopForTarget(el);
+				const fallback = typeof target === 'number' ? target : 0;
+				return Math.max(0, fallback);
+			};
+
+			if (prefersReducedMotion) {
+				const top = getDesiredTop();
+				window.scrollTo({ top, behavior: 'auto' });
 				endSmoothScroll();
 				return;
 			}
-			const duration = Math.min(480, Math.max(160, 220 + Math.min(180, Math.abs(distance) * 0.12)));
-			const t0 = performance.now();
+
 			beginSmoothScroll();
-			const ease = (x) => 1 - Math.pow(1 - x, 3);
-			// 立即啟動：先小幅移動，避免第一幀前的停頓感
-			const kick = Math.sign(distance) * Math.max(24, Math.abs(distance) * 0.06);
-			window.scrollTo(0, start + kick);
+			window.clearTimeout(smoothScrollTimer);
+			smoothScrollTimer = window.setTimeout(endSmoothScroll, 9000);
+
+			const tStart = performance.now();
+			const doneThreshold = 1.5;
+			const maxMs = 8500;
+			let lastY = window.scrollY || window.pageYOffset || 0;
+			let stuckFrames = 0;
+
 			const step = (now) => {
-				const p = Math.min(1, (now - t0) / duration);
-				const y = start + distance * ease(p);
-				window.scrollTo(0, y);
-				if (p < 1) {
-					requestAnimationFrame(step);
-				} else {
+				if (token !== scrollAnimToken) return;
+
+				const desired = getDesiredTop();
+				const y = window.scrollY || window.pageYOffset || 0;
+				const delta = desired - y;
+
+				if (Math.abs(delta) <= doneThreshold) {
 					endSmoothScroll();
+					return;
 				}
+
+				const moved = Math.abs(y - lastY);
+				if (moved <= 0.25 && Math.abs(delta) > 10) stuckFrames += 1;
+				else stuckFrames = 0;
+				lastY = y;
+
+				if (stuckFrames >= 24) {
+					requestAnimationFrame(step);
+					return;
+				}
+
+				if ((performance.now() - tStart) >= maxMs) {
+					window.scrollTo(0, desired);
+					endSmoothScroll();
+					return;
+				}
+
+				const absDelta = Math.abs(delta);
+				const factor = 0.08 + 0.14 * (absDelta / (absDelta + 900));
+				let move = delta * factor;
+
+				const maxStep = 6 + 54 * (absDelta / (absDelta + 700));
+				if (move > maxStep) move = maxStep;
+				if (move < -maxStep) move = -maxStep;
+				if (Math.abs(move) < 0.35) move = Math.sign(delta) * Math.min(0.35, absDelta);
+
+				window.scrollBy(0, move);
+				requestAnimationFrame(step);
 			};
+
 			requestAnimationFrame(step);
-			scheduleEndSmoothScroll(Math.abs(distance));
 		};
 
 		const scrollToHome = (behavior) => {
@@ -3253,12 +3319,21 @@
 			return true;
 		};
 
+		let settleHashScrollToken = 0;
 		const settleHashScroll = () => {
-			if (document.documentElement.classList.contains('is-smooth-scrolling')) return;
 			if (!window.location.hash) return;
+
+			const token = ++settleHashScrollToken;
 			let attempts = 0;
 
 			const tick = () => {
+				if (token !== settleHashScrollToken) return;
+
+				if (document.documentElement.classList.contains('is-smooth-scrolling')) {
+					if (attempts < 12) window.setTimeout(tick, 140);
+					return;
+				}
+
 				attempts += 1;
 				const hash = window.location.hash;
 				if (!hash || hash === '#') return;
@@ -3271,13 +3346,36 @@
 				const delta = target.getBoundingClientRect().top - offset - 50;
 				if (Math.abs(delta) <= 2) return;
 
+				const prev = document.documentElement.style.scrollBehavior;
+				document.documentElement.style.scrollBehavior = 'auto';
 				window.scrollBy({ top: delta, behavior: 'auto' });
+				document.documentElement.style.scrollBehavior = prev;
 				if (attempts < 12) window.setTimeout(tick, 140);
 			};
 
-			window.setTimeout(tick, 0);
-			window.setTimeout(tick, 250);
-			window.setTimeout(tick, 900);
+			let waited = 0;
+			const waitForScrollEnd = () => {
+				if (token !== settleHashScrollToken) return;
+
+				if (!document.documentElement.classList.contains('is-smooth-scrolling')) {
+					window.setTimeout(tick, 0);
+					window.setTimeout(tick, 250);
+					window.setTimeout(tick, 900);
+					return;
+				}
+
+				waited += 80;
+				if (waited >= 2200) {
+					window.setTimeout(tick, 0);
+					window.setTimeout(tick, 250);
+					window.setTimeout(tick, 900);
+					return;
+				}
+
+				window.setTimeout(waitForScrollEnd, 80);
+			};
+
+			waitForScrollEnd();
 		};
 
 		document.addEventListener('click', (event) => {
@@ -3293,29 +3391,28 @@
 			}
 			const id = decodeURIComponent(href.slice(1));
 			const target = document.getElementById(id);
-			const top = target ? getScrollTopForTarget(target) : window.scrollY;
-			const distance = Math.abs(window.scrollY - top);
-			beginSmoothScroll();
-			animateScrollTo(top);
-			scheduleEndSmoothScroll(distance);
-			settleHashScroll();
+			if (target) animateScrollTo(target);
+			else animateScrollTo(window.scrollY);
 		});
 
 		window.addEventListener('hashchange', () => {
-			if (document.documentElement.classList.contains('is-smooth-scrolling')) return;
-			scrollToHashTarget('auto');
+			if (!document.documentElement.classList.contains('is-smooth-scrolling')) {
+				scrollToHashTarget('auto');
+			}
 			settleHashScroll();
 		}, { passive: true });
 
 		window.addEventListener('popstate', () => {
-			if (document.documentElement.classList.contains('is-smooth-scrolling')) return;
-			scrollToHashTarget('auto');
+			if (!document.documentElement.classList.contains('is-smooth-scrolling')) {
+				scrollToHashTarget('auto');
+			}
 			settleHashScroll();
 		}, { passive: true });
 
 		window.addEventListener('load', () => {
-			if (document.documentElement.classList.contains('is-smooth-scrolling')) return;
-			scrollToHashTarget('auto');
+			if (!document.documentElement.classList.contains('is-smooth-scrolling')) {
+				scrollToHashTarget('auto');
+			}
 			settleHashScroll();
 		}, { once: true });
 
@@ -3324,7 +3421,9 @@
 
 		if (document.fonts && typeof document.fonts.ready?.then === 'function') {
 			document.fonts.ready.then(() => {
-				scrollToHashTarget('auto');
+				if (!document.documentElement.classList.contains('is-smooth-scrolling')) {
+					scrollToHashTarget('auto');
+				}
 				settleHashScroll();
 			}).catch(() => {});
 		}
@@ -3347,7 +3446,6 @@
 				const prefersReducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 				const currentLang = document.documentElement.dataset.lang === 'en' ? 'en' : 'zh';
 				const nextLang = currentLang === 'en' ? 'zh' : 'en';
-				localStorage.setItem(LANG_STORAGE_KEY, nextLang);
 				const scrollSnapshot = captureScrollAnchor();
 				if (prefersReducedMotion) {
 					applyLanguage(nextLang);
@@ -3467,9 +3565,8 @@
 		if (scrollTopBtn) {
 			scrollTopBtn.addEventListener('click', () => {
 				const hero = document.getElementById('hero');
-				const top = hero ? getScrollTopForTarget(hero) : 0;
-				beginSmoothScroll();
-				animateScrollTo(top);
+				if (hero) animateScrollTo(hero);
+				else animateScrollTo(0);
 			});
 		}
 
