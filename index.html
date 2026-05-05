@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title data-title-zh="秋夜 AuNight｜作品集" data-title-en="AuNight | Portfolio">秋夜 AuNight｜作品集</title>
-	<link rel="icon" type="image/png" href="img/秋夜.png">
+	<link rel="icon" type="image/png" href="img/aunight.png">
 
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -153,6 +153,7 @@
 		nav a:nth-child(7) i { animation-delay: 0.42s; }
 		nav a:nth-child(8) i { animation-delay: 0.48s; }
 		nav a:nth-child(9) i { animation-delay: 0.54s; }
+		nav a:nth-child(10) i { animation-delay: 0.60s; }
 
 		nav a:hover, nav a.active {
 			width: 148px;
@@ -275,23 +276,91 @@
 			isolation: isolate;
 		}
 
-		.hero-text {
+		.hero-content-wrapper {
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			gap: clamp(20px, 3vw, 40px);
+			width: 100%;
 			position: relative;
 			z-index: 2;
 		}
 
-		.hero-text h1 {
-			font-size: 2.8rem;
-			margin-bottom: 10px;
-			background: -webkit-linear-gradient(45deg, #4a4a4a, #2b2b2b);
-			-webkit-background-clip: text;
-			-webkit-text-fill-color: transparent;
-			letter-spacing: 2px;
+		.hero-text {
+			display: contents;
 		}
+
+		.hero-text h1 {
+			flex: 0 0 auto;
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			text-align: center;
+			margin-bottom: 0;
+			transform: translateY(-50px); /* 往上移 50px */
+		}
+
+		.skills-container {
+			flex: 1;
+			--skill-main-size: calc(clamp(0.9rem, 2vw, 1.05rem) * 1.2);
+			--skill-sub-size: calc(clamp(0.75rem, 1.8vw, 0.85rem) * 1.2);
+			display: grid;
+			grid-template-columns: repeat(2, minmax(0, 1fr));
+			gap: 16px 36px;
+			margin-bottom: 0;
+			text-align: left;
+			max-width: 600px;
+			padding-left: 90px;  /* 往右移 */
+			padding-top: 40px;   /* 往下移 */
+			transform: translateY(-50px); /* 往上移 50px */
+		}
+
+		.skills-container .skill-pair {
+			display: flex;
+			flex-direction: column;
+			align-items: flex-start;
+			gap: 1px;
+			margin-bottom: 0;
+			min-width: 0;
+		}
+
+		.hero-img {
+			flex: 0 0 clamp(150px, 25vw, 350px);
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			position: relative;
+			z-index: 1;
+		}
+
+		.hero-img img {
+			width: 100%;
+			height: auto;
+			max-height: 450px;
+			object-fit: contain;
+			filter: drop-shadow(0 15px 35px rgba(0,0,0,0.15));
+			transition: transform 0.3s ease;
+		}
+
+		.hero-logo {
+			height: clamp(90px, 18vw, 180px);
+			width: auto;
+			display: block;
+			margin-bottom: 8px;
+			filter: drop-shadow(0 8px 16px rgba(0,0,0,0.1));
+			transition: transform 0.3s ease;
+		}
+
+		.hero-logo:hover {
+			transform: scale(1.15) rotate(-2deg);
+			filter: drop-shadow(0 12px 24px rgba(0,0,0,0.15));
+		}
+
 		.hero-text h1 .h1-subtitle {
-			font-size: 0.48em;
+			font-size: 1.35rem;
 			opacity: 0.95;
-			margin-left: 10px;
+			margin-left: 0;
+			margin-top: -2px;
 			letter-spacing: 0.2px;
 			color: var(--text-highlight);
 			-webkit-text-fill-color: var(--text-highlight);
@@ -300,30 +369,6 @@
 		}
 		.hero-text h1 .lang-zh.h1-subtitle { font-weight: 300; }
 		.hero-text h1 .lang-en.h1-subtitle { font-weight: 400; }
-
-		.skill-pair {
-			margin-bottom: 5px;
-		}
-
-		.skills-container {
-			--skill-main-size: clamp(0.98rem, 2.4vw, 1.1rem);
-			--skill-sub-size: clamp(0.8rem, 2vw, 0.9rem);
-			display: grid;
-			grid-template-columns: repeat(2, minmax(0, 1fr));
-			gap: 10px 36px;
-			margin-bottom: 16px;
-			text-align: left;
-			max-width: 560px;
-		}
-
-		.skills-container .skill-pair {
-			display: flex;
-			flex-wrap: wrap;
-			align-items: baseline;
-			gap: 2px 10px;
-			margin-bottom: 0;
-			min-width: 0;
-		}
 
 		.skills-container .skill-zh,
 		.skills-container .skill-en {
@@ -353,6 +398,13 @@
 			max-width: 860px;
 			position: relative;
 			z-index: 6;
+		}
+
+		.hero-highlights-container {
+			width: 100%;
+			margin-top: -72px;
+			position: relative;
+			z-index: 4;
 		}
 
 		.hero-highlight-link {
@@ -486,6 +538,10 @@
 		}
 
 		@media (max-width: 768px) {
+			.hero-highlights-container {
+				margin-top: 20px;
+			}
+
 			.hero-highlights {
 				max-width: 100%;
 				gap: 16px;
@@ -528,26 +584,21 @@
 			width: 100%;
 			height: auto;
 			display: flex;
-			align-items: flex-end;
-
-			order: 1;
+			justify-content: center;
+			align-items: center;
+			margin-top: 40px;
 			position: relative;
-			z-index: 0;
-			pointer-events: none;
+			z-index: 1;
 		}
 
 		.hero-img img {
-			height: 100%;
-			max-height: 400px;
 			width: auto;
+			max-width: 100%;
+			height: auto;
+			max-height: 450px;
 			object-fit: contain;
-			position: absolute;
-			z-index: 0;
-			bottom: -50px;
-			margin-left: 150px;
-			filter: drop-shadow(-10px 0 15px rgba(0,0,0,0.1));
+			filter: drop-shadow(0 15px 35px rgba(0,0,0,0.15));
 			transition: transform 0.3s ease;
-			pointer-events: none;
 		}
 
 
@@ -556,15 +607,14 @@
 		}
 
 		.hero-socials {
+			display: flex;
 			justify-content: flex-start;
-			flex-wrap: nowrap;
+			align-items: center;
+			flex-wrap: wrap;
 			overflow: visible;
 			width: 100%;
-			max-width: 100%;
-			margin-top: 10px;
-			gap: 8px;
-			margin-left: 0;
-			margin-right: 0;
+			margin-top: 20px;
+			gap: 15px;
 			position: relative;
 			z-index: 10;
 		}
@@ -1166,7 +1216,7 @@
 			border-radius: 50px;
 			font-weight: 600;
 			box-shadow: 0 4px 15px rgba(232, 93, 117, 0.4);
-			transition: all 0.3s ease;
+			transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
 			border: none;
 			cursor: pointer;
 			font-size: 0.92rem;
@@ -1297,7 +1347,7 @@
 			cursor: pointer;
 			line-height: 1;
 			white-space: nowrap;
-			transition: all 0.3s ease;
+			transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
 			overflow: hidden;
 			isolation: isolate;
 			opacity: 0;
@@ -1307,11 +1357,59 @@
 			will-change: opacity, transform;
 		}
 
-		.lang-toggle-floating:hover {
-			background: var(--glass-surface-strong);
-			color: var(--text-highlight);
+		.contact-btn-floating {
+			position: fixed;
+			left: calc(80px + env(safe-area-inset-left));
+			bottom: calc(18px + env(safe-area-inset-bottom));
+			z-index: 1301;
+			display: inline-flex;
+			align-items: center;
+			justify-content: center;
+			width: 52px;
+			height: 52px;
+			padding: 0;
+			border-radius: 999px;
+			border: 1px solid var(--glass-border-strong);
+			background: var(--glass-surface);
+			backdrop-filter: blur(var(--glass-blur)) saturate(180%) contrast(1.05);
+			-webkit-backdrop-filter: blur(var(--glass-blur)) saturate(180%) contrast(1.05);
+			color: var(--text-main);
+			text-decoration: none;
+			font-family: 'Mochiy Pop One', sans-serif;
+			box-shadow:
+				0 12px 36px rgba(0,0,0,0.16),
+				inset 0 1px 0 rgba(255,255,255,0.65),
+				inset 0 -1px 0 rgba(255,255,255,0.25);
+			cursor: pointer;
+			transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+			overflow: hidden;
+			opacity: 0;
+			transform: translateY(10px);
+			animation: fadeIn 0.65s ease-out forwards;
+			animation-delay: 0.55s;
+		}
+
+		.contact-btn-floating i {
+			font-size: 1.2rem;
+		}
+
+		.contact-btn-floating > span {
+			display: none;
+		}
+
+		.contact-btn-floating:hover {
+			width: 140px;
+			background: var(--text-highlight);
+			color: white;
 			transform: translateY(-5px);
 			box-shadow: var(--hover-glow-shadow);
+		}
+
+		.contact-btn-floating:hover > span {
+			display: inline-block;
+			margin-left: 8px;
+			font-weight: 400;
+			font-size: 0.95rem;
 		}
 
 		.lang-toggle-floating:focus-visible {
@@ -1320,15 +1418,56 @@
 		}
 
 		.lang-toggle-floating .lang-toggle-label {
-			font-weight: 800;
-			letter-spacing: 0.5px;
-			font-size: 0.95rem;
+			display: inline-flex;
+			align-items: center;
+			justify-content: center;
+			color: inherit;
+			font-size: 1.25rem;
+			transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+		}
+
+		.lang-toggle-floating:hover .lang-toggle-label {
+			transform: scale(1.1);
+		}
+
+		.lang-toggle-hint {
+			display: none;
+		}
+
+		.lang-toggle-floating:hover ~ .contact-btn-floating {
+			left: calc(188px + env(safe-area-inset-left));
+		}
+
+		.lang-toggle-floating:hover {
+			width: 160px;
+			background: var(--text-highlight);
+			color: white;
+			transform: translateY(-5px);
+			box-shadow: var(--hover-glow-shadow);
+		}
+
+		.lang-toggle-floating:hover .lang-toggle-hint {
+			display: inline-block;
+			margin-left: 10px;
+			font-weight: 600;
+			font-size: 1rem;
+			font-family: 'Mochiy Pop One', sans-serif;
 		}
 
 		@media (min-width: 769px) {
 			.lang-toggle-floating {
 				left: auto;
 				right: calc(18px + env(safe-area-inset-right));
+				top: 20px;
+				bottom: auto;
+			}
+			.lang-toggle-floating:hover ~ .contact-btn-floating {
+				right: calc(188px + env(safe-area-inset-right));
+				left: auto;
+			}
+			.contact-btn-floating {
+				left: auto;
+				right: calc(80px + env(safe-area-inset-right));
 				top: 20px;
 				bottom: auto;
 			}
@@ -1372,7 +1511,7 @@
 			opacity: 0;
 			transform: translateY(10px);
 			pointer-events: none;
-			transition: opacity 0.3s ease, transform 0.3s ease, background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
+			transition: opacity 0.35s ease, transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), background-color 0.35s ease, color 0.35s ease, box-shadow 0.35s ease;
 			overflow: hidden;
 			isolation: isolate;
 		}
@@ -1400,8 +1539,8 @@
 		}
 
 		.scroll-top-btn:hover {
-			background: var(--glass-surface-strong);
-			color: var(--text-highlight);
+			background: var(--text-highlight);
+			color: white;
 			transform: translateY(-5px);
 			box-shadow: var(--hover-glow-shadow);
 		}
@@ -1548,10 +1687,6 @@
 			height: clamp(42px, 5.2vw, 48px);
 			font-size: clamp(1.05rem, 2.4vw, 1.18rem);
 		}
-		.social-icons.hero-socials a img {
-			width: clamp(22px, 3vw, 26px);
-			height: clamp(22px, 3vw, 26px);
-		}
 		.social-icons.hero-socials a:hover {
 			transform: translateY(-3px);
 			box-shadow:
@@ -1561,14 +1696,14 @@
 		.social-icons a {
 			width: 44px;
 			height: 44px;
-			display: inline-flex;
+			display: flex;
 			align-items: center;
 			justify-content: center;
 			border-radius: 999px;
 			text-decoration: none;
 			color: var(--text-main);
 			font-size: 1.2rem;
-			transition: all 0.3s ease;
+			transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
 			border: 1px solid var(--glass-border-strong);
 			background: var(--glass-surface);
 			backdrop-filter: blur(var(--glass-blur)) saturate(180%) contrast(1.05);
@@ -1577,8 +1712,63 @@
 				inset 0 1px 0 rgba(255,255,255,0.65),
 				inset 0 -1px 0 rgba(255,255,255,0.25);
 			position: relative;
-			overflow: hidden;
 			isolation: isolate;
+		}
+
+		.social-icons a i,
+		.social-icons a img {
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+			z-index: 1;
+			margin: 0;
+			line-height: 1;
+		}
+
+		.social-icons a img {
+			width: 24px;
+			height: 24px;
+			object-fit: contain;
+			transition: filter 0.3s ease;
+		}
+
+		.custom-tooltip {
+			position: absolute;
+			bottom: calc(100% + 12px);
+			left: 50%;
+			transform: translateX(-50%) translateY(10px);
+			background: var(--text-highlight);
+			color: white;
+			padding: 6px 12px;
+			border-radius: 8px;
+			font-size: 0.75rem;
+			font-weight: 600;
+			white-space: nowrap;
+			opacity: 0;
+			visibility: hidden;
+			transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+			box-shadow: 0 5px 15px rgba(232, 93, 117, 0.35);
+			pointer-events: none;
+			z-index: 100;
+			font-family: 'Kosugi Maru', sans-serif;
+		}
+
+		.custom-tooltip::after {
+			content: "";
+			position: absolute;
+			top: 100%;
+			left: 50%;
+			transform: translateX(-50%);
+			border-width: 6px;
+			border-style: solid;
+			border-color: var(--text-highlight) transparent transparent transparent;
+		}
+
+		.social-icons a:hover .custom-tooltip {
+			opacity: 1;
+			visibility: visible;
+			transform: translateX(-50%) translateY(0);
 		}
 		.social-icons a::before {
 			content: "";
@@ -1591,10 +1781,6 @@
 			opacity: 0.55;
 			pointer-events: none;
 			z-index: 0;
-		}
-		.social-icons a > * {
-			position: relative;
-			z-index: 1;
 		}
 		.social-icons a:hover {
 			background: var(--glass-surface-strong);
@@ -1610,13 +1796,6 @@
 
 		.social-icons a:hover img {
 			filter: invert(48%) sepia(26%) saturate(1478%) hue-rotate(307deg) brightness(97%) contrast(92%);
-		}
-
-		.social-icons a img {
-			width: 24px;
-			height: 24px;
-			object-fit: contain;
-			transition: filter 0.3s ease;
 		}
 
 		.fa-threads {
@@ -1657,12 +1836,21 @@
 				padding: 40px 20px;
 				min-height: auto;
 			}
+			.hero-text {
+				flex-direction: column;
+				align-items: flex-start;
+				gap: 20px;
+			}
+			.hero-logo {
+				height: clamp(80px, 20vw, 120px);
+				margin-bottom: 5px;
+			}
 			.skills-container {
 				grid-template-columns: repeat(2, minmax(0, 1fr));
 				gap: 10px 14px;
+				width: 100%;
 			}
 			.hero-img { display: none }
-			.hero-text h1 { font-size: 2.8rem;}
 			.grid-2 { grid-template-columns: 1fr; }
 			.music-grid { grid-template-columns: 1fr; }
 			nav {
@@ -1705,6 +1893,21 @@
 				height: 52px;
 				padding: 0;
 			}
+			.lang-toggle-floating:hover {
+				width: 52px;
+			}
+			.lang-toggle-floating:hover .lang-toggle-hint {
+				display: none;
+			}
+			.contact-btn-floating {
+				left: calc(76px + env(safe-area-inset-left));
+				right: auto;
+				top: auto;
+				bottom: calc(90px + env(safe-area-inset-bottom));
+				width: 52px;
+				height: 52px;
+				padding: 0;
+			}
 			.scroll-top-btn {
 				bottom: calc(90px + env(safe-area-inset-bottom));
 			}
@@ -1739,8 +1942,9 @@
 		}
 		@media (min-width: 769px) {
 			.hide-on-computer img {display: none;}
-			.hero-img { display: block }
-			.hero-img img { margin-bottom: 0px; width: clamp(300px, 38vw, 520px); height: auto; left: auto; right: clamp(-140px, calc(-140px + (1200px - 100vw) * 0.25), -50px) !important; bottom: -20px !important; margin-left: 0 !important; }
+			.hero-img { display: block; }
+			.hero-img img { margin-bottom: 0px; width: clamp(300px, 38vw, 520px); height: auto; left: auto; right: clamp(-140px, calc(-140px + (1200px - 100vw) * 0.25), -50px) !important; bottom: -20px !important; margin-left: 0 !important; transform: translate(50px, 65px) scale(1.3); transform-origin: bottom center; }
+			.hero-img img:hover { transform: translate(50px, 65px) scale(1.32); }
 			.tabs {
 				flex-wrap: nowrap;
 				overflow-x: auto;
@@ -1767,52 +1971,73 @@
 </nav>
 
 <button id="langToggle" class="lang-toggle-btn lang-toggle-floating" type="button" aria-label="切換語言">
-	<span id="langToggleLabel" class="lang-toggle-label">中</span>
+	<span id="langToggleLabel" class="lang-toggle-label"><i class="fas fa-language"></i></span>
+	<span class="lang-toggle-hint">
+		<span class="lang-zh">English</span>
+		<span class="lang-en">中文</span>
+	</span>
 </button>
+
+<a href="#footer" class="contact-btn-floating" title="聯絡我" data-title-zh="聯絡我" data-title-en="Contact">
+	<i class="fas fa-comment-dots"></i>
+	<span><span class="lang-zh">聯絡我</span><span class="lang-en">Contact</span></span>
+</a>
 
 <div class="container">
 
 	<section id="hero" class="glass-card hero reveal">
-		<div class="hide-on-computer">
-			<img src="img/秋夜.png" alt="秋夜" data-alt-zh="秋夜" data-alt-en="AuNight">
-		</div>
-		<div class="hero-text">
-			<h1><span class="lang-zh">秋夜</span><span class="lang-en">AuNight</span> <span class="lang-zh h1-subtitle">全能創作者</span><span class="lang-en h1-subtitle">All‑Round Creator</span></h1>
+		<div class="hero-content-wrapper">
+			<div class="hero-text">
+				<h1>
+					<img src="img/logo.png" alt="秋夜 AuNight" class="hero-logo">
+					<span class="h1-subtitle">
+						<span class="lang-zh">全能創作者</span>
+						<span class="lang-en">All‑Round Creator</span>
+					</span>
+				</h1>
 
-			<div class="skills-container">
-				<div class="skill-pair">
-					<span class="skill-zh lang-zh">剪輯師</span>
-					<span class="skill-en lang-en">Video Editor</span>
-				</div>
-				<div class="skill-pair">
-					<span class="skill-zh lang-zh">音樂製作人</span>
-					<span class="skill-en lang-en">Music Producer</span>
-				</div>
-				<div class="skill-pair">
-					<span class="skill-zh lang-zh">UI/UX設計師</span>
-					<span class="skill-en lang-en">UI/UX Designer</span>
-				</div>
-				<div class="skill-pair">
-					<span class="skill-zh lang-zh">平面設計師</span>
-					<span class="skill-en lang-en">Graphic Designer</span>
-				</div>
-				<div class="skill-pair">
-					<span class="skill-zh lang-zh">前端工程師</span>
-					<span class="skill-en lang-en">Frontend Engineer</span>
-				</div>
-				<div class="skill-pair">
-					<span class="skill-zh lang-zh">動畫師</span>
-					<span class="skill-en lang-en">Animator</span>
-				</div>
-				<div class="skill-pair">
-					<span class="skill-zh lang-zh">調色師</span>
-					<span class="skill-en lang-en">Colorist</span>
-				</div>
-				<div class="skill-pair">
-					<span class="skill-zh lang-zh">特效師</span>
-					<span class="skill-en lang-en">VFX Artist</span>
+				<div class="skills-container">
+					<div class="skill-pair">
+						<span class="skill-zh lang-zh">剪輯師</span>
+						<span class="skill-en lang-en">Video Editor</span>
+					</div>
+					<div class="skill-pair">
+						<span class="skill-zh lang-zh">音樂製作人</span>
+						<span class="skill-en lang-en">Music Producer</span>
+					</div>
+					<div class="skill-pair">
+						<span class="skill-zh lang-zh">UI/UX設計師</span>
+						<span class="skill-en lang-en">UI/UX Designer</span>
+					</div>
+					<div class="skill-pair">
+						<span class="skill-zh lang-zh">平面設計師</span>
+						<span class="skill-en lang-en">Graphic Designer</span>
+					</div>
+					<div class="skill-pair">
+						<span class="skill-zh lang-zh">前端工程師</span>
+						<span class="skill-en lang-en">Frontend Engineer</span>
+					</div>
+					<div class="skill-pair">
+						<span class="skill-zh lang-zh">動畫師</span>
+						<span class="skill-en lang-en">Animator</span>
+					</div>
+					<div class="skill-pair">
+						<span class="skill-zh lang-zh">調色師</span>
+						<span class="skill-en lang-en">Colorist</span>
+					</div>
+					<div class="skill-pair">
+						<span class="skill-zh lang-zh">特效師</span>
+						<span class="skill-en lang-en">VFX Artist</span>
+					</div>
 				</div>
 			</div>
+
+			<div class="hero-img">
+				<img src="img/hero-character.png" alt="秋夜人物" data-alt-zh="秋夜人物" data-alt-en="AuNight character">
+			</div>
+		</div>
+
+		<div class="hero-highlights-container">
 			<div class="hero-highlights">
 				<a class="hero-highlight-link" href="#uiux" aria-label="前往介面設計區塊">
 					<div class="hero-highlight" data-metric-value="100000">
@@ -1842,11 +2067,7 @@
 					</div>
 				</a>
 			</div>
-			<div class="hero-img">
-				<img src="img/右人物去背.png" alt="秋夜人物" data-alt-zh="秋夜人物" data-alt-en="AuNight character">
-			</div>
 		</div>
-
 	</section>
 	
 
@@ -2147,7 +2368,7 @@
 
 			<div class="price-content">
 				<div class="price-content-inner">
-					<img src="img/混音價目表.png" style="width:100%; border-radius:10px;">
+					<img src="img/mixing-price.png" style="width:100%; border-radius:10px;">
 
 					<div style="text-align: center; margin-top: 30px;">
 						<p class="lang-zh" style="margin-bottom: 6px; font-size: 0.9rem; opacity: 0.75;">
@@ -2925,22 +3146,22 @@
 	<i class="fas fa-arrow-up" aria-hidden="true"></i>
 </button>
 
-<footer>
+<footer id="footer">
 	<div class="footer-inner">
 		<p class="footer-lead"><span class="lang-zh">歡迎透過社群平台追蹤我並與我聯絡</span><span class="lang-en">Follow and get in touch via the platforms</span></p>
 		<div class="social-icons">
-			<a href="mailto:g950025@gmail.com" title="信箱" data-title-zh="信箱" data-title-en="Email"><i class="fas fa-envelope"></i></a>
-			<a href="https://line.me/ti/p/an_aidancheng" target="_blank" title="LINE" data-title-zh="LINE" data-title-en="LINE"><i class="fab fa-line"></i></a>
-			<a href="https://x.com/aunight_" target="_blank" title="X" data-title-zh="X" data-title-en="X"><i class="fa-brands fa-x-twitter"></i></a>
-			<a href="https://discord.com/users/858897462206267433" target="_blank" title="Discord" data-title-zh="Discord" data-title-en="Discord"><i class="fab fa-discord"></i></a>
-			<a href="https://www.instagram.com/aunight" target="_blank" title="Instagram" data-title-zh="Instagram" data-title-en="Instagram"><i class="fa-brands fa-square-instagram"></i></a>
-			<a href="https://www.facebook.com/aunight.cheng" target="_blank" title="Facebook" data-title-zh="Facebook" data-title-en="Facebook"><i class="fab fa-facebook"></i></a>
-			<a href="https://portaly.cc/aunight" target="_blank" title="Portaly" data-title-zh="Portaly" data-title-en="Portaly"><img src="img/Portaly.svg" alt="Portaly"></a>
-			<a href="https://www.youtube.com/AuNight" target="_blank" title="YouTube" data-title-zh="YouTube" data-title-en="YouTube"><i class="fab fa-youtube"></i></a>
-			<a href="https://open.spotify.com/artist/3AhaLZxsspqiQaFjER1bX0?si=bx6OKqPmR1yLf7QHbig2lw" target="_blank" title="Spotify" data-title-zh="Spotify" data-title-en="Spotify"><i class="fab fa-spotify"></i></a>
-			<a href="https://behance.net/aunight" target="_blank" title="Behance" data-title-zh="Behance" data-title-en="Behance"><i class="fab fa-behance"></i></a>
-			<a href="https://www.tiktok.com/@au.night" target="_blank" title="TikTok" data-title-zh="TikTok" data-title-en="TikTok"><i class="fab fa-tiktok"></i></a>
-			<a href="https://www.threads.net/@aunight" target="_blank" title="Threads" data-title-zh="Threads" data-title-en="Threads"><i class="fa-brands fa-threads"></i></a>
+			<a href="mailto:g950025@gmail.com" data-title-zh="Gmail" data-title-en="Gmail"><i class="fas fa-envelope"></i><span class="custom-tooltip"><span class="lang-zh">Gmail</span><span class="lang-en">Gmail</span></span></a>
+			<a href="https://line.me/ti/p/an_aidancheng" target="_blank" data-title-zh="LINE" data-title-en="LINE"><i class="fab fa-line"></i><span class="custom-tooltip"><span class="lang-zh">LINE</span><span class="lang-en">LINE</span></span></a>
+			<a href="https://x.com/aunight_" target="_blank" data-title-zh="X (Twitter)" data-title-en="X (Twitter)"><i class="fa-brands fa-x-twitter"></i><span class="custom-tooltip"><span class="lang-zh">X (Twitter)</span><span class="lang-en">X (Twitter)</span></span></a>
+			<a href="https://discord.com/users/858897462206267433" target="_blank" data-title-zh="Discord ID:aunight" data-title-en="Discord ID:aunight"><i class="fab fa-discord"></i><span class="custom-tooltip"><span class="lang-zh">Discord ID:aunight</span><span class="lang-en">Discord ID:aunight</span></span></a>
+			<a href="https://www.instagram.com/aunight" target="_blank" data-title-zh="Instagram" data-title-en="Instagram"><i class="fa-brands fa-square-instagram"></i><span class="custom-tooltip"><span class="lang-zh">Instagram</span><span class="lang-en">Instagram</span></span></a>
+			<a href="https://www.facebook.com/aunight.cheng" target="_blank" data-title-zh="Facebook" data-title-en="Facebook"><i class="fab fa-facebook"></i><span class="custom-tooltip"><span class="lang-zh">Facebook</span><span class="lang-en">Facebook</span></span></a>
+			<a href="https://portaly.cc/aunight" target="_blank" data-title-zh="Portaly" data-title-en="Portaly"><img src="img/Portaly.svg" alt="Portaly"><span class="custom-tooltip"><span class="lang-zh">Portaly</span><span class="lang-en">Portaly</span></span></a>
+			<a href="https://www.youtube.com/AuNight" target="_blank" data-title-zh="YouTube" data-title-en="YouTube"><i class="fab fa-youtube"></i><span class="custom-tooltip"><span class="lang-zh">YouTube</span><span class="lang-en">YouTube</span></span></a>
+			<a href="https://open.spotify.com/artist/3AhaLZxsspqiQaFjER1bX0?si=bx6OKqPmR1yLf7QHbig2lw" target="_blank" data-title-zh="Spotify" data-title-en="Spotify"><i class="fab fa-spotify"></i><span class="custom-tooltip"><span class="lang-zh">Spotify</span><span class="lang-en">Spotify</span></span></a>
+			<a href="https://behance.net/aunight" target="_blank" data-title-zh="Behance" data-title-en="Behance"><i class="fab fa-behance"></i><span class="custom-tooltip"><span class="lang-zh">Behance</span><span class="lang-en">Behance</span></span></a>
+			<a href="https://www.tiktok.com/@au.night" target="_blank" data-title-zh="TikTok" data-title-en="TikTok"><i class="fab fa-tiktok"></i><span class="custom-tooltip"><span class="lang-zh">TikTok</span><span class="lang-en">TikTok</span></span></a>
+			<a href="https://www.threads.net/@aunight" target="_blank" data-title-zh="Threads" data-title-en="Threads"><i class="fa-brands fa-threads"></i><span class="custom-tooltip"><span class="lang-zh">Threads</span><span class="lang-en">Threads</span></span></a>
 		</div>
 	</div>
 	<div class="footer-bottom">
@@ -3026,11 +3247,6 @@
 			const langToggleBtn = document.getElementById('langToggle');
 			if (langToggleBtn) {
 				langToggleBtn.setAttribute('aria-label', nextLang === 'en' ? '切換到中文' : 'Switch to English');
-			}
-
-			const langToggleLabel = document.getElementById('langToggleLabel');
-			if (langToggleLabel) {
-				langToggleLabel.textContent = nextLang === 'en' ? 'EN' : '中';
 			}
 
 			syncYouTubeLoadingTexts();
