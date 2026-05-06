@@ -325,7 +325,7 @@
 			max-width: 600px;
 			padding-left: 120px;  /* 往右移 */
 			padding-top: 40px;   /* 往下移 */
-			transform: translateY(-50px); /* 往上移 50px */
+			transform: translateY(-66px); /* 往上移 66px */
 			white-space: nowrap; /* 確保整個容器內容不換行 */
 		}
 
@@ -1988,6 +1988,20 @@
 		@media (min-width: 1200px) {
 			.hero-img img { right: -140px !important; }
 		}
+		@media (min-width: 1920px) {
+			.hero-img img {
+				right: -90px !important;
+				transform: translate(28px, 85px) scale(1.3);
+			}
+			.hero-img img:hover { transform: translate(28px, 85px) scale(1.32); }
+		}
+		@media (min-width: 2560px) {
+			.hero-img img {
+				right: -56px !important;
+				transform: translate(10px, 85px) scale(1.3);
+			}
+			.hero-img img:hover { transform: translate(10px, 85px) scale(1.32); }
+		}
 	</style>
 </head>
 <body>
@@ -2027,7 +2041,7 @@
 					<div class="hero-socials-container" aria-label="Social links">
 						<div class="social-icons hero-socials">
 							<a href="mailto:g950025@gmail.com" aria-label="Email" data-title-zh="Email" data-title-en="Email"><i class="fas fa-envelope"></i><span class="custom-tooltip"><span class="lang-zh">Email</span><span class="lang-en">Email</span></span></a>
-							<a href="https://discord.com/users/858897462206267433" target="_blank" rel="noopener" aria-label="Discord" data-title-zh="Discord" data-title-en="Discord"><i class="fab fa-discord"></i><span class="custom-tooltip"><span class="lang-zh">Discord</span><span class="lang-en">Discord</span></span></a>
+							<a href="#" data-discord-copy="aunight" data-discord-toast="hero" aria-label="Discord ID:aunight" data-title-zh="Discord ID:aunight" data-title-en="Discord ID:aunight"><i class="fab fa-discord"></i><span class="custom-tooltip"><span class="lang-zh">Discord ID:aunight</span><span class="lang-en">Discord ID:aunight</span></span></a>
 							<a href="https://x.com/aunight_" target="_blank" rel="noopener" aria-label="X" data-title-zh="X" data-title-en="X"><i class="fa-brands fa-x-twitter"></i><span class="custom-tooltip"><span class="lang-zh">X</span><span class="lang-en">X</span></span></a>
 							<a href="https://line.me/ti/p/an_aidancheng" target="_blank" rel="noopener" aria-label="LINE" data-title-zh="LINE" data-title-en="LINE"><i class="fab fa-line"></i><span class="custom-tooltip"><span class="lang-zh">LINE</span><span class="lang-en">LINE</span></span></a>
 						</div>
@@ -3195,7 +3209,7 @@
 			<a href="mailto:g950025@gmail.com" data-title-zh="Gmail" data-title-en="Gmail"><i class="fas fa-envelope"></i><span class="custom-tooltip"><span class="lang-zh">Gmail</span><span class="lang-en">Gmail</span></span></a>
 			<a href="https://line.me/ti/p/an_aidancheng" target="_blank" data-title-zh="LINE" data-title-en="LINE"><i class="fab fa-line"></i><span class="custom-tooltip"><span class="lang-zh">LINE</span><span class="lang-en">LINE</span></span></a>
 			<a href="https://x.com/aunight_" target="_blank" data-title-zh="X (Twitter)" data-title-en="X (Twitter)"><i class="fa-brands fa-x-twitter"></i><span class="custom-tooltip"><span class="lang-zh">X (Twitter)</span><span class="lang-en">X (Twitter)</span></span></a>
-			<a href="https://discord.com/users/858897462206267433" target="_blank" data-title-zh="Discord ID:aunight" data-title-en="Discord ID:aunight"><i class="fab fa-discord"></i><span class="custom-tooltip"><span class="lang-zh">Discord ID:aunight</span><span class="lang-en">Discord ID:aunight</span></span></a>
+			<a href="#" data-discord-copy="aunight" data-discord-toast="center" aria-label="Discord ID:aunight" data-title-zh="Discord ID:aunight" data-title-en="Discord ID:aunight"><i class="fab fa-discord"></i><span class="custom-tooltip"><span class="lang-zh">Discord ID:aunight</span><span class="lang-en">Discord ID:aunight</span></span></a>
 			<a href="https://www.instagram.com/aunight" target="_blank" data-title-zh="Instagram" data-title-en="Instagram"><i class="fa-brands fa-square-instagram"></i><span class="custom-tooltip"><span class="lang-zh">Instagram</span><span class="lang-en">Instagram</span></span></a>
 			<a href="https://www.facebook.com/aunight.cheng" target="_blank" data-title-zh="Facebook" data-title-en="Facebook"><i class="fab fa-facebook"></i><span class="custom-tooltip"><span class="lang-zh">Facebook</span><span class="lang-en">Facebook</span></span></a>
 			<a href="https://portaly.cc/aunight" target="_blank" data-title-zh="Portaly" data-title-en="Portaly"><img src="img/Portaly.svg" alt="Portaly"><span class="custom-tooltip"><span class="lang-zh">Portaly</span><span class="lang-en">Portaly</span></span></a>
@@ -3439,6 +3453,102 @@
 			});
 		};
 		setupFigmaLoadingIndicators();
+
+		const setupDiscordCopyLinks = () => {
+			const links = Array.from(document.querySelectorAll('a[data-discord-copy]'));
+			if (!links.length) return;
+
+			let toastTimer = 0;
+			let toastEl = document.getElementById('copyToast');
+			if (!toastEl) {
+				toastEl = document.createElement('div');
+				toastEl.id = 'copyToast';
+				toastEl.style.position = 'fixed';
+				toastEl.style.left = '50%';
+				toastEl.style.top = '120px';
+				toastEl.style.zIndex = '9999';
+				toastEl.style.padding = '12px 18px';
+				toastEl.style.borderRadius = '12px';
+				toastEl.style.background = 'rgba(232, 93, 117, 0.94)';
+				toastEl.style.color = '#fff';
+				toastEl.style.fontSize = '0.95rem';
+				toastEl.style.fontWeight = '700';
+				toastEl.style.boxShadow = '0 14px 34px rgba(0,0,0,0.28)';
+				toastEl.style.opacity = '0';
+				toastEl.style.transform = 'translate(-50%, 8px)';
+				toastEl.style.pointerEvents = 'none';
+				toastEl.style.transition = 'opacity 0.22s ease, transform 0.22s ease';
+				document.body.appendChild(toastEl);
+			}
+
+			const showToast = (text, placement) => {
+				const mode = placement === 'center' ? 'center' : 'hero';
+				if (mode === 'center') {
+					toastEl.style.top = '50%';
+				} else {
+					const hero = document.getElementById('hero');
+					if (hero) {
+						const rect = hero.getBoundingClientRect();
+						const targetTop = Math.min(window.innerHeight - 72, rect.bottom + 14);
+						toastEl.style.top = `${Math.max(12, targetTop)}px`;
+					}
+				}
+				toastEl.textContent = text;
+				toastEl.style.opacity = '1';
+				toastEl.style.transform = mode === 'center'
+					? 'translate(-50%, -50%)'
+					: 'translate(-50%, 0)';
+				window.clearTimeout(toastTimer);
+				toastTimer = window.setTimeout(() => {
+					toastEl.style.opacity = '0';
+					toastEl.style.transform = mode === 'center'
+						? 'translate(-50%, calc(-50% + 8px))'
+						: 'translate(-50%, 8px)';
+				}, 1600);
+			};
+
+			const copyDiscordId = async (value) => {
+				try {
+					if (navigator.clipboard && window.isSecureContext) {
+						await navigator.clipboard.writeText(value);
+						return true;
+					}
+				} catch (e) {}
+
+				try {
+					const input = document.createElement('input');
+					input.value = value;
+					input.setAttribute('readonly', '');
+					input.style.position = 'fixed';
+					input.style.opacity = '0';
+					document.body.appendChild(input);
+					input.select();
+					const ok = document.execCommand('copy');
+					document.body.removeChild(input);
+					return !!ok;
+				} catch (e) {
+					return false;
+				}
+			};
+
+			links.forEach((link) => {
+				link.addEventListener('click', async (event) => {
+					event.preventDefault();
+					const discordId = link.getAttribute('data-discord-copy') || 'aunight';
+					const placement = link.getAttribute('data-discord-toast') || 'hero';
+					const ok = await copyDiscordId(discordId);
+					const isEn = document.documentElement.dataset.lang === 'en';
+					showToast(
+						ok
+							? (isEn ? `Copied Discord ID: ${discordId}` : `已複製 Discord ID: ${discordId}`)
+							: (isEn ? 'Copy failed' : '複製失敗'),
+						placement
+					);
+				});
+			});
+		};
+
+		setupDiscordCopyLinks();
 
 		const getRootScrollPaddingTop = () => {
 			const value = window.getComputedStyle(document.documentElement).scrollPaddingTop;
