@@ -300,17 +300,30 @@
 			transform: translateY(-50px); /* 往上移 50px */
 		}
 
+		.hero-creator {
+			font-size: 1.35rem;
+			font-weight: 700;
+			letter-spacing: 0.2px;
+			color: var(--text-highlight);
+			text-align: center;
+			grid-column: 1 / -1;
+			justify-self: center;
+			margin: 0 0 2px;
+			transform: none;
+			white-space: nowrap;
+		}
+
 		.skills-container {
 			flex: 1 0 auto; /* 確保不會被過度擠壓 */
 			--skill-main-size: calc(clamp(0.9rem, 2vw, 1.05rem) * 1.2);
 			--skill-sub-size: calc(clamp(0.75rem, 1.8vw, 0.85rem) * 1.2);
 			display: grid;
 			grid-template-columns: repeat(2, max-content); /* 確保欄位依內容撐開，不換行 */
-			gap: 16px 36px;
+			gap: 12px 36px;
 			margin-bottom: 0;
 			text-align: left;
 			max-width: 600px;
-			padding-left: 90px;  /* 往右移 */
+			padding-left: 120px;  /* 往右移 */
 			padding-top: 40px;   /* 往下移 */
 			transform: translateY(-50px); /* 往上移 50px */
 			white-space: nowrap; /* 確保整個容器內容不換行 */
@@ -383,6 +396,17 @@
 			color: var(--text-highlight);
 			font-size: var(--skill-main-size);
 			margin-right: 0;
+			display: inline-flex;
+			align-items: center;
+			gap: 6px;
+		}
+
+		.skill-icon-core {
+			font-size: 0.78em;
+			opacity: 0.62;
+			width: 1em;
+			text-align: center;
+			flex: 0 0 1em;
 		}
 
 		.skills-container .skill-en {
@@ -407,6 +431,15 @@
 			margin-top: -72px;
 			position: relative;
 			z-index: 4;
+		}
+
+		.hero-socials-container {
+			width: auto;
+			display: flex;
+			justify-content: center;
+			margin: 8px auto 0;
+			position: relative;
+			z-index: 8;
 		}
 
 		.hero-highlight-link {
@@ -610,12 +643,12 @@
 
 		.hero-socials {
 			display: flex;
-			justify-content: flex-start;
+			justify-content: center;
 			align-items: center;
 			flex-wrap: wrap;
 			overflow: visible;
-			width: 100%;
-			margin-top: 20px;
+			width: auto;
+			margin-top: 0;
 			gap: 15px;
 			position: relative;
 			z-index: 10;
@@ -1670,19 +1703,19 @@
 			margin-right: 0;
 		}
 		.social-icons.hero-socials {
-			justify-content: flex-start;
+			justify-content: center;
 			flex-wrap: nowrap;
 			overflow: visible;
-			max-width: 100%;
-			width: 100%;
-			margin-left: -18px;
-			margin-right: -42px;
-			transform: translateX(-10px);
-			padding-top: 14px;
-			padding-bottom: 12px;
-			padding-left: 18px;
-			padding-right: 42px;
-			margin-top: -14px;
+			max-width: calc(100% - 32px);
+			width: auto;
+			margin: 0 auto;
+			transform: none;
+			padding: 0;
+			border: 0;
+			background: transparent;
+			backdrop-filter: none;
+			-webkit-backdrop-filter: none;
+			box-shadow: none;
 		}
 		.social-icons.hero-socials a {
 			width: clamp(42px, 5.2vw, 48px);
@@ -1917,13 +1950,12 @@
 
 			.social-icons.hero-socials {
 				justify-content: center;
-				margin-top: 20px;
 				flex-wrap: wrap;
 				margin-left: 0;
 				margin-right: 0;
+				max-width: 100%;
 				transform: none;
-				padding-left: 0;
-				padding-right: 0;
+				padding: 10px 12px;
 			}
 
 			footer {
@@ -1992,43 +2024,51 @@
 			<div class="hero-text">
 				<h1>
 					<img src="img/logo.png" alt="秋夜 AuNight" class="hero-logo">
-					<span class="h1-subtitle">
-						<span class="lang-zh">全能創作者</span>
-						<span class="lang-en">All‑Round Creator</span>
-					</span>
+					<div class="hero-socials-container" aria-label="Social links">
+						<div class="social-icons hero-socials">
+							<a href="mailto:g950025@gmail.com" aria-label="Email" data-title-zh="Email" data-title-en="Email"><i class="fas fa-envelope"></i><span class="custom-tooltip"><span class="lang-zh">Email</span><span class="lang-en">Email</span></span></a>
+							<a href="https://discord.com/users/858897462206267433" target="_blank" rel="noopener" aria-label="Discord" data-title-zh="Discord" data-title-en="Discord"><i class="fab fa-discord"></i><span class="custom-tooltip"><span class="lang-zh">Discord</span><span class="lang-en">Discord</span></span></a>
+							<a href="https://x.com/aunight_" target="_blank" rel="noopener" aria-label="X" data-title-zh="X" data-title-en="X"><i class="fa-brands fa-x-twitter"></i><span class="custom-tooltip"><span class="lang-zh">X</span><span class="lang-en">X</span></span></a>
+							<a href="https://line.me/ti/p/an_aidancheng" target="_blank" rel="noopener" aria-label="LINE" data-title-zh="LINE" data-title-en="LINE"><i class="fab fa-line"></i><span class="custom-tooltip"><span class="lang-zh">LINE</span><span class="lang-en">LINE</span></span></a>
+						</div>
+					</div>
 				</h1>
 
 				<div class="skills-container">
+					<div class="hero-creator">
+						<span class="lang-zh">全能創作者</span>
+						<span class="lang-en">All‑Round Creator</span>
+					</div>
 					<div class="skill-pair">
-						<span class="skill-zh lang-zh">剪輯師</span>
+						<span class="skill-zh lang-zh"><i class="fas fa-video skill-icon-core" aria-hidden="true"></i>剪輯師</span>
 						<span class="skill-en lang-en">Video Editor</span>
 					</div>
 					<div class="skill-pair">
-						<span class="skill-zh lang-zh">音樂製作人</span>
+						<span class="skill-zh lang-zh"><i class="fas fa-music skill-icon-core" aria-hidden="true"></i>音樂製作人</span>
 						<span class="skill-en lang-en">Music Producer</span>
 					</div>
 					<div class="skill-pair">
-						<span class="skill-zh lang-zh">UI/UX設計師</span>
+						<span class="skill-zh lang-zh"><i class="fas fa-pen-ruler skill-icon-core" aria-hidden="true"></i>UI/UX設計師</span>
 						<span class="skill-en lang-en">UI/UX Designer</span>
 					</div>
 					<div class="skill-pair">
-						<span class="skill-zh lang-zh">平面設計師</span>
+						<span class="skill-zh lang-zh"><i class="fas fa-palette skill-icon-core" aria-hidden="true"></i>平面設計師</span>
 						<span class="skill-en lang-en">Graphic Designer</span>
 					</div>
 					<div class="skill-pair">
-						<span class="skill-zh lang-zh">前端工程師</span>
+						<span class="skill-zh lang-zh"><i class="fas fa-code skill-icon-core" aria-hidden="true"></i>前端工程師</span>
 						<span class="skill-en lang-en">Frontend Engineer</span>
 					</div>
 					<div class="skill-pair">
-						<span class="skill-zh lang-zh">動畫師</span>
+						<span class="skill-zh lang-zh"><i class="fas fa-wand-magic-sparkles skill-icon-core" aria-hidden="true"></i>動畫師</span>
 						<span class="skill-en lang-en">Animator</span>
 					</div>
 					<div class="skill-pair">
-						<span class="skill-zh lang-zh">調色師</span>
+						<span class="skill-zh lang-zh"><i class="fas fa-fill-drip skill-icon-core" aria-hidden="true"></i>調色師</span>
 						<span class="skill-en lang-en">Colorist</span>
 					</div>
 					<div class="skill-pair">
-						<span class="skill-zh lang-zh">特效師</span>
+						<span class="skill-zh lang-zh"><i class="fas fa-bolt skill-icon-core" aria-hidden="true"></i>特效師</span>
 						<span class="skill-en lang-en">VFX Artist</span>
 					</div>
 				</div>
