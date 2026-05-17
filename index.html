@@ -8,9 +8,18 @@
 
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+	<link rel="dns-prefetch" href="https://www.behance.net">
+	<link rel="dns-prefetch" href="https://open.spotify.com">
+	<link rel="dns-prefetch" href="https://iframely.net">
+
+	<link rel="preload" as="image" href="img/logo.png" fetchpriority="high">
+	<link rel="preload" as="image" href="img/hero-character.png" fetchpriority="high">
+
 	<link href="https://fonts.googleapis.com/css2?family=Kosugi+Maru&family=Mochiy+Pop+One&family=Shippori+Mincho+B1&display=swap" rel="stylesheet">
 
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+	<link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+	<noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"></noscript>
 
 	<style>
 		:root {
@@ -39,7 +48,13 @@
 		html {
 			scroll-padding-top: 100px; /* 避免導航欄遮住標題 */
 			height: 100%;
+			scroll-behavior: smooth;
+		}
 
+		@media (prefers-reduced-motion: reduce) {
+			html {
+				scroll-behavior: auto;
+			}
 		}
 
 		body {
@@ -1280,8 +1295,19 @@
 		html.is-scrolling footer {
 			transition: none;
 		}
-		html.is-scrolling nav,
-		html.is-scrolling .lang-toggle-floating {
+		html.is-scrolling nav {
+			transition: none;
+		}
+		html.is-scrolling .lang-toggle-floating,
+		html.is-scrolling .contact-btn-floating {
+			transition: none;
+			backdrop-filter: none;
+			-webkit-backdrop-filter: none;
+		}
+		html.is-scrolling .glass-card {
+			transition: none;
+		}
+		html.is-scrolling .reveal {
 			transition: none;
 		}
 		html.is-smooth-scrolling .container,
@@ -1392,11 +1418,25 @@
 			will-change: opacity, transform;
 		}
 
-		.contact-btn-floating {
+		.contact-btn-floating-wrapper {
 			position: fixed;
 			left: calc(80px + env(safe-area-inset-left));
 			bottom: calc(18px + env(safe-area-inset-bottom));
 			z-index: 1301;
+			transition: left 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), right 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+			opacity: 0;
+			transform: translateY(10px);
+			animation: fadeIn 0.65s ease-out forwards;
+			animation-delay: 0.55s;
+		}
+
+		.contact-btn-floating-wrapper::before {
+			content: "";
+			position: absolute;
+			inset: -4px -4px -14px -4px;
+		}
+
+		.contact-btn-floating {
 			display: inline-flex;
 			align-items: center;
 			justify-content: center;
@@ -1418,10 +1458,65 @@
 			cursor: pointer;
 			transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
 			overflow: hidden;
+		}
+
+		.contact-dropdown {
+			position: absolute;
+			top: calc(100% + 10px);
+			left: 0;
+			display: flex;
+			flex-direction: column;
+			gap: 4px;
+			padding: 8px;
+			min-width: 168px;
+			background: var(--glass-surface);
+			backdrop-filter: blur(var(--glass-blur)) saturate(180%) contrast(1.05);
+			-webkit-backdrop-filter: blur(var(--glass-blur)) saturate(180%) contrast(1.05);
+			border: 1px solid var(--glass-border-strong);
+			border-radius: 16px;
+			box-shadow:
+				0 14px 40px rgba(0,0,0,0.18),
+				inset 0 1px 0 rgba(255,255,255,0.65),
+				inset 0 -1px 0 rgba(255,255,255,0.25);
 			opacity: 0;
-			transform: translateY(10px);
-			animation: fadeIn 0.65s ease-out forwards;
-			animation-delay: 0.55s;
+			visibility: hidden;
+			transform: translateY(-6px);
+			pointer-events: none;
+			transition: opacity 0.25s ease, transform 0.25s ease, visibility 0s linear 0.25s;
+		}
+
+		.contact-btn-floating-wrapper:hover .contact-dropdown,
+		.contact-btn-floating-wrapper:focus-within .contact-dropdown {
+			opacity: 1;
+			visibility: visible;
+			transform: translateY(0);
+			pointer-events: auto;
+			transition: opacity 0.25s ease, transform 0.25s ease, visibility 0s;
+		}
+
+		.contact-dropdown a {
+			display: flex;
+			align-items: center;
+			gap: 12px;
+			padding: 9px 14px;
+			color: var(--text-main);
+			text-decoration: none;
+			border-radius: 10px;
+			white-space: nowrap;
+			font-size: 0.95rem;
+			font-family: 'Mochiy Pop One', sans-serif;
+			transition: background-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
+		}
+
+		.contact-dropdown a:hover {
+			background: var(--text-highlight);
+			color: white;
+		}
+
+		.contact-dropdown a i {
+			width: 18px;
+			text-align: center;
+			font-size: 1.05rem;
 		}
 
 		.contact-btn-floating i {
@@ -1432,6 +1527,8 @@
 			display: none;
 		}
 
+		.contact-btn-floating-wrapper:hover .contact-btn-floating,
+		.contact-btn-floating-wrapper:focus-within .contact-btn-floating,
 		.contact-btn-floating:hover {
 			width: 140px;
 			background: var(--text-highlight);
@@ -1440,6 +1537,8 @@
 			box-shadow: var(--hover-glow-shadow);
 		}
 
+		.contact-btn-floating-wrapper:hover .contact-btn-floating > span,
+		.contact-btn-floating-wrapper:focus-within .contact-btn-floating > span,
 		.contact-btn-floating:hover > span {
 			display: inline-block;
 			margin-left: 8px;
@@ -1469,7 +1568,7 @@
 			display: none;
 		}
 
-		.lang-toggle-floating:hover ~ .contact-btn-floating {
+		.lang-toggle-floating:hover ~ .contact-btn-floating-wrapper {
 			left: calc(188px + env(safe-area-inset-left));
 		}
 
@@ -1496,15 +1595,19 @@
 				top: 20px;
 				bottom: auto;
 			}
-			.lang-toggle-floating:hover ~ .contact-btn-floating {
+			.lang-toggle-floating:hover ~ .contact-btn-floating-wrapper {
 				right: calc(188px + env(safe-area-inset-right));
 				left: auto;
 			}
-			.contact-btn-floating {
+			.contact-btn-floating-wrapper {
 				left: auto;
 				right: calc(80px + env(safe-area-inset-right));
 				top: 20px;
 				bottom: auto;
+			}
+			.contact-dropdown {
+				left: auto;
+				right: 0;
 			}
 		}
 
@@ -1934,14 +2037,25 @@
 			.lang-toggle-floating:hover .lang-toggle-hint {
 				display: none;
 			}
-			.contact-btn-floating {
+			.contact-btn-floating-wrapper {
 				left: calc(76px + env(safe-area-inset-left));
 				right: auto;
 				top: auto;
 				bottom: calc(90px + env(safe-area-inset-bottom));
-				width: 52px;
-				height: 52px;
-				padding: 0;
+			}
+			.contact-btn-floating-wrapper::before {
+				inset: -14px -4px -4px -4px;
+			}
+			.contact-dropdown {
+				top: auto;
+				bottom: calc(100% + 10px);
+				left: 0;
+				right: auto;
+				transform: translateY(6px);
+			}
+			.contact-btn-floating-wrapper:hover .contact-dropdown,
+			.contact-btn-floating-wrapper:focus-within .contact-dropdown {
+				transform: translateY(0);
 			}
 			.scroll-top-btn {
 				bottom: calc(90px + env(safe-area-inset-bottom));
@@ -2026,10 +2140,17 @@
 	</span>
 </button>
 
-<a href="#footer" class="contact-btn-floating" title="聯絡我" data-title-zh="聯絡我" data-title-en="Contact">
-	<i class="fas fa-comment-dots"></i>
-	<span><span class="lang-zh">聯絡我</span><span class="lang-en">Contact</span></span>
-</a>
+<div class="contact-btn-floating-wrapper">
+	<a href="#footer" class="contact-btn-floating" title="聯絡我" data-title-zh="聯絡我" data-title-en="Contact" aria-haspopup="true">
+		<i class="fas fa-comment-dots"></i>
+		<span><span class="lang-zh">聯絡我</span><span class="lang-en">Contact</span></span>
+	</a>
+	<div class="contact-dropdown" role="menu" aria-label="聯絡方式">
+		<a href="mailto:email@aunight.pw" role="menuitem"><i class="fas fa-envelope"></i><span>Email</span></a>
+		<a href="https://line.me/ti/p/an_aidancheng" target="_blank" rel="noopener" role="menuitem"><i class="fab fa-line"></i><span>LINE</span></a>
+		<a href="#" data-discord-copy="aunight" data-discord-toast="contact" role="menuitem"><i class="fab fa-discord"></i><span>Discord</span></a>
+	</div>
+</div>
 
 <div class="container">
 
@@ -2037,7 +2158,7 @@
 		<div class="hero-content-wrapper">
 			<div class="hero-text">
 				<h1>
-					<img src="img/logo.png" alt="秋夜 AuNight" class="hero-logo">
+					<img src="img/logo.png" alt="秋夜 AuNight" class="hero-logo" fetchpriority="high" decoding="async">
 					<div class="hero-socials-container" aria-label="Social links">
 						<div class="social-icons hero-socials">
 							<a href="mailto:email@aunight.pw" aria-label="Email" data-title-zh="Email" data-title-en="Email"><i class="fas fa-envelope"></i><span class="custom-tooltip"><span class="lang-zh">Email</span><span class="lang-en">Email</span></span></a>
@@ -2089,7 +2210,7 @@
 			</div>
 
 			<div class="hero-img">
-				<img src="img/hero-character.png" alt="秋夜人物" data-alt-zh="秋夜人物" data-alt-en="AuNight character">
+				<img src="img/hero-character.png" alt="秋夜人物" data-alt-zh="秋夜人物" data-alt-en="AuNight character" fetchpriority="high" decoding="async">
 			</div>
 		</div>
 
@@ -2424,7 +2545,7 @@
 
 			<div class="price-content">
 				<div class="price-content-inner">
-					<img src="img/mixing-price.png" style="width:100%; border-radius:10px;">
+					<img src="img/mixing-price.png" alt="混音報價" style="width:100%; border-radius:10px;" loading="lazy" decoding="async">
 
 					<div style="text-align: center; margin-top: 30px;">
 						<p class="lang-zh" style="margin-bottom: 6px; font-size: 0.9rem; opacity: 0.75;">
@@ -2435,7 +2556,7 @@
 						</p>
 
 						<a href="mailto:email@aunight.pw" class="action-btn email-btn">
-							<i class="fas fa-envelope"></i> <span class="lang-zh">email@aunight.pw</span><span class="lang-en">email@aunight.pw</span>
+							<i class="fas fa-envelope"></i> <span class="lang-zh">聯絡我</span><span class="lang-en">Contact Me</span>
 						</a>
 					</div>
 				</div>
@@ -2454,7 +2575,7 @@
 		</div>
 
 		<div class="tab-content active">
-			<img src="img/VALKI.png" alt="VALKI" loading="lazy" style="width: 100%; max-width: 100%; height: auto; display: block; margin: 0 auto 16px; border-radius: 18px;">
+			<img src="img/VALKI.png" alt="VALKI" loading="lazy" decoding="async" style="width: 100%; max-width: 100%; height: auto; display: block; margin: 0 auto 16px; border-radius: 18px;">
 			<div class="grid-2" style="margin-bottom: 20px; text-align: center">
 				<div class="embed-container">
 					<style>
@@ -2655,7 +2776,7 @@
 				Interested in collaborating?
 			</p>
 			<a href="mailto:email@aunight.pw" class="action-btn email-btn">
-				<i class="fas fa-envelope"></i> <span class="lang-zh">email@aunight.pw</span><span class="lang-en">email@aunight.pw</span>
+				<i class="fas fa-envelope"></i> <span class="lang-zh">聯絡我</span><span class="lang-en">Contact Me</span>
 			</a>
 		</div>
 
@@ -2777,7 +2898,7 @@
 			<p class="lang-zh" style="margin-bottom: 10px; font-size: 0.9rem; opacity: 0.7;">獲取詳細報價</p>
 			<p class="lang-en" style="margin-bottom: 10px; font-size: 0.8rem; opacity: 0.6;">Get a detailed quotation</p>
 			<a href="mailto:email@aunight.pw" class="action-btn email-btn">
-				<i class="fas fa-envelope"></i> <span class="lang-zh">email@aunight.pw</span><span class="lang-en">email@aunight.pw</span>
+				<i class="fas fa-envelope"></i> <span class="lang-zh">聯絡我</span><span class="lang-en">Contact Me</span>
 			</a>
 		</div>
 	</section>
@@ -3015,7 +3136,7 @@
 			<p class="lang-zh" style="margin-bottom: 10px; font-size: 0.9rem; opacity: 0.7;">獲取詳細報價</p>
 			<p class="lang-en" style="margin-bottom: 10px; font-size: 0.8rem; opacity: 0.6;">Get a detailed quotation</p>
 			<a href="mailto:email@aunight.pw" class="action-btn email-btn">
-				<i class="fas fa-envelope"></i> <span class="lang-zh">email@aunight.pw</span><span class="lang-en">email@aunight.pw</span>
+				<i class="fas fa-envelope"></i> <span class="lang-zh">聯絡我</span><span class="lang-en">Contact Me</span>
 			</a>
 
 	</section>
@@ -3071,7 +3192,7 @@
 			<p class="lang-zh" style="margin-bottom: 10px; font-size: 0.9rem; opacity: 0.7;">獲取詳細報價</p>
 			<p class="lang-en" style="margin-bottom: 10px; font-size: 0.8rem; opacity: 0.6;">Get a detailed quotation</p>
 			<a href="mailto:email@aunight.pw" class="action-btn email-btn">
-				<i class="fas fa-envelope"></i> <span class="lang-zh">email@aunight.pw</span><span class="lang-en">email@aunight.pw</span>
+				<i class="fas fa-envelope"></i> <span class="lang-zh">聯絡我</span><span class="lang-en">Contact Me</span>
 			</a>
 		</div>
 	</section>
@@ -3192,7 +3313,7 @@
 				<p class="lang-zh" style="margin-bottom: 10px; font-size: 0.9rem; opacity: 0.7;">獲取詳細報價</p>
 				<p class="lang-en" style="margin-bottom: 10px; font-size: 0.8rem; opacity: 0.6;">Get a detailed quotation</p>
 				<a href="mailto:email@aunight.pw" class="action-btn email-btn">
-					<i class="fas fa-envelope"></i> <span class="lang-zh">email@aunight.pw</span><span class="lang-en">email@aunight.pw</span>
+					<i class="fas fa-envelope"></i> <span class="lang-zh">聯絡我</span><span class="lang-en">Contact Me</span>
 				</a>
 			</div>
 	</section>
@@ -3642,7 +3763,7 @@
 				}
 
 				if ((performance.now() - tStart) >= maxMs) {
-					window.scrollTo(0, desired);
+					window.scrollTo({ top: desired, behavior: 'auto' });
 					endSmoothScroll();
 					return;
 				}
@@ -3656,7 +3777,7 @@
 				if (move < -maxStep) move = -maxStep;
 				if (Math.abs(move) < 0.35) move = Math.sign(delta) * Math.min(0.35, absDelta);
 
-				window.scrollBy(0, move);
+				window.scrollBy({ top: move, left: 0, behavior: 'auto' });
 				requestAnimationFrame(step);
 			};
 
@@ -3759,8 +3880,21 @@
 			}
 			const id = decodeURIComponent(href.slice(1));
 			const target = document.getElementById(id);
-			if (target) animateScrollTo(target);
-			else animateScrollTo(window.scrollY);
+			if (!target) return;
+
+			const prefersReducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+			const top = getScrollTopForTarget(target);
+			const distance = Math.abs(top - (window.scrollY || window.pageYOffset || 0));
+
+			if (prefersReducedMotion) {
+				window.scrollTo({ top, behavior: 'auto' });
+				return;
+			}
+
+			beginSmoothScroll();
+			window.scrollTo({ top, behavior: 'smooth' });
+			scheduleEndSmoothScroll(distance);
+			settleHashScroll();
 		});
 
 		window.addEventListener('hashchange', () => {
@@ -3916,30 +4050,40 @@
 
 		// 3. 導航欄 Active 狀態切換
 		const navLinks = document.querySelectorAll('nav a');
-		const sections = document.querySelectorAll('section');
+		const sections = Array.from(document.querySelectorAll('section[id]'));
+		const navLinkByHref = new Map();
+		navLinks.forEach(link => navLinkByHref.set(link.getAttribute('href'), link));
 
 		const scrollTopBtn = document.getElementById('scrollTopBtn');
 		const musicSection = document.getElementById('music');
 		let musicTop = 0;
+		const sectionTops = new Map();
+		let currentActiveHref = null;
 
-		const updateMusicTop = () => {
-			if (!musicSection) return;
-			musicTop = musicSection.offsetTop;
+		const recomputeOffsets = () => {
+			if (musicSection) musicTop = musicSection.offsetTop;
+			sections.forEach(section => sectionTops.set(section, section.offsetTop));
 		};
 
-		updateMusicTop();
-		window.addEventListener('resize', updateMusicTop, { passive: true });
+		recomputeOffsets();
+		window.addEventListener('resize', recomputeOffsets, { passive: true });
+		window.addEventListener('load', recomputeOffsets, { passive: true });
+		if (document.fonts && typeof document.fonts.ready?.then === 'function') {
+			document.fonts.ready.then(recomputeOffsets);
+		}
 
 		if (scrollTopBtn) {
 			scrollTopBtn.addEventListener('click', () => {
 				const hero = document.getElementById('hero');
-				if (hero) animateScrollTo(hero);
-				else animateScrollTo(0);
+				const top = hero ? getScrollTopForTarget(hero) : 0;
+				const prefersReducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+				window.scrollTo({ top, behavior: prefersReducedMotion ? 'auto' : 'smooth' });
 			});
 		}
 
 		let isScrolling;
 		let scrollIdleTimer = 0;
+		let scrollTopVisible = false;
 		window.addEventListener('scroll', () => {
 			document.documentElement.classList.add('is-scrolling');
 			window.clearTimeout(scrollIdleTimer);
@@ -3949,28 +4093,32 @@
 
 			window.cancelAnimationFrame(isScrolling);
 			isScrolling = window.requestAnimationFrame(() => {
-			if (document.documentElement.classList.contains('is-smooth-scrolling')) return;
+				if (document.documentElement.classList.contains('is-smooth-scrolling')) return;
+				const y = window.pageYOffset;
 				let current = '';
-				sections.forEach(section => {
-					const sectionTop = section.offsetTop;
-					if (window.pageYOffset >= sectionTop - 150) {
-						current = section.getAttribute('id');
-					}
-				});
+				for (let i = 0; i < sections.length; i++) {
+					const top = sectionTops.get(sections[i]);
+					if (y >= top - 150) current = sections[i].id;
+					else break;
+				}
 
 				if (current) {
 					const targetHref = `#${current}`;
-					const prev = document.querySelector('nav a.active');
-					const next = Array.from(navLinks).find(link => link.getAttribute('href') === targetHref) || null;
-					if (prev !== next) {
+					if (targetHref !== currentActiveHref) {
+						const prev = currentActiveHref ? navLinkByHref.get(currentActiveHref) : null;
+						const next = navLinkByHref.get(targetHref) || null;
 						if (prev) prev.classList.remove('active');
 						if (next) next.classList.add('active');
+						currentActiveHref = targetHref;
 					}
 				}
 
 				if (scrollTopBtn && musicSection) {
-					const shouldShow = window.pageYOffset >= (musicTop - 150);
-					scrollTopBtn.classList.toggle('show', shouldShow);
+					const shouldShow = y >= (musicTop - 150);
+					if (shouldShow !== scrollTopVisible) {
+						scrollTopBtn.classList.toggle('show', shouldShow);
+						scrollTopVisible = shouldShow;
+					}
 				}
 			});
 		}, { passive: true });
