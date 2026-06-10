@@ -388,13 +388,13 @@
 		.hero-positioning {
 			grid-column: 1 / -1;
 			justify-self: center;
-			max-width: 560px;
+			max-width: min(100%, 760px);
 			margin: 0 0 4px;
 			color: rgba(74, 74, 74, 0.82);
-			font-size: clamp(0.82rem, 1.5vw, 0.95rem);
+			font-size: clamp(0.78rem, 1.15vw, 0.92rem);
 			line-height: 1.65;
 			text-align: center;
-			white-space: normal;
+			white-space: nowrap;
 		}
 
 		.skills-container {
@@ -2199,6 +2199,7 @@
 			.hero-positioning {
 				max-width: min(100%, 320px);
 				margin-bottom: 4px;
+				white-space: normal;
 			}
 			.focus-grid {
 				grid-template-columns: 1fr;
@@ -2314,22 +2315,22 @@
 			}
 			.hero-img {
 				display: flex;
-				flex: 0 0 clamp(220px, 24vw, 360px);
+				flex: 0 0 clamp(360px, 34vw, 520px);
 				justify-content: flex-end;
-				overflow: hidden;
+				overflow: visible;
 				margin-top: 0;
 			}
 			.hero-img img {
 				margin-bottom: 0;
-				width: clamp(220px, 20vw, 300px);
+				width: clamp(380px, 30vw, 470px);
 				height: auto;
 				max-width: none;
 				max-height: none;
 				margin-left: 0 !important;
-				transform: translate(-44%, 70px) scale(1);
+				transform: translate(-34%, 78px) scale(1);
 				transform-origin: bottom right;
 			}
-			.hero-img img:hover { transform: translate(-44%, 70px) scale(1.02); }
+			.hero-img img:hover { transform: translate(-34%, 78px) scale(1.02); }
 			.tabs {
 				flex-wrap: nowrap;
 				overflow-x: auto;
@@ -2343,10 +2344,10 @@
 		}
 		@media (min-width: 1200px) {
 			.hero-img img {
-				width: clamp(240px, 18vw, 320px);
-				transform: translate(-40%, 72px) scale(1);
+				width: clamp(420px, 32vw, 520px);
+				transform: translate(-48%, 80px) scale(1);
 			}
-			.hero-img img:hover { transform: translate(-40%, 72px) scale(1.02); }
+			.hero-img img:hover { transform: translate(-48%, 80px) scale(1.02); }
 		}
 		@media (min-width: 1920px) {
 			.container {
@@ -2356,23 +2357,23 @@
 				max-width: min(100%, 900px);
 			}
 			.hero-img {
-				flex-basis: clamp(340px, 22vw, 430px);
+				flex-basis: clamp(460px, 28vw, 580px);
 			}
 			.hero-img img {
-				width: clamp(300px, 16vw, 380px);
-				transform: translate(-30%, 76px) scale(1);
+				width: clamp(500px, 26vw, 600px);
+				transform: translate(-30%, 86px) scale(1);
 			}
-			.hero-img img:hover { transform: translate(-30%, 76px) scale(1.02); }
+			.hero-img img:hover { transform: translate(-30%, 86px) scale(1.02); }
 		}
 		@media (min-width: 2560px) {
 			.container {
 				max-width: 1500px;
 			}
 			.hero-img img {
-				width: clamp(340px, 15vw, 430px);
-				transform: translate(-8%, 80px) scale(1);
+				width: clamp(560px, 24vw, 660px);
+				transform: translate(-14%, 92px) scale(1);
 			}
-			.hero-img img:hover { transform: translate(-8%, 80px) scale(1.02); }
+			.hero-img img:hover { transform: translate(-14%, 92px) scale(1.02); }
 		}
 	</style>
 </head>
