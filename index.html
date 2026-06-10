@@ -427,9 +427,10 @@
 			flex: 0 0 clamp(150px, 25vw, 350px);
 			display: flex;
 			justify-content: center;
-			align-items: center;
+			align-items: flex-end;
 			position: relative;
 			z-index: 1;
+			align-self: stretch;
 		}
 
 		.hero-img img {
@@ -523,6 +524,70 @@
 			margin-top: -72px;
 			position: relative;
 			z-index: 4;
+		}
+
+		.focus-grid {
+			display: grid;
+			grid-template-columns: repeat(4, minmax(0, 1fr));
+			gap: 16px;
+		}
+
+		.focus-card {
+			display: grid;
+			grid-template-rows: auto auto 1fr auto;
+			gap: 10px;
+			min-height: 210px;
+			padding: 18px;
+			border-radius: 16px;
+			color: inherit;
+			text-decoration: none;
+			background: var(--glass-surface);
+			border: 1px solid var(--glass-border-strong);
+			box-shadow:
+				0 12px 32px rgba(0,0,0,0.1),
+				inset 0 1px 0 rgba(255,255,255,0.62);
+			transition: transform 0.28s ease, box-shadow 0.28s ease;
+		}
+
+		.focus-card:hover,
+		.focus-card:focus-visible {
+			transform: translateY(-6px);
+			box-shadow: var(--hover-glow-shadow);
+			outline: none;
+		}
+
+		.focus-icon {
+			width: 42px;
+			height: 42px;
+			display: inline-flex;
+			align-items: center;
+			justify-content: center;
+			border-radius: 13px;
+			color: var(--text-highlight);
+			background: rgba(255,255,255,0.7);
+			border: 1px solid rgba(255,255,255,0.85);
+		}
+
+		.focus-card h3 {
+			font-size: clamp(1rem, 1.7vw, 1.18rem);
+			color: var(--text-highlight);
+			line-height: 1.35;
+		}
+
+		.focus-card p {
+			margin: 0;
+			font-size: 0.9rem;
+			line-height: 1.7;
+			color: rgba(74,74,74,0.78);
+		}
+
+		.focus-proof {
+			display: inline-flex;
+			align-items: center;
+			gap: 8px;
+			font-size: 0.78rem;
+			font-weight: 700;
+			color: rgba(74,74,74,0.72);
 		}
 
 		.hero-socials-container {
@@ -2135,6 +2200,12 @@
 				max-width: min(100%, 320px);
 				margin-bottom: 4px;
 			}
+			.focus-grid {
+				grid-template-columns: 1fr;
+			}
+			.focus-card {
+				min-height: 0;
+			}
 			.hero-img { display: none }
 			.grid-2 { grid-template-columns: 1fr; }
 			.music-grid { grid-template-columns: 1fr; }
@@ -2250,27 +2321,32 @@
 			}
 			.hero-img img {
 				margin-bottom: 0;
-				width: clamp(300px, 28vw, 430px);
+				width: clamp(260px, 24vw, 360px);
 				height: auto;
 				max-width: none;
 				max-height: none;
 				margin-left: 0 !important;
-				transform: translate(-8%, 85px) scale(1.18);
+				transform: translate(-54%, 52px) scale(1);
 				transform-origin: bottom right;
 			}
-			.hero-img img:hover { transform: translate(-8%, 85px) scale(1.2); }
+			.hero-img img:hover { transform: translate(-54%, 52px) scale(1.02); }
 			.tabs {
 				flex-wrap: nowrap;
 				overflow-x: auto;
 				-webkit-overflow-scrolling: touch;
 			}
 		}
+		@media (min-width: 769px) and (max-width: 1100px) {
+			.focus-grid {
+				grid-template-columns: repeat(2, minmax(0, 1fr));
+			}
+		}
 		@media (min-width: 1200px) {
 			.hero-img img {
-				width: clamp(360px, 26vw, 470px);
-				transform: translate(-6%, 85px) scale(1.2);
+				width: clamp(300px, 22vw, 400px);
+				transform: translate(-52%, 54px) scale(1);
 			}
-			.hero-img img:hover { transform: translate(-6%, 85px) scale(1.22); }
+			.hero-img img:hover { transform: translate(-52%, 54px) scale(1.02); }
 		}
 		@media (min-width: 1920px) {
 			.container {
@@ -2283,19 +2359,20 @@
 				flex-basis: clamp(440px, 28vw, 520px);
 			}
 			.hero-img img {
-				width: clamp(420px, 22vw, 540px);
-				transform: translate(0, 85px) scale(1.16);
+				width: clamp(360px, 19vw, 470px);
+				transform: translate(-42%, 58px) scale(1);
 			}
-			.hero-img img:hover { transform: translate(0, 85px) scale(1.18); }
+			.hero-img img:hover { transform: translate(-42%, 58px) scale(1.02); }
 		}
 		@media (min-width: 2560px) {
 			.container {
 				max-width: 1500px;
 			}
 			.hero-img img {
-				transform: translate(4%, 85px) scale(1.14);
+				width: clamp(410px, 18vw, 500px);
+				transform: translate(-12%, 62px) scale(1);
 			}
-			.hero-img img:hover { transform: translate(4%, 85px) scale(1.16); }
+			.hero-img img:hover { transform: translate(-12%, 62px) scale(1.02); }
 		}
 	</style>
 </head>
@@ -2435,6 +2512,36 @@
 					</div>
 				</a>
 			</div>
+		</div>
+	</section>
+
+	<section id="focus" class="glass-card reveal">
+		<h2 class="section-title"><span class="lang-zh">重點領域</span><span class="lang-en">Core Services</span></h2>
+		<div class="focus-grid">
+			<a class="focus-card" href="#video">
+				<span class="focus-icon" aria-hidden="true"><i class="fas fa-video"></i></span>
+				<h3><span class="lang-zh">影片剪輯</span><span class="lang-en">Video Editing</span></h3>
+				<p><span class="lang-zh">YouTube 長片、短影音、Podcast 與遊戲內容，重視節奏、資訊整理與留存率。</span><span class="lang-en">Long-form, shorts, podcasts and gaming edits with pacing, structure and retention in mind.</span></p>
+				<span class="focus-proof"><i class="fas fa-chart-line" aria-hidden="true"></i><span class="lang-zh">單支影片 170萬+ 觀看</span><span class="lang-en">1.7M+ views on one video</span></span>
+			</a>
+			<a class="focus-card" href="#uiux">
+				<span class="focus-icon" aria-hidden="true"><i class="fas fa-pen-ruler"></i></span>
+				<h3><span class="lang-zh">UI/UX 設計</span><span class="lang-en">UI/UX Design</span></h3>
+				<p><span class="lang-zh">App、工具網站與產品介面 redesign，兼顧視覺完成度、操作動線與品牌一致性。</span><span class="lang-en">App, tool site and product redesigns balancing visual finish, flow and brand consistency.</span></p>
+				<span class="focus-proof"><i class="fas fa-mobile-screen-button" aria-hidden="true"></i><span class="lang-zh">Valki 服務 10萬+ 用戶</span><span class="lang-en">100K+ users on Valki</span></span>
+			</a>
+			<a class="focus-card" href="#web">
+				<span class="focus-icon" aria-hidden="true"><i class="fas fa-code"></i></span>
+				<h3><span class="lang-zh">網頁前端</span><span class="lang-en">Frontend</span></h3>
+				<p><span class="lang-zh">把設計落成可瀏覽、可互動的網站，適合作品集、產品官網與活動頁。</span><span class="lang-en">Turning designs into browsable, interactive sites for portfolios, product pages and campaigns.</span></p>
+				<span class="focus-proof"><i class="fas fa-display" aria-hidden="true"></i><span class="lang-zh">設計到前端一條龍</span><span class="lang-en">Design-to-frontend delivery</span></span>
+			</a>
+			<a class="focus-card" href="#music">
+				<span class="focus-icon" aria-hidden="true"><i class="fas fa-music"></i></span>
+				<h3><span class="lang-zh">音樂製作</span><span class="lang-en">Music Production</span></h3>
+				<p><span class="lang-zh">原創曲、Cover 混音、Remix 與 BGM，能和影像節奏、角色調性一起規劃。</span><span class="lang-en">Original songs, cover mixes, remixes and BGM aligned with visuals and character tone.</span></p>
+				<span class="focus-proof"><i class="fas fa-headphones" aria-hidden="true"></i><span class="lang-zh">30+ 原創歌曲</span><span class="lang-en">30+ original songs</span></span>
+			</a>
 		</div>
 	</section>
 	
