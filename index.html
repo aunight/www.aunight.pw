@@ -5659,11 +5659,27 @@
 		}
 
 		if (scrollTopBtn) {
-			scrollTopBtn.addEventListener('click', () => {
+			scrollTopBtn.addEventListener('click', (event) => {
+				event.preventDefault();
+				settleHashScrollToken += 1;
+				if (window.location.hash && window.history && typeof window.history.replaceState === 'function') {
+					window.history.replaceState(null, '', `${window.location.pathname}${window.location.search}`);
+				}
+
 				const hero = document.getElementById('hero');
 				const top = hero ? getScrollTopForTarget(hero) : 0;
 				const prefersReducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-				window.scrollTo({ top, behavior: prefersReducedMotion ? 'auto' : 'smooth' });
+
+				if (prefersReducedMotion) {
+					window.scrollTo({ top, behavior: 'auto' });
+					endSmoothScroll();
+					return;
+				}
+
+				const distance = Math.abs(top - (window.scrollY || window.pageYOffset || 0));
+				beginSmoothScroll();
+				window.scrollTo({ top, behavior: 'smooth' });
+				scheduleEndSmoothScroll(distance);
 			});
 		}
 
