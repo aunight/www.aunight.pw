@@ -1425,6 +1425,194 @@
 			height: clamp(260px, 60vh, 60vh);
 		}
 
+		.bgm-auditions { margin-bottom: 32px; }
+		.bgm-auditions > h3 {
+			font-size: 1.25rem;
+			margin-bottom: 18px;
+			color: var(--text-highlight);
+		}
+		.bgm-artist {
+			padding: 18px 0;
+			border-top: 1px solid var(--glass-border-strong);
+		}
+		.bgm-artist h4 { font-size: 1.05rem; margin: 0 0 12px; }
+		.bgm-artist h4 a {
+			display: inline-flex;
+			align-items: center;
+			gap: 10px;
+			color: inherit;
+			text-decoration: none;
+		}
+		.bgm-artist h4 a i { color: var(--text-highlight); }
+		.bgm-artist h4 a:hover { color: var(--text-highlight); }
+		.bgm-artist h4 a:focus-visible {
+			outline: 2px solid var(--text-highlight);
+			outline-offset: 4px;
+		}
+		.bgm-track-list {
+			display: grid;
+			grid-template-columns: repeat(2, minmax(0, 1fr));
+			gap: 12px;
+		}
+		.remix-auditions .bgm-track-list { grid-template-columns: minmax(0, 1fr); }
+		.bgm-track {
+			min-width: 0;
+			margin: 0;
+			padding: 16px;
+			border: 1px solid var(--glass-border-strong);
+			border-radius: 8px;
+			background: var(--glass-surface);
+			transition: border-color 0.2s ease, box-shadow 0.2s ease;
+		}
+		.bgm-track.is-playing {
+			border-color: var(--text-highlight);
+			box-shadow: 0 4px 20px rgba(232, 93, 117, 0.14);
+		}
+		.bgm-track figcaption {
+			margin-bottom: 12px;
+			font-size: 0.95rem;
+			font-weight: 600;
+			overflow-wrap: anywhere;
+		}
+		.remix-credit {
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			flex-wrap: wrap;
+			gap: 6px 12px;
+			margin-bottom: 14px;
+			font-size: 0.8rem;
+		}
+		.remix-credit > span { opacity: 0.75; }
+		.remix-original {
+			display: inline-flex;
+			align-items: center;
+			gap: 6px;
+			color: var(--text-highlight);
+			text-decoration: none;
+		}
+		.remix-original:hover { text-decoration: underline; }
+		.remix-original:focus-visible { outline: 2px solid var(--text-highlight); outline-offset: 4px; }
+		.remix-video-original {
+			margin: 10px 0 4px;
+			font-size: 0.78rem;
+			line-height: 1.5;
+			text-align: center;
+		}
+		.remix-video-original .remix-original { max-width: 100%; }
+		.remix-video-original .remix-original i { flex-shrink: 0; }
+		.bgm-track audio { display: block; width: 100%; min-width: 0; height: 54px; }
+		.bgm-track.is-enhanced audio { display: none; }
+		.bgm-controls {
+			display: grid;
+			grid-template-columns: 44px minmax(0, 1fr) 36px;
+			gap: 12px;
+			align-items: center;
+		}
+		.bgm-controls button {
+			display: grid;
+			place-items: center;
+			padding: 0;
+			border: 1px solid var(--glass-border-strong);
+			color: var(--text-main);
+			background: var(--glass-surface);
+			cursor: pointer;
+			transition: background 0.2s ease, transform 0.2s ease;
+		}
+		.bgm-controls .bgm-play {
+			width: 44px;
+			height: 44px;
+			border-radius: 50%;
+			background: var(--text-highlight);
+			color: #fff;
+			box-shadow: 0 4px 14px rgba(232, 93, 117, 0.23);
+		}
+		.bgm-play:hover { transform: scale(1.06); }
+		.bgm-play[aria-busy="true"] { opacity: 0.65; }
+		.bgm-timeline { min-width: 0; }
+		.bgm-controls input[type="range"] {
+			display: block;
+			width: 100%;
+			height: 20px;
+			margin: 0;
+			padding: 0;
+			border: 0;
+			appearance: none;
+			-webkit-appearance: none;
+			background: transparent;
+			cursor: pointer;
+			accent-color: var(--text-highlight);
+		}
+		.bgm-controls input[type="range"]::-webkit-slider-runnable-track {
+			height: 4px;
+			border-radius: 4px;
+			background: linear-gradient(to right, var(--text-highlight) var(--progress, 0%), var(--glass-border-strong) var(--progress, 0%));
+		}
+		.bgm-controls input[type="range"]::-moz-range-track {
+			height: 4px;
+			border-radius: 4px;
+			background: linear-gradient(to right, var(--text-highlight) var(--progress, 0%), var(--glass-border-strong) var(--progress, 0%));
+		}
+		.bgm-controls input[type="range"]::-webkit-slider-thumb {
+			appearance: none;
+			-webkit-appearance: none;
+			width: 12px;
+			height: 12px;
+			margin-top: -4px;
+			border: 2px solid var(--text-highlight);
+			border-radius: 50%;
+			background: #fff;
+			box-shadow: 0 1px 5px rgba(232, 93, 117, 0.25);
+		}
+		.bgm-controls input[type="range"]::-moz-range-thumb {
+			width: 8px;
+			height: 8px;
+			border: 2px solid var(--text-highlight);
+			border-radius: 50%;
+			background: #fff;
+		}
+		.bgm-times {
+			display: flex;
+			justify-content: space-between;
+			font-size: 0.72rem;
+			font-variant-numeric: tabular-nums;
+			line-height: 1.2;
+			opacity: 0.75;
+		}
+		.bgm-volume-control { position: relative; }
+		.bgm-controls .bgm-mute { width: 36px; height: 36px; border-radius: 50%; }
+		.bgm-volume-popup {
+			position: absolute;
+			bottom: 100%;
+			right: 0;
+			width: 108px;
+			padding: 10px;
+			border: 1px solid var(--glass-border-strong);
+			border-radius: 8px;
+			background: var(--glass-surface-strong);
+			backdrop-filter: blur(var(--glass-blur));
+			-webkit-backdrop-filter: blur(var(--glass-blur));
+			opacity: 0;
+			visibility: hidden;
+			pointer-events: none;
+			z-index: 2;
+		}
+		.bgm-volume-control:hover .bgm-volume-popup,
+		.bgm-volume-control:focus-within .bgm-volume-popup {
+			opacity: 1;
+			visibility: visible;
+			pointer-events: auto;
+		}
+		.bgm-controls :focus-visible { outline: 2px solid var(--text-highlight); outline-offset: 4px; }
+		.bgm-status { margin: 8px 0 0; font-size: 0.8rem; color: var(--text-highlight); }
+		.bgm-status:empty { display: none; }
+		@media (max-width: 768px) {
+			.bgm-track-list { grid-template-columns: minmax(0, 1fr); }
+		}
+		@media (prefers-reduced-motion: reduce) {
+			.bgm-track, .bgm-controls button { transition: none; }
+		}
+
 		.tracking-item {
 			display: flex;
 			flex-direction: column;
@@ -3690,6 +3878,13 @@
 			color-scheme: normal;
 		}
 
+		/* Drive folder lists use fixed black text, even on a transparent background. */
+		html[data-theme="dark"] .drive-embed iframe[src^="https://drive.google.com/embeddedfolderview"] {
+			color-scheme: light;
+			background: #fff;
+			filter: invert(0.9) hue-rotate(180deg);
+		}
+
 		/* 深色背景必須畫在 body 內：body 有 will-change: opacity 是所有毛玻璃的 backdrop root，
 		   背景若放在 body 外（html::before），毛玻璃就只會模糊到透明底，文字會直接透出來 */
 		html[data-theme="dark"] body::before {
@@ -4738,14 +4933,32 @@
 			</div>
 		</div>
 		<div class="tab-content">
+			<section class="bgm-auditions remix-auditions" aria-labelledby="remix-auditions-title">
+				<h3 id="remix-auditions-title"><span class="lang-zh">Remix 作品試聽</span><span class="lang-en">Remix Previews</span></h3>
+				<div class="bgm-track-list">
+					<figure class="bgm-track">
+						<figcaption id="remix-fantasies"><span class="lang-zh">離不開有你的所有幻想 (AuNight Remix)</span><span class="lang-en">離不開有你的所有幻想 (AuNight Remix)</span></figcaption>
+						<div class="remix-credit">
+							<span>冰霧 Eisnebel · Remix by AuNight</span>
+							<a class="remix-original" href="https://www.youtube.com/watch?v=kA_LFZaWV_8" target="_blank" rel="noopener"><i class="fab fa-youtube" aria-hidden="true"></i><span class="lang-zh">原曲</span><span class="lang-en">Original</span><i class="fas fa-arrow-up-right-from-square" aria-hidden="true"></i></a>
+						</div>
+						<audio controls preload="none" aria-labelledby="remix-fantasies" data-artist="冰霧 Eisnebel" data-duration="185.142875">
+							<source src="audio/remix/all-my-fantasies-remix.mp3" type="audio/mpeg">
+							<a href="audio/remix/all-my-fantasies-remix.mp3">離不開有你的所有幻想 (AuNight Remix)</a>
+						</audio>
+					</figure>
+				</div>
+			</section>
 			<div class="music-grid">
 				<div>
 					<div class="embed-container"><iframe width="560" height="315" src="https://www.youtube.com/embed/BuEfogXpsK4" title="YouTube影片播放器" data-title-zh="YouTube影片播放器" data-title-en="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div>
+					<p class="remix-video-original"><a class="remix-original" href="https://www.youtube.com/watch?v=GkUjU2GnHl8" target="_blank" rel="noopener"><i class="fab fa-youtube" aria-hidden="true"></i><span class="lang-zh">銀河 Galaxy《月與獵戶》原曲</span><span class="lang-en">Original: 月與獵戶 by Galaxy</span><i class="fas fa-arrow-up-right-from-square" aria-hidden="true"></i></a></p>
 					<p class="lang-zh" style="margin: 10px 0 12px; font-size: 0.9rem; opacity: 0.75; text-align: center;">Remix By AuNight</p>
 					<p class="lang-en" style="margin: 6px 0 12px; font-size: 0.85rem; opacity: 0.65; text-align: center;">Remix By AuNight</p>
 				</div>
 				<div>
 					<div class="embed-container"><iframe width="560" height="315" src="https://www.youtube.com/embed/4WfNf2DOT48" title="YouTube影片播放器" data-title-zh="YouTube影片播放器" data-title-en="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div>
+					<p class="remix-video-original"><a class="remix-original" href="https://www.youtube.com/watch?v=DHLFFLqbsJk" target="_blank" rel="noopener"><i class="fab fa-youtube" aria-hidden="true"></i><span class="lang-zh">Michael Clifford feat. Porter Robinson《kill me for always》原曲</span><span class="lang-en">Original: kill me for always by Michael Clifford feat. Porter Robinson</span><i class="fas fa-arrow-up-right-from-square" aria-hidden="true"></i></a></p>
 					<p class="lang-zh" style="margin: 10px 0 12px; font-size: 0.9rem; opacity: 0.75; text-align: center;">Remix By AuNight</p>
 					<p class="lang-en" style="margin: 6px 0 12px; font-size: 0.85rem; opacity: 0.65; text-align: center;">Remix By AuNight</p>
 				</div>
@@ -4760,6 +4973,87 @@
 			</div>
 		</div>
 		<div class="tab-content">
+			<section class="bgm-auditions" aria-labelledby="bgm-auditions-title">
+				<h3 id="bgm-auditions-title"><span class="lang-zh">VTuber BGM 作品試聽</span><span class="lang-en">VTuber BGM</span></h3>
+				<div class="bgm-artist">
+					<h4><a href="https://www.youtube.com/@MiumiChannel" target="_blank" rel="noopener"><i class="fab fa-youtube" aria-hidden="true"></i>Miu咪嗚<i class="fas fa-arrow-up-right-from-square" aria-hidden="true"></i></a></h4>
+					<div class="bgm-track-list">
+						<figure class="bgm-track">
+							<figcaption id="bgm-miu-op"><span class="lang-zh">開頭 OP</span><span class="lang-en">Opening</span></figcaption>
+							<audio controls preload="none" aria-labelledby="bgm-miu-op" data-artist="Miu咪嗚" data-duration="26.4">
+								<source src="audio/bgm/miu-op.mp3" type="audio/mpeg">
+								<a href="audio/bgm/miu-op.mp3">Miu咪嗚 開頭 OP</a>
+							</audio>
+						</figure>
+						<figure class="bgm-track">
+							<figcaption id="bgm-miu-chat"><span class="lang-zh">日常聊天 BGM</span><span class="lang-en">Chatting BGM</span></figcaption>
+							<audio controls preload="none" aria-labelledby="bgm-miu-chat" data-artist="Miu咪嗚" data-duration="56">
+								<source src="audio/bgm/miu-chat.mp3" type="audio/mpeg">
+								<a href="audio/bgm/miu-chat.mp3">Miu咪嗚 日常聊天 BGM</a>
+							</audio>
+						</figure>
+						<figure class="bgm-track">
+							<figcaption id="bgm-miu-away"><span class="lang-zh">載入／暫離音樂</span><span class="lang-en">Loading / BRB</span></figcaption>
+							<audio controls preload="none" aria-labelledby="bgm-miu-away" data-artist="Miu咪嗚" data-duration="10" data-volume="0.5">
+								<source src="audio/bgm/miu-away.mp3" type="audio/mpeg">
+								<a href="audio/bgm/miu-away.mp3">Miu咪嗚 載入／暫離音樂</a>
+							</audio>
+						</figure>
+						<figure class="bgm-track">
+							<figcaption id="bgm-miu-ed"><span class="lang-zh">結尾 ED</span><span class="lang-en">Ending</span></figcaption>
+							<audio controls preload="none" aria-labelledby="bgm-miu-ed" data-artist="Miu咪嗚" data-duration="90">
+								<source src="audio/bgm/miu-ed.mp3" type="audio/mpeg">
+								<a href="audio/bgm/miu-ed.mp3">Miu咪嗚 結尾 ED</a>
+							</audio>
+						</figure>
+					</div>
+				</div>
+				<div class="bgm-artist">
+					<h4><a href="https://www.youtube.com/@Yuelin_Simita" target="_blank" rel="noopener"><i class="fab fa-youtube" aria-hidden="true"></i>玥綾‧西米塔<i class="fas fa-arrow-up-right-from-square" aria-hidden="true"></i></a></h4>
+					<div class="bgm-track-list">
+						<figure class="bgm-track">
+							<figcaption id="bgm-yueling-op"><span class="lang-zh">開頭 OP</span><span class="lang-en">Opening</span></figcaption>
+							<audio controls preload="none" aria-labelledby="bgm-yueling-op" data-artist="玥綾‧西米塔" data-duration="68">
+								<source src="audio/bgm/yueling-op.mp3" type="audio/mpeg">
+								<a href="audio/bgm/yueling-op.mp3">玥綾‧西米塔 開頭 OP</a>
+							</audio>
+						</figure>
+						<figure class="bgm-track">
+							<figcaption id="bgm-yueling-ed"><span class="lang-zh">結尾 ED</span><span class="lang-en">Ending</span></figcaption>
+							<audio controls preload="none" aria-labelledby="bgm-yueling-ed" data-artist="玥綾‧西米塔" data-duration="37.333333">
+								<source src="audio/bgm/yueling-ed.mp3" type="audio/mpeg">
+								<a href="audio/bgm/yueling-ed.mp3">玥綾‧西米塔 結尾 ED</a>
+							</audio>
+						</figure>
+					</div>
+				</div>
+				<div class="bgm-artist">
+					<h4><a href="https://www.youtube.com/channel/UCBMTDwjR1aS1AfO0D6BhdHA" target="_blank" rel="noopener"><i class="fab fa-youtube" aria-hidden="true"></i>CX330<i class="fas fa-arrow-up-right-from-square" aria-hidden="true"></i></a></h4>
+					<div class="bgm-track-list">
+						<figure class="bgm-track">
+							<figcaption id="bgm-cx330-op"><span class="lang-zh">開頭 OP</span><span class="lang-en">Opening</span></figcaption>
+							<audio controls preload="none" aria-labelledby="bgm-cx330-op" data-artist="CX330" data-duration="60">
+								<source src="audio/bgm/cx330-op.mp3" type="audio/mpeg">
+								<a href="audio/bgm/cx330-op.mp3">CX330 開頭 OP</a>
+							</audio>
+						</figure>
+						<figure class="bgm-track">
+							<figcaption id="bgm-cx330-chat"><span class="lang-zh">日常聊天 BGM</span><span class="lang-en">Chatting BGM</span></figcaption>
+							<audio controls preload="none" aria-labelledby="bgm-cx330-chat" data-artist="CX330" data-duration="74.181837">
+								<source src="audio/bgm/cx330-chat.mp3" type="audio/mpeg">
+								<a href="audio/bgm/cx330-chat.mp3">CX330 日常聊天 BGM</a>
+							</audio>
+						</figure>
+						<figure class="bgm-track">
+							<figcaption id="bgm-cx330-ed"><span class="lang-zh">結尾 ED</span><span class="lang-en">Ending</span></figcaption>
+							<audio controls preload="none" aria-labelledby="bgm-cx330-ed" data-artist="CX330" data-duration="68">
+								<source src="audio/bgm/cx330-ed.mp3" type="audio/mpeg">
+								<a href="audio/bgm/cx330-ed.mp3">CX330 結尾 ED</a>
+							</audio>
+						</figure>
+					</div>
+				</div>
+			</section>
 			<div class="embed-container"><iframe width="560" height="315" src="https://www.youtube.com/embed/nbigvuUnhWA?playsinline=1" title="YouTube影片播放器" data-title-zh="YouTube影片播放器" data-title-en="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div>
 			<p class="lang-zh" style="margin: 10px 0 12px; font-size: 0.9rem; opacity: 0.75; text-align: center;">無版權歌曲 作曲/編曲/混音By AuNight</p>
 			<div style="margin-bottom: 15px; display: flex; flex-direction: column; align-items: center;">
@@ -5465,6 +5759,7 @@
 
 		<div class="tabs">
 			<button class="tab-btn active"><span class="lang-zh">商業網站</span><span class="lang-en">Article Commerce Site</span></button>
+			<button class="tab-btn"><span class="lang-zh">VTuber官網</span><span class="lang-en">VTuber Website</span></button>
 			<button class="tab-btn"><span class="lang-zh">國外APP官網</span><span class="lang-en">International App</span></button>
 			<button class="tab-btn"><span class="lang-zh">政府網站</span><span class="lang-en">Government Site</span></button>
 			<button class="tab-btn"><span class="lang-zh">練習網站</span><span class="lang-en">Practice Site</span></button>
@@ -5480,6 +5775,16 @@
 			</a>
 			<p class="lang-zh" style="margin: 10px 0 0; font-size: 0.85rem; opacity: 0.6;">遊戲資訊與發售日資料站，負責前端實作與介面整理。</p>
 			<p class="lang-en" style="margin: 8px 0 0; font-size: 0.82rem; opacity: 0.55;">A game information and release-date site, with frontend implementation and interface organization by AuNight.</p>
+		</div>
+
+		<div class="tab-content" style="text-align: center;">
+			<h3 style="margin-bottom: 15px;"><span class="lang-zh">織夢社 Dreamloom</span><span class="lang-en">Dreamloom Project</span></h3>
+			<div class="embed-container site-embed">
+				<iframe src="https://dreamloom.tw/" title="織夢社 Dreamloom" data-title-zh="織夢社 Dreamloom" data-title-en="Dreamloom Project" data-scroll="always" loading="lazy" scrolling="yes"></iframe>
+			</div>
+			<a href="https://dreamloom.tw/" target="_blank" rel="noopener" class="action-btn">
+				<i class="fas fa-external-link-alt"></i> <span class="lang-zh">前往網站</span><span class="lang-en">Open Site</span>
+			</a>
 		</div>
 
 		<div class="tab-content" style="text-align: center;">
@@ -6708,6 +7013,154 @@
 			});
 		}
 
+		const bgmPlayers = Array.from(document.querySelectorAll('.bgm-track audio'));
+		const bgmViews = [];
+		const formatBgmTime = value => {
+			const seconds = Math.max(0, Math.floor(Number(value) || 0));
+			return Math.floor(seconds / 60) + ':' + String(seconds % 60).padStart(2, '0');
+		};
+		bgmPlayers.forEach(player => {
+			const initialVolume = Number(player.dataset.volume ?? 1);
+			if (Number.isFinite(initialVolume)) player.volume = Math.min(1, Math.max(0, initialVolume));
+			const track = player.closest('.bgm-track');
+			const controls = document.createElement('div');
+			controls.className = 'bgm-controls';
+			controls.innerHTML = `
+				<button type="button" class="bgm-play" aria-pressed="false"><i class="fas fa-play" aria-hidden="true"></i></button>
+				<div class="bgm-timeline">
+					<input class="bgm-seek" type="range" min="0" max="1" step="0.1" value="0">
+					<div class="bgm-times"><span class="bgm-elapsed">0:00</span><span class="bgm-duration"></span></div>
+				</div>
+				<div class="bgm-volume-control">
+					<button type="button" class="bgm-mute" aria-pressed="false"><i class="fas fa-volume-high" aria-hidden="true"></i></button>
+					<div class="bgm-volume-popup"><input class="bgm-volume" type="range" min="0" max="1" step="0.05" value="1"></div>
+				</div>`;
+			const status = document.createElement('p');
+			status.className = 'bgm-status';
+			status.setAttribute('role', 'status');
+			track.append(controls, status);
+			const play = controls.querySelector('.bgm-play');
+			const mute = controls.querySelector('.bgm-mute');
+			const seek = controls.querySelector('.bgm-seek');
+			const volume = controls.querySelector('.bgm-volume');
+			const elapsed = controls.querySelector('.bgm-elapsed');
+			const durationLabel = controls.querySelector('.bgm-duration');
+			let seeking = false;
+			let pendingSeek = null;
+			let loadingMetadata = false;
+			let failed = false;
+			const getDuration = () => Number.isFinite(player.duration) && player.duration > 0
+				? player.duration : Number(player.dataset.duration) || 0;
+			const setLabel = (element, label) => {
+				element.setAttribute('aria-label', label);
+				element.title = label;
+			};
+			const syncLabels = () => {
+				const isEn = document.documentElement.dataset.lang === 'en';
+				const title = track.querySelector(isEn ? '.lang-en' : '.lang-zh').textContent;
+				const name = player.dataset.artist + ' ' + title;
+				setLabel(play, (player.paused ? (isEn ? 'Play: ' : '播放：') : (isEn ? 'Pause: ' : '暫停：')) + name);
+				setLabel(mute, player.muted ? (isEn ? 'Unmute' : '取消靜音') : (isEn ? 'Mute' : '靜音'));
+				setLabel(seek, (isEn ? 'Playback position: ' : '播放進度：') + name);
+				setLabel(volume, isEn ? 'Volume' : '音量');
+				status.textContent = failed ? (isEn ? 'Unable to play. Please try again.' : '無法播放，請重試。') : '';
+			};
+			const syncTime = () => {
+				const duration = getDuration();
+				durationLabel.textContent = formatBgmTime(duration);
+				seek.max = String(duration || 1);
+				if (!seeking && pendingSeek === null) seek.value = String(player.currentTime || 0);
+				const current = Number(seek.value);
+				elapsed.textContent = formatBgmTime(current);
+				seek.style.setProperty('--progress', (duration ? current / duration * 100 : 0) + '%');
+				seek.setAttribute('aria-valuetext', formatBgmTime(current) + ' / ' + formatBgmTime(duration));
+			};
+			const syncState = () => {
+				const playing = !player.paused && !player.ended;
+				track.classList.toggle('is-playing', playing);
+				play.setAttribute('aria-pressed', String(playing));
+				play.querySelector('i').className = 'fas ' + (playing ? 'fa-pause' : 'fa-play');
+				mute.setAttribute('aria-pressed', String(player.muted));
+				mute.querySelector('i').className = 'fas ' + (player.muted || player.volume === 0 ? 'fa-volume-xmark' : 'fa-volume-high');
+				volume.value = String(player.muted ? 0 : player.volume);
+				volume.style.setProperty('--progress', Number(volume.value) * 100 + '%');
+				syncLabels();
+			};
+			play.addEventListener('click', async () => {
+				failed = false;
+				syncLabels();
+				if (!player.paused) {
+					player.pause();
+					return;
+				}
+				play.setAttribute('aria-busy', 'true');
+				try {
+					if (player.error) player.load();
+					await player.play();
+				} catch (error) {
+					if (error.name !== 'AbortError') failed = true;
+				} finally {
+					play.setAttribute('aria-busy', 'false');
+					syncState();
+				}
+			});
+			const seekTo = () => {
+				const position = Number(seek.value);
+				if (player.readyState >= 1) {
+					player.currentTime = position;
+				} else {
+					pendingSeek = position;
+					if (!loadingMetadata) {
+						loadingMetadata = true;
+						player.preload = 'metadata';
+						player.load();
+					}
+				}
+				syncTime();
+			};
+			seek.addEventListener('input', () => { seeking = true; seekTo(); });
+			seek.addEventListener('change', () => { seeking = false; seekTo(); });
+			seek.addEventListener('blur', () => { seeking = false; syncTime(); });
+			mute.addEventListener('click', () => {
+				if (player.volume === 0) { player.volume = 1; player.muted = false; }
+				else player.muted = !player.muted;
+			});
+			volume.addEventListener('input', () => {
+				player.volume = Number(volume.value);
+				player.muted = player.volume === 0;
+			});
+			player.addEventListener('loadedmetadata', () => {
+				loadingMetadata = false;
+				if (pendingSeek !== null) {
+					player.currentTime = Math.min(pendingSeek, getDuration());
+					pendingSeek = null;
+				}
+				syncTime();
+			});
+			player.addEventListener('timeupdate', syncTime);
+			player.addEventListener('durationchange', syncTime);
+			['play', 'pause', 'ended', 'volumechange'].forEach(event => player.addEventListener(event, syncState));
+			player.addEventListener('error', () => {
+				loadingMetadata = false;
+				pendingSeek = null;
+				failed = true;
+				syncLabels();
+			});
+			player.addEventListener('play', () => {
+				bgmPlayers.forEach(other => {
+					if (other !== player) other.pause();
+				});
+			});
+			syncTime();
+			syncState();
+			player.controls = false;
+			track.classList.add('is-enhanced');
+			bgmViews.push(syncLabels);
+		});
+		new MutationObserver(() => bgmViews.forEach(sync => sync())).observe(document.documentElement, {
+			attributes: true, attributeFilter: ['data-lang']
+		});
+
 		// Tab 切換功能（改良版：自動初始化、避免 index 對不到、兼容原本結構）
 		document.querySelectorAll('.tab-container').forEach(container => {
 			const buttons = Array.from(container.querySelectorAll('.tab-btn'));
@@ -6735,6 +7188,7 @@
 
 				buttons.forEach(b => b.classList.remove('active'));
 				contents.forEach(c => {
+					c.querySelectorAll('.bgm-track audio').forEach(player => player.pause());
 					c.classList.remove('active');
 					c.style.opacity = '0';
 					c.style.transform = 'translateY(15px)';
