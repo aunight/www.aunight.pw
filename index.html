@@ -118,6 +118,10 @@
 			--font-zh: 'ChironGoRoundTC', 'PingFang TC', 'Noto Sans TC', 'Microsoft JhengHei', sans-serif;
 			--font-en: 'Kosugi Maru', sans-serif;
 			--font-en-sub: 'Outfit', 'Kosugi Maru', sans-serif;
+			--page-backdrop: linear-gradient(#FFCC33 0%, #E233FF 100%);
+			--dark-backdrop:
+				linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)),
+				var(--page-backdrop);
 			/* 右側浮動按鈕直欄：52px 按鈕 + 10px 間距 */
 			--fab-right: calc(18px + env(safe-area-inset-right));
 			--fab-step: 62px;
@@ -166,7 +170,7 @@
 			left: 0;
 			width: 100%;
 			height: 100%;
-			background: linear-gradient(#FFCC33 0%, #E233FF 100%);
+			background: var(--page-backdrop);
 			z-index: -1;
 			background-repeat: no-repeat;
 			background-size: cover;
@@ -1171,7 +1175,7 @@
 		}
 
 		.about-lead {
-			font-weight: 700;
+			font-weight: 500;
 			color: var(--text-main);
 			line-height: 1.75;
 			margin: 0 0 18px 0;
@@ -1199,56 +1203,10 @@
 			padding: 18px 18px;
 			box-shadow: 0 10px 26px rgba(0,0,0,0.06);
 		}
-		.about-card.integrated-service .about-list li::before {
-			content: none;
-			width: 0;
-			height: 0;
-			margin: 0;
-		}
-		.about-card.integrated-service .integrated-service-subtitle,
-		.about-card.integrated-service .integrated-service-heading {
-			display: block;
-			margin: 0 0 10px;
-			font-size: 0.98rem;
-			font-weight: 400;
-			opacity: 0.62;
-			letter-spacing: 0;
-			color: var(--text-main);
-			font-family: var(--font-zh);
-			line-height: 1.6;
-		}
-		.about-card.integrated-service .integrated-service-subtitle.lang-en,
-		.about-card.integrated-service .integrated-service-heading.lang-en {
-			font-size: 0.9rem;
-			font-family: var(--font-en);
-		}
-		.about-card.integrated-service .grid-2 > div > p {
-			margin: 0;
-			line-height: 1.78;
-		}
-		.about-card.integrated-service .grid-2 {
-			grid-template-columns: repeat(2, minmax(0, 1fr));
-			gap: 22px;
-			align-items: stretch;
-		}
-		.about-card.integrated-service .grid-2 > div:first-child {
-			display: flex;
-			flex-direction: column;
-			justify-content: flex-start;
-			min-height: 100%;
-		}
-		.about-card.integrated-service .grid-2 > div:nth-child(2) {
-			display: flex;
-			flex-direction: column;
-		}
-		.about-card.integrated-service .integrated-benefits {
-			grid-template-columns: 1fr;
-		}
 		.integrated-benefits {
 			display: grid;
 			grid-template-columns: repeat(3, minmax(0, 1fr));
-			gap: 10px;
-			flex: 1;
+			gap: 24px;
 			margin: 0;
 			padding: 0;
 			list-style: none;
@@ -1256,15 +1214,9 @@
 		.integrated-benefit-card {
 			display: grid;
 			grid-template-columns: auto minmax(0, 1fr);
-			gap: 6px 8px;
+			gap: 8px 10px;
 			align-items: center;
-			padding: 13px 14px;
-			border-radius: 14px;
-			background: rgba(255,255,255,0.45);
-			border: 1px solid rgba(255,255,255,0.72);
-			box-shadow:
-				0 8px 20px rgba(0,0,0,0.05),
-				inset 0 1px 0 rgba(255,255,255,0.58);
+			align-content: start;
 		}
 		.integrated-benefit-icon {
 			width: auto;
@@ -1280,7 +1232,7 @@
 			grid-row: 1;
 		}
 		.integrated-benefit-title {
-			color: var(--text-highlight);
+			color: var(--text-main);
 			font-weight: 600;
 			line-height: 1.25;
 			grid-column: 2;
@@ -1289,23 +1241,16 @@
 		.integrated-benefit-desc {
 			color: rgba(74,74,74,0.74);
 			font-size: 0.9rem;
-			line-height: 1.55;
+			line-height: 1.75;
+			font-weight: 400;
 			grid-column: 1 / -1;
 			grid-row: 2;
 		}
 
-		@media (min-width: 769px) {
-			html:not([data-lang="en"]) .about-card.integrated-service .grid-2 > div:nth-child(2) {
-				margin-top: 0;
-			}
-		}
-
 		@media (max-width: 900px) {
-			.about-card.integrated-service .grid-2 {
-				grid-template-columns: 1fr;
-			}
 			.integrated-benefits {
 				grid-template-columns: 1fr;
+				gap: 20px;
 			}
 		}
 
@@ -1338,10 +1283,12 @@
 			padding: 0;
 			margin: 0;
 			display: grid;
-			gap: 10px;
+			gap: 12px;
 			line-height: 1.85;
-			font-size: 0.98rem;
+			font-size: 0.95rem;
+			font-weight: 400;
 		}
+		.about-list strong { font-weight: 700; }
 
 		.about-list li {
 			display: flex;
@@ -3863,14 +3810,16 @@
 		/* --- 深色模式 --- */
 		html[data-theme="dark"] {
 			color-scheme: dark;
-			--glass-bg: rgba(40, 24, 52, 0.62);
-			--glass-border: rgba(255, 255, 255, 0.14);
-			--glass-surface: rgba(36, 22, 48, 0.58);
-			--glass-surface-strong: rgba(58, 36, 72, 0.76);
-			--glass-border-strong: rgba(255, 255, 255, 0.13);
-			--text-main: #eee4f0;
-			--shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.35);
-			background-color: #1b1026;
+			--glass-bg: rgba(80, 73, 91, 0.72);
+			--glass-border: rgba(255, 255, 255, 0.2);
+			--glass-surface: rgba(90, 81, 100, 0.68);
+			--glass-surface-strong: rgba(106, 96, 118, 0.88);
+			--glass-border-strong: rgba(255, 255, 255, 0.22);
+			--text-main: #f0f0f3;
+			--text-muted: #dedee5;
+			--content-panel-bg: rgba(28, 28, 32, 0.76);
+			--shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.22);
+			background-color: #34333f;
 		}
 
 		/* 嵌入內容維持原本配色 */
@@ -3882,16 +3831,13 @@
 		html[data-theme="dark"] .drive-embed iframe[src^="https://drive.google.com/embeddedfolderview"] {
 			color-scheme: light;
 			background: #fff;
-			filter: invert(0.9) hue-rotate(180deg);
+			filter: invert(0.84) hue-rotate(180deg);
 		}
 
 		/* 深色背景必須畫在 body 內：body 有 will-change: opacity 是所有毛玻璃的 backdrop root，
 		   背景若放在 body 外（html::before），毛玻璃就只會模糊到透明底，文字會直接透出來 */
 		html[data-theme="dark"] body::before {
-			background:
-				radial-gradient(120% 70% at 12% 0%, rgba(255, 170, 60, 0.16), rgba(255, 170, 60, 0) 60%),
-				radial-gradient(110% 75% at 90% 100%, rgba(226, 51, 255, 0.24), rgba(226, 51, 255, 0) 65%),
-				linear-gradient(#2a1628 0%, #1e1030 55%, #2a0f3c 100%);
+			background: var(--dark-backdrop);
 		}
 
 		@media (prefers-reduced-motion: no-preference) {
@@ -3912,13 +3858,10 @@
 				animation: themeBgFadeOut 0.35s ease forwards;
 			}
 			html.theme-switching[data-theme-from="light"] body::after {
-				background: linear-gradient(#FFCC33 0%, #E233FF 100%);
+				background: var(--page-backdrop);
 			}
 			html.theme-switching[data-theme-from="dark"] body::after {
-				background:
-					radial-gradient(120% 70% at 12% 0%, rgba(255, 170, 60, 0.16), rgba(255, 170, 60, 0) 60%),
-					radial-gradient(110% 75% at 90% 100%, rgba(226, 51, 255, 0.24), rgba(226, 51, 255, 0) 65%),
-					linear-gradient(#2a1628 0%, #1e1030 55%, #2a0f3c 100%);
+				background: var(--dark-backdrop);
 			}
 		}
 
@@ -3928,26 +3871,26 @@
 		}
 
 		html[data-theme="dark"].lang-switching body::after {
-			background: #1e1030;
+			background: #34333f;
 		}
 
 		html[data-theme="dark"] nav {
 			box-shadow:
-				0 12px 40px rgba(0,0,0,0.35),
+				0 12px 40px rgba(0,0,0,0.22),
 				inset 0 1px 0 rgba(255,255,255,0.1),
 				inset 0 -1px 0 rgba(255,255,255,0.04);
 		}
 
 		html[data-theme="dark"] .glass-card {
 			box-shadow:
-				0 12px 40px rgba(0,0,0,0.32),
+				0 12px 40px rgba(0,0,0,0.2),
 				inset 0 1px 0 rgba(255,255,255,0.1),
 				inset 0 -1px 0 rgba(255,255,255,0.04);
 		}
 
 		html[data-theme="dark"] .glass-card:hover {
 			box-shadow:
-				0 18px 52px rgba(0,0,0,0.4),
+				0 18px 52px rgba(0,0,0,0.28),
 				inset 0 1px 0 rgba(255,255,255,0.1),
 				inset 0 -1px 0 rgba(255,255,255,0.04);
 		}
@@ -3955,9 +3898,36 @@
 		html[data-theme="dark"] .glass-card::before {
 			background: linear-gradient(135deg, rgba(255,255,255,0.12), rgba(255,255,255,0.03) 45%, rgba(255,255,255,0.01));
 		}
+		html[data-theme="dark"] .glass-card:not(.hero),
+		html[data-theme="dark"] footer {
+			--text-main: #f0f0f3;
+			--text-muted: #dedee5;
+			--text-highlight: #ffabc0;
+			--glass-surface: rgba(255, 255, 255, 0.055);
+			--glass-surface-strong: rgba(44, 44, 48, 0.96);
+			--glass-border-strong: rgba(255, 255, 255, 0.18);
+			color: var(--text-main);
+			background: var(--content-panel-bg);
+			backdrop-filter: blur(32px) saturate(65%);
+			-webkit-backdrop-filter: blur(32px) saturate(65%);
+			border-color: rgba(255, 255, 255, 0.18);
+		}
+		html[data-theme="dark"] .glass-card:not(.hero)::before {
+			background: linear-gradient(135deg, rgba(255,255,255,0.065), rgba(255,255,255,0.015) 45%, transparent);
+			opacity: 1;
+		}
+		html[data-theme="dark"] .glass-card:not(.hero) .bgm-play { color: #351b24; }
+		@media (prefers-reduced-transparency: reduce) {
+			html[data-theme="dark"] .glass-card:not(.hero),
+			html[data-theme="dark"] footer {
+				background: #252528;
+				backdrop-filter: none;
+				-webkit-backdrop-filter: none;
+			}
+		}
 
 		html[data-theme="dark"] .hero-positioning {
-			color: rgba(238, 228, 240, 0.82);
+			color: var(--text-muted);
 		}
 
 		html[data-theme="dark"] .hero-logo,
@@ -3979,7 +3949,7 @@
 
 		html[data-theme="dark"] .focus-card p,
 		html[data-theme="dark"] .focus-proof {
-			color: rgba(238, 228, 240, 0.78);
+			color: var(--text-muted);
 		}
 
 		html[data-theme="dark"] .focus-metric {
@@ -4024,10 +3994,12 @@
 
 		/* 關於我 */
 		html[data-theme="dark"] .about-card {
-			background: rgba(255,255,255,0.05);
-			border-color: rgba(255,255,255,0.1);
-			box-shadow: 0 10px 26px rgba(0,0,0,0.2);
+			background: rgba(255,255,255,0.035);
+			border-color: rgba(255,255,255,0.15);
+			box-shadow: none;
 		}
+		html[data-theme="dark"] .about-list { color: var(--text-main); }
+		html[data-theme="dark"] .about-list strong { color: var(--text-main); }
 
 		html[data-theme="dark"] .about-card-title i {
 			background: rgba(255,255,255,0.08);
@@ -4035,16 +4007,22 @@
 			box-shadow: 0 6px 16px rgba(0,0,0,0.25);
 		}
 
-		html[data-theme="dark"] .integrated-benefit-card {
-			background: rgba(255,255,255,0.06);
-			border-color: rgba(255,255,255,0.12);
-			box-shadow:
-				0 8px 20px rgba(0,0,0,0.18),
-				inset 0 1px 0 rgba(255,255,255,0.06);
+		html[data-theme="dark"] .integrated-benefit-desc {
+			color: var(--text-muted);
 		}
 
-		html[data-theme="dark"] .integrated-benefit-desc {
-			color: rgba(238, 228, 240, 0.78);
+		html[data-theme="dark"] .bgm-auditions > h3,
+		html[data-theme="dark"] .remix-original,
+		html[data-theme="dark"] .bgm-status {
+			color: var(--text-highlight);
+		}
+		html[data-theme="dark"] .bgm-times,
+		html[data-theme="dark"] .remix-credit > span,
+		html[data-theme="dark"] .footer-lead {
+			opacity: 1;
+		}
+		html[data-theme="dark"] .glass-card:not(.hero) p[style*="opacity:"] {
+			opacity: 0.95 !important;
 		}
 
 		/* Tabs */
@@ -4095,7 +4073,7 @@
 		}
 
 		html[data-theme="dark"] .sideproj-desc {
-			color: rgba(238, 228, 240, 0.78);
+			color: var(--text-muted);
 		}
 
 		html[data-theme="dark"] .sideproj-kicker {
@@ -4104,15 +4082,15 @@
 
 		/* 委託表單 */
 		html[data-theme="dark"] .commission-intro {
-			color: rgba(238, 228, 240, 0.78);
+			color: var(--text-muted);
 		}
 
 		html[data-theme="dark"] .commission-label {
-			color: rgba(238, 228, 240, 0.74);
+			color: var(--text-muted);
 		}
 
 		html[data-theme="dark"] .commission-note {
-			color: rgba(238, 228, 240, 0.68);
+			color: var(--text-muted);
 		}
 
 		html[data-theme="dark"] .commission-select-wrap::after {
@@ -4158,7 +4136,7 @@
 		}
 
 		html[data-theme="dark"] .commission-options {
-			background: rgba(40, 26, 52, 0.97);
+			background: rgba(76, 67, 88, 0.98);
 			border-color: rgba(255,255,255,0.14);
 			box-shadow: 0 18px 45px rgba(0,0,0,0.45), inset 0 1px 0 rgba(255,255,255,0.06);
 		}
@@ -4176,7 +4154,7 @@
 
 		/* Footer 與社群圖示 */
 		html[data-theme="dark"] footer {
-			background: linear-gradient(180deg, rgba(30, 18, 42, 0.72), rgba(24, 14, 34, 0.6));
+			background: var(--content-panel-bg);
 			border-top-color: rgba(255,255,255,0.1);
 		}
 
@@ -4185,7 +4163,7 @@
 		}
 
 		html[data-theme="dark"] .footer-copy {
-			color: rgba(238, 228, 240, 0.66);
+			color: var(--text-muted);
 		}
 
 		html[data-theme="dark"] .social-icons a {
@@ -4225,7 +4203,7 @@
 		html[data-theme="dark"] .theme-toggle-floating {
 			background:
 				linear-gradient(135deg, rgba(255,255,255,0.12), rgba(255,255,255,0.03)),
-				rgba(40, 24, 54, 0.66);
+				rgba(84, 74, 96, 0.78);
 			backdrop-filter: blur(40px) saturate(180%);
 			-webkit-backdrop-filter: blur(40px) saturate(180%);
 			border-color: rgba(255,255,255,0.16);
@@ -4268,7 +4246,7 @@
 		html[data-theme="dark"] .contact-dropdown {
 			background:
 				linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0.02)),
-				rgba(40, 24, 54, 0.85);
+				rgba(76, 67, 88, 0.94);
 			border-color: rgba(255,255,255,0.14);
 			box-shadow:
 				0 14px 40px rgba(0,0,0,0.45),
@@ -4293,7 +4271,7 @@
 			html[data-theme="dark"] .scroll-top-btn:hover {
 				background:
 					linear-gradient(135deg, rgba(255,255,255,0.12), rgba(255,255,255,0.03)),
-					rgba(40, 24, 54, 0.66);
+					rgba(84, 74, 96, 0.78);
 				border-color: rgba(255,255,255,0.16);
 				color: var(--text-main);
 				box-shadow:
@@ -4305,11 +4283,11 @@
 
 		/* 入口畫面（深色） */
 		html[data-theme="dark"] .entry-gate {
-			background: linear-gradient(160deg, rgba(50, 26, 22, 0.6), rgba(34, 10, 52, 0.7));
+			background: linear-gradient(160deg, rgba(64, 59, 71, 0.6), rgba(52, 51, 63, 0.7));
 		}
 
 		html[data-theme="dark"] .entry-gate-card {
-			background: rgba(38, 24, 50, 0.9);
+			background: rgba(76, 68, 87, 0.94);
 			border-color: rgba(255,255,255,0.12);
 			box-shadow:
 				0 24px 64px rgba(0,0,0,0.5),
@@ -4576,11 +4554,12 @@
 			<article class="focus-card">
 				<span class="focus-icon" aria-hidden="true"><i class="fas fa-code"></i></span>
 				<h3><a class="focus-title-link" href="#web"><span class="lang-zh">網頁前端</span><span class="lang-en">Frontend</span></a></h3>
-				<p><span class="lang-zh">把設計落成可瀏覽、可互動的網站，包含作品集、產品官網、Lispresso 與商業文章暨商城網站。</span><span class="lang-en">Turning designs into browsable, interactive sites, including portfolios, product websites, Lispresso and article commerce sites.</span></p>
+				<p><span class="lang-zh">把設計落成可瀏覽、可互動的網站，包含作品集、產品官網、織夢社 Dreamloom 企業勢官網、Lispresso 與商業文章暨商城網站。</span><span class="lang-en">Turning designs into browsable, interactive sites, including portfolios, product websites, the Dreamloom VTuber agency website, Lispresso and article commerce sites.</span></p>
 				<span class="focus-work-list">
 					<a class="focus-work-pill" href="https://game-hospital.com/" target="_blank" rel="noopener"><img class="focus-brand-icon" src="img/GameHospital.png" alt="" loading="lazy" decoding="async"><span class="lang-zh">遊戲醫院 Game Hospital 商業網站</span><span class="lang-en">Game Hospital commercial site</span></a>
 					<a class="focus-work-pill" href="#hero"><img class="focus-brand-icon" src="img/aunight-128.png" alt="" loading="lazy" decoding="async"><span class="lang-zh">個人作品集網站</span><span class="lang-en">Personal portfolio site</span></a>
 					<a class="focus-work-pill" href="https://lispresso.ai" target="_blank" rel="noopener"><img class="focus-brand-icon" src="img/Lispresso.svg" alt="" loading="lazy" decoding="async"><span class="lang-zh">Lispresso 外國APP官網</span><span class="lang-en">Lispresso overseas app site</span></a>
+					<a class="focus-work-pill" href="https://dreamloom.tw/" target="_blank" rel="noopener"><img class="focus-brand-icon" src="img/dreamloom.png" alt="" loading="lazy" decoding="async"><span class="lang-zh">織夢社 Dreamloom 官網</span><span class="lang-en">Dreamloom agency website</span></a>
 				</span>
 				<div class="focus-card-stat">
 					<a class="focus-metric focus-project-card" href="#web">
@@ -4617,125 +4596,54 @@
 
 	<section id="about" class="glass-card reveal">
 		<h2 class="section-title"><span class="lang-zh">關於我</span><span class="lang-en">About Me</span></h2>
-		<p class="about-lead"><span class="lang-zh">我是一名自由接案者，從事影片、設計與音樂相關工作至今8年。</span><span class="lang-en">I'm a freelance creator with 8 years of experience across video, design and music.</span></p>
+		<p class="about-lead"><span class="lang-zh">8 年接案經驗，整合影片、設計、音樂與網頁製作。</span><span class="lang-en">8 years of freelance work across video, design, music and web.</span></p>
 
 		<div class="about-grid">
 			<div class="about-card">
-				<h3 class="about-card-title"><i class="fas fa-film" aria-hidden="true"></i><span class="lang-zh">影片剪輯與後製</span><span class="lang-en">Editing & VFX</span></h3>
+				<h3 class="about-card-title"><i class="fas fa-film" aria-hidden="true"></i><span class="lang-zh">影片剪輯與後製</span><span class="lang-en">Editing &amp; VFX</span></h3>
 				<ul class="about-list">
-					<li><span class="lang-zh">我從高中開始自學影片剪輯，接案至今已8年。</span><span class="lang-en">I taught myself video editing in high school and have worked freelance for 8 years since.</span></li>
-					<li><span class="lang-zh">我曾與阿神、尊、放火、阿滴等百萬訂閱YouTuber合作，第一支為阿神剪輯的影片便突破百萬觀看。</span><span class="lang-en">I've collaborated with million-subscriber YouTubers such as 阿神, 尊, 放火 and 阿滴 — the first video I edited for 阿神 surpassed a million views.</span></li>
-					<li><span class="lang-zh">除了剪輯，我也製作YouTube縮圖與平面設計，擅長提升點閱表現。</span><span class="lang-en">Beyond editing, I also produce YouTube thumbnails and graphic design, with a focus on click-through.</span></li>
-					<li><span class="lang-zh">在商業專案中，我也使用Fusion處理動態追蹤等特效需求。</span><span class="lang-en">For commercial projects, I also handle motion-tracking and other VFX in Fusion.</span></li>
+					<li><span class="lang-zh">合作<strong>百萬訂閱創作者</strong>：阿神、尊、放火、阿滴。</span><span class="lang-en">Worked with <strong>million-subscriber creators</strong> including 阿神, 尊, 放火 and 阿滴.</span></li>
+					<li><span class="lang-zh">為阿神剪輯的首支影片，突破<strong>百萬觀看</strong>。</span><span class="lang-en">My first edit for 阿神 reached <strong>1 million views</strong>.</span></li>
+					<li><span class="lang-zh">YouTube 縮圖、平面設計與 Fusion 特效。</span><span class="lang-en">YouTube thumbnails, graphic design and Fusion VFX.</span></li>
 				</ul>
 			</div>
 
 			<div class="about-card">
-				<h3 class="about-card-title"><i class="fas fa-pen-ruler" aria-hidden="true"></i><span class="lang-zh">UI/UX與產品設計</span><span class="lang-en">UI/UX & Product Design</span></h3>
+				<h3 class="about-card-title"><i class="fas fa-pen-ruler" aria-hidden="true"></i><span class="lang-zh">UI/UX與產品設計</span><span class="lang-en">UI/UX &amp; Product Design</span></h3>
 				<ul class="about-list">
-					<li><span class="lang-zh">我不只專注於視覺，後來也跨入UI/UX領域。</span><span class="lang-en">I didn't stop at visuals — I later moved into UI/UX as well.</span></li>
-					<li><span class="lang-zh">我負責設計的VALKI（Valorant輔助工具）目前服務超過10萬名用戶，官方網站也由我設計。</span><span class="lang-en">I led the design of VALKI, a Valorant utility now serving 100,000+ users, and designed its official website too.</span></li>
-					<li><span class="lang-zh">我也為VTuber企業勢「織夢社 Dreamloom」設計官方網站。</span><span class="lang-en">I also designed the official website for the VTuber agency Dreamloom.</span></li>
-					<li><span class="lang-zh">我也以side project形式，為巴哈姆特（首頁、動畫瘋、社群）、<span style="white-space: nowrap;">台北捷運Go</span>、Dcard等App與網站進行概念改版設計。</span><span class="lang-en">As personal side projects, I've also created redesign concepts for apps and sites such as Bahamut (homepage, Anime Crazy, community), Taipei MRT Go and Dcard.</span></li>
+					<li><span class="lang-zh"><strong>VALKI</strong> 產品與官網設計，服務 <strong>10 萬+</strong> 用戶。</span><span class="lang-en"><strong>VALKI</strong> product and website design for <strong>100K+ users</strong>.</span></li>
+					<li><span class="lang-zh"><strong>VTuber 企業勢織夢社 Dreamloom</strong> 官網設計。</span><span class="lang-en">Official website design for VTuber agency <strong>Dreamloom</strong>.</span></li>
+					<li><span class="lang-zh">概念改版：巴哈姆特、台北捷運 Go、Dcard。</span><span class="lang-en">Redesign concepts for Bahamut, Taipei MRT Go and Dcard.</span></li>
 				</ul>
 			</div>
 
 			<div class="about-card" style="grid-column: 1 / -1;">
 				<h3 class="about-card-title"><i class="fas fa-music" aria-hidden="true"></i><span class="lang-zh">音樂製作</span><span class="lang-en">Music Production</span></h3>
 				<ul class="about-list">
-					<li><span class="lang-zh">我同時是一名音樂製作人，至今創作超過30首原創歌曲與BGM。</span><span class="lang-en">I'm also a music producer, with 30+ original songs and BGM tracks to date.</span></li>
-					<li><span class="lang-zh">我曾為Vtuber製作原創歌曲，從作詞、作曲、編曲到混音皆由我完成，作品也發行於Spotify與Apple Music。</span><span class="lang-en">I've produced original songs for Vtubers, handling everything from lyrics and composition to arrangement and mixing, released on Spotify and Apple Music.</span></li>
-					<li><span class="lang-zh">加上我也製作PV動畫，因此能獨力完成從聲音到畫面的整體製作。</span><span class="lang-en">I also produce PV animations, so I can deliver the full package from sound to visuals on my own.</span></li>
+					<li><span class="lang-zh">累積 <strong>30 首+</strong> 原創歌曲與 BGM。</span><span class="lang-en"><strong>30+ original songs and BGM tracks</strong>.</span></li>
+					<li><span class="lang-zh">詞曲、編曲、混音到 PV 一手完成，作品已於 Spotify 與 Apple Music 發行。</span><span class="lang-en">Lyrics, composition, arrangement, mixing and PV production, with releases on Spotify and Apple Music.</span></li>
 				</ul>
 			</div>
+
 			<div class="about-card integrated-service">
 				<h3 class="about-card-title"><i class="fas fa-layer-group" aria-hidden="true"></i><span class="lang-zh">由我一人整合製作</span><span class="lang-en">One Creator, End to End</span></h3>
-				<div class="grid-2">
-					<div>
-						<p class="lang-zh integrated-service-subtitle">單一窗口溝通，讓畫面與聲音不再各自為政。</p>
-						<p class="lang-en integrated-service-subtitle">A single point of contact, keeping your visuals and sound aligned.</p>
-						<div class="lang-zh">
-							<ul class="integrated-benefits">
-								<li class="integrated-benefit-card">
-									<span class="integrated-benefit-icon"><i class="fas fa-route" aria-hidden="true"></i></span>
-									<span class="integrated-benefit-title">不用拆成三邊溝通</span>
-									<span class="integrated-benefit-desc">剪輯、設計、音樂都可以直接找我對，一個窗口就能整理方向。</span>
-								</li>
-								<li class="integrated-benefit-card">
-									<span class="integrated-benefit-icon"><i class="fas fa-layer-group" aria-hidden="true"></i></span>
-									<span class="integrated-benefit-title">從畫面到聲音一起做</span>
-									<span class="integrated-benefit-desc">影片、網站、配樂或PV可以用同一套標準處理，不會各做各的。</span>
-								</li>
-								<li class="integrated-benefit-card">
-									<span class="integrated-benefit-icon"><i class="fas fa-sliders" aria-hidden="true"></i></span>
-									<span class="integrated-benefit-title">修改也比較直接</span>
-									<span class="integrated-benefit-desc">節奏、視覺、音樂要調整時，不用來回轉述，整體比較容易統一。</span>
-								</li>
-							</ul>
-						</div>
-						<div class="lang-en">
-							<ul class="integrated-benefits">
-								<li class="integrated-benefit-card">
-									<span class="integrated-benefit-icon"><i class="fas fa-route" aria-hidden="true"></i></span>
-									<span class="integrated-benefit-title">No split communication</span>
-									<span class="integrated-benefit-desc">Editing, design and music can all be discussed through one contact.</span>
-								</li>
-								<li class="integrated-benefit-card">
-									<span class="integrated-benefit-icon"><i class="fas fa-layer-group" aria-hidden="true"></i></span>
-									<span class="integrated-benefit-title">Visuals and sound together</span>
-									<span class="integrated-benefit-desc">Video, websites, music and PVs can follow one shared direction.</span>
-								</li>
-								<li class="integrated-benefit-card">
-									<span class="integrated-benefit-icon"><i class="fas fa-sliders" aria-hidden="true"></i></span>
-									<span class="integrated-benefit-title">Cleaner revisions</span>
-									<span class="integrated-benefit-desc">Pacing, visuals and music are easier to adjust without relaying feedback.</span>
-								</li>
-							</ul>
-						</div>
-					</div>
-					<div>
-						<h4 class="lang-en integrated-service-heading">Why work with one person?</h4>
-						<h4 class="lang-zh integrated-service-heading">為什麼選擇交給同一人？</h4>
-						<div class="lang-en">
-							<ul class="integrated-benefits">
-								<li class="integrated-benefit-card">
-									<span class="integrated-benefit-icon"><i class="fas fa-wave-square" aria-hidden="true"></i></span>
-									<span class="integrated-benefit-title">One consistent style</span>
-									<span class="integrated-benefit-desc">The pacing fits the music, and the design fits the code.</span>
-								</li>
-								<li class="integrated-benefit-card">
-									<span class="integrated-benefit-icon"><i class="fas fa-comments" aria-hidden="true"></i></span>
-									<span class="integrated-benefit-title">Less back-and-forth</span>
-									<span class="integrated-benefit-desc">One contact who sees the whole project, instead of three.</span>
-								</li>
-								<li class="integrated-benefit-card">
-									<span class="integrated-benefit-icon"><i class="fas fa-coins" aria-hidden="true"></i></span>
-									<span class="integrated-benefit-title">Better value</span>
-									<span class="integrated-benefit-desc">A bundled rate beats hiring several freelancers or an agency.</span>
-								</li>
-							</ul>
-						</div>
-						<div class="lang-zh">
-							<ul class="integrated-benefits">
-								<li class="integrated-benefit-card">
-									<span class="integrated-benefit-icon"><i class="fas fa-wave-square" aria-hidden="true"></i></span>
-									<span class="integrated-benefit-title">風格一致</span>
-									<span class="integrated-benefit-desc">影像節奏與音樂相互呼應，設計與程式也彼此契合。</span>
-								</li>
-								<li class="integrated-benefit-card">
-									<span class="integrated-benefit-icon"><i class="fas fa-comments" aria-hidden="true"></i></span>
-									<span class="integrated-benefit-title">溝通單純</span>
-									<span class="integrated-benefit-desc">單一窗口即可掌握整個專案，省去三方來回協調。</span>
-								</li>
-								<li class="integrated-benefit-card">
-									<span class="integrated-benefit-icon"><i class="fas fa-coins" aria-hidden="true"></i></span>
-									<span class="integrated-benefit-title">成本更省</span>
-									<span class="integrated-benefit-desc">整合報價比分別發案或委託團隊更為划算。</span>
-								</li>
-							</ul>
-						</div>
-					</div>
-				</div>
+				<ul class="integrated-benefits">
+					<li class="integrated-benefit-card">
+						<span class="integrated-benefit-icon"><i class="fas fa-comments" aria-hidden="true"></i></span>
+						<span class="integrated-benefit-title"><span class="lang-zh">單一窗口</span><span class="lang-en">One Contact</span></span>
+						<span class="integrated-benefit-desc"><span class="lang-zh">剪輯、設計、音樂，直接對接同一人。</span><span class="lang-en">Discuss video, design and music with one person.</span></span>
+					</li>
+					<li class="integrated-benefit-card">
+						<span class="integrated-benefit-icon"><i class="fas fa-layer-group" aria-hidden="true"></i></span>
+						<span class="integrated-benefit-title"><span class="lang-zh">視聽整合</span><span class="lang-en">One Direction</span></span>
+						<span class="integrated-benefit-desc"><span class="lang-zh">網站、影片與配樂，維持一致風格。</span><span class="lang-en">Keep your website, video and music in sync.</span></span>
+					</li>
+					<li class="integrated-benefit-card">
+						<span class="integrated-benefit-icon"><i class="fas fa-sliders" aria-hidden="true"></i></span>
+						<span class="integrated-benefit-title"><span class="lang-zh">流程精簡</span><span class="lang-en">Fewer Steps</span></span>
+						<span class="integrated-benefit-desc"><span class="lang-zh">整合報價與修改，減少溝通往返。</span><span class="lang-en">One quote and direct feedback, with less back-and-forth.</span></span>
+					</li>
+				</ul>
 			</div>
 		</div>
 	</section>
@@ -4875,6 +4783,7 @@
 		<div class="tabs">
 			<button class="tab-btn active"><span class="lang-zh">原創曲</span><span class="lang-en">Original Music</span></button>
 			<button class="tab-btn"><span class="lang-zh">Cover混音</span><span class="lang-en">Cover Mixing</span></button>
+			<button class="tab-btn"><span class="lang-zh">伴奏製作</span><span class="lang-en">Instrumentals</span></button>
 			<button class="tab-btn"><span class="lang-zh">Remix歌曲</span><span class="lang-en">Remix</span></button>
 			<button class="tab-btn"><span class="lang-zh">背景音樂</span><span class="lang-en">BGM</span></button>
 		</div>
@@ -4934,6 +4843,22 @@
 			</div>
 		</div>
 		<div class="tab-content">
+			<section class="bgm-auditions" aria-labelledby="instrumental-auditions-title">
+				<h3 id="instrumental-auditions-title"><span class="lang-zh">伴奏製作作品試聽</span><span class="lang-en">Instrumental Previews</span></h3>
+				<figure class="bgm-track">
+					<figcaption id="instrumental-everything-goes-on"><span class="lang-zh">Everything Goes On（伴奏重製）</span><span class="lang-en">Everything Goes On (Instrumental Remake)</span></figcaption>
+					<div class="remix-credit">
+						<span><span class="lang-zh">伴奏製作：AuNight</span><span class="lang-en">Instrumental production by AuNight</span></span>
+						<a class="remix-original" href="https://www.youtube.com/watch?v=eEFVxI9lqjU" target="_blank" rel="noopener"><i class="fab fa-youtube" aria-hidden="true"></i><span class="lang-zh">Porter Robinson 原曲</span><span class="lang-en">Original by Porter Robinson</span><i class="fas fa-arrow-up-right-from-square" aria-hidden="true"></i></a>
+					</div>
+					<audio controls preload="none" aria-labelledby="instrumental-everything-goes-on" data-artist="AuNight" data-duration="206.369433">
+						<source src="audio/instrumentals/everything-goes-on.mp3" type="audio/mpeg">
+						<a href="audio/instrumentals/everything-goes-on.mp3">Everything Goes On (Instrumental Remake)</a>
+					</audio>
+				</figure>
+			</section>
+		</div>
+		<div class="tab-content">
 			<section class="bgm-auditions remix-auditions" aria-labelledby="remix-auditions-title">
 				<h3 id="remix-auditions-title"><span class="lang-zh">Remix 作品試聽</span><span class="lang-en">Remix Previews</span></h3>
 				<div class="bgm-track-list">
@@ -4946,6 +4871,18 @@
 						<audio controls preload="none" aria-labelledby="remix-fantasies" data-artist="冰霧 Eisnebel" data-duration="185.142875">
 							<source src="audio/remix/all-my-fantasies-remix.mp3" type="audio/mpeg">
 							<a href="audio/remix/all-my-fantasies-remix.mp3">離不開有你的所有幻想 (AuNight Remix)</a>
+						</audio>
+					</figure>
+					<figure class="bgm-track">
+						<figcaption id="remix-repeat-it-x-you">Repeat It x X You (AuNight Remix)</figcaption>
+						<div class="remix-credit">
+							<span>Martin Garrix &amp; Ed Sheeran × Avicii · Remix by AuNight</span>
+							<a class="remix-original" href="https://www.youtube.com/watch?v=GsnpIVrfQyA" target="_blank" rel="noopener"><i class="fab fa-youtube" aria-hidden="true"></i><span class="lang-zh">Martin Garrix &amp; Ed Sheeran〈Repeat It〉原曲</span><span class="lang-en">Original: Martin Garrix &amp; Ed Sheeran – Repeat It</span><i class="fas fa-arrow-up-right-from-square" aria-hidden="true"></i></a>
+							<a class="remix-original" href="https://www.youtube.com/watch?v=LpKyzSxVhk4" target="_blank" rel="noopener"><i class="fab fa-youtube" aria-hidden="true"></i><span class="lang-zh">Avicii〈X You〉原曲</span><span class="lang-en">Original: Avicii – X You</span><i class="fas fa-arrow-up-right-from-square" aria-hidden="true"></i></a>
+						</div>
+						<audio controls preload="none" aria-labelledby="remix-repeat-it-x-you" data-artist="Martin Garrix &amp; Ed Sheeran × Avicii" data-duration="209.523810">
+							<source src="audio/remix/repeat-it-x-x-you.mp3" type="audio/mpeg">
+							<a href="audio/remix/repeat-it-x-x-you.mp3">Repeat It x X You (AuNight Remix)</a>
 						</audio>
 					</figure>
 				</div>
@@ -5053,6 +4990,37 @@
 							</audio>
 						</figure>
 					</div>
+				</div>
+			</section>
+			<section class="bgm-auditions" aria-labelledby="other-bgm-title">
+				<h3 id="other-bgm-title"><span class="lang-zh">其他 BGM 作品試聽</span><span class="lang-en">Other BGM</span></h3>
+				<div class="bgm-track-list">
+					<figure class="bgm-track">
+						<figcaption id="bgm-wenxin-arrival"><span class="lang-zh">台中捷運｜文心森林站進站音樂</span><span class="lang-en">Taichung MRT - Wenxin Forest Station Arrival Music</span></figcaption>
+						<audio controls preload="none" aria-labelledby="bgm-wenxin-arrival" data-artist="AuNight" data-duration="20">
+							<source src="audio/bgm/taichung-mrt-wenxin-arrival.mp3" type="audio/mpeg">
+							<a href="audio/bgm/taichung-mrt-wenxin-arrival.mp3">台中捷運｜文心森林站進站音樂</a>
+						</audio>
+					</figure>
+					<figure class="bgm-track">
+						<figcaption id="bgm-battle"><span class="lang-zh">戰鬥 BGM</span><span class="lang-en">Battle BGM</span></figcaption>
+						<audio controls preload="none" aria-labelledby="bgm-battle" data-artist="AuNight" data-duration="36">
+							<source src="audio/bgm/battle-bgm.mp3" type="audio/mpeg">
+							<a href="audio/bgm/battle-bgm.mp3">戰鬥 BGM</a>
+						</audio>
+					</figure>
+				</div>
+			</section>
+			<section class="bgm-auditions" aria-labelledby="free-bgm-title">
+				<h3 id="free-bgm-title"><span class="lang-zh">無版權免費素材 BGM</span><span class="lang-en">Free-to-Use BGM</span></h3>
+				<div class="bgm-track-list">
+					<figure class="bgm-track">
+						<figcaption id="bgm-voice-of-summer"><span class="lang-zh">Voice of Summer</span><span class="lang-en">Voice of Summer</span></figcaption>
+						<audio controls preload="none" aria-labelledby="bgm-voice-of-summer" data-artist="AuNight" data-duration="182">
+							<source src="audio/bgm/voice-of-summer.mp3" type="audio/mpeg">
+							<a href="audio/bgm/voice-of-summer.mp3">Voice of Summer</a>
+						</audio>
+					</figure>
 				</div>
 			</section>
 			<div class="embed-container"><iframe width="560" height="315" src="https://www.youtube.com/embed/nbigvuUnhWA?playsinline=1" title="YouTube影片播放器" data-title-zh="YouTube影片播放器" data-title-en="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div>
