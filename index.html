@@ -2800,7 +2800,7 @@
 
 		/* --- Footer --- */
 		footer {
-			text-align: left;
+			text-align: center;
 			margin-top: 0;
 			padding: 30px 24px;
 			background: linear-gradient(180deg, rgba(255, 255, 255, 0.55), rgba(255, 255, 255, 0.35));
@@ -2812,10 +2812,10 @@
 			max-width: 860px;
 			margin: 0 auto;
 			display: flex;
-			flex-direction: row;
+			flex-direction: column;
 			align-items: center;
-			justify-content: space-between;
-			gap: 12px;
+			justify-content: center;
+			gap: 18px;
 			flex-wrap: wrap;
 		}
 
@@ -2824,6 +2824,149 @@
 			font-size: 0.95rem;
 			opacity: 0.78;
 			line-height: 1.7;
+		}
+		.footer-social-group {
+			display: grid;
+			gap: 16px;
+			min-width: 0;
+			width: 100%;
+		}
+		.discord-profile {
+			width: min(340px, 100%);
+			min-width: 0;
+			display: grid;
+			justify-items: stretch;
+			gap: 12px;
+			margin-top: 6px;
+		}
+		.discord-profile-heading {
+			display: grid;
+			justify-items: start;
+			max-width: 100%;
+			color: var(--text-main);
+			text-decoration: none;
+			font-size: 0.95rem;
+		}
+		.discord-profile-heading:hover { color: var(--text-highlight); }
+		.discord-profile-heading:focus-visible {
+			outline: 2px solid var(--text-highlight);
+			outline-offset: 5px;
+		}
+		.discord-invite-bubble {
+			position: relative;
+			max-width: calc(100% - 12px);
+			padding: 7px 11px;
+			margin-left: 12px;
+			margin-bottom: 6px;
+			border-radius: 8px;
+			background: #ffd0dc;
+			color: #292126;
+			font-size: 0.78rem;
+			line-height: 1.6;
+			text-align: center;
+		}
+		.discord-invite-bubble::after {
+			content: "";
+			position: absolute;
+			top: 100%;
+			left: 18px;
+			border: 7px solid transparent;
+			border-top-color: #ffd0dc;
+			border-bottom: 0;
+		}
+		@keyframes discord-bubble-float {
+			0%, 100% { transform: translateY(0); }
+			50% { transform: translateY(-4px); }
+		}
+		@media (prefers-reduced-motion: no-preference) {
+			.discord-invite-bubble {
+				animation: discord-bubble-float 4s ease-in-out infinite;
+			}
+			.discord-profile-heading:hover .discord-invite-bubble,
+			.discord-profile-heading:focus-visible .discord-invite-bubble {
+				animation-play-state: paused;
+			}
+		}
+		.discord-profile-viewport {
+			position: relative;
+			width: min(340px, 100%);
+			height: 80px;
+			overflow: hidden;
+			border-radius: 8px;
+		}
+		.discord-profile-open {
+			position: absolute;
+			inset: 0 0 8px;
+			z-index: 1;
+			display: flex;
+			align-items: center;
+			justify-content: flex-end;
+			padding-right: 50px;
+			color: #e3e3e8;
+			font-size: 1.4rem;
+			text-decoration: none;
+			border-radius: 8px;
+		}
+		.discord-profile-open > i {
+			display: grid;
+			place-items: center;
+			width: 44px;
+			height: 44px;
+		}
+		.discord-profile-copy {
+			position: absolute;
+			right: 10px;
+			top: calc(50% - 4px);
+			transform: translateY(-50%);
+			z-index: 2;
+			display: grid;
+			place-items: center;
+			width: 32px;
+			height: 32px;
+			padding: 0;
+			border: 1px solid currentColor;
+			border-radius: 6px;
+			background: transparent;
+			color: #e3e3e8;
+			font-size: 0.85rem;
+			cursor: pointer;
+		}
+		.discord-profile-open:hover,
+		.discord-profile-copy:hover { color: #ffabc0; }
+		.discord-profile-open:focus-visible,
+		.discord-profile-copy:focus-visible {
+			outline: 2px solid #ffabc0;
+			outline-offset: -2px;
+		}
+		html[data-theme="light"] .discord-profile-open,
+		html[data-theme="light"] .discord-profile-copy { color: #4a4a4a; }
+		@media (min-width: 769px) {
+			.footer-inner {
+				display: grid;
+				grid-template-columns: minmax(0, 1fr) minmax(0, 340px);
+				column-gap: 48px;
+				text-align: left;
+			}
+			footer .footer-social-group .social-icons {
+				max-width: 336px;
+				margin: 0;
+				justify-content: flex-start;
+			}
+		}
+		.discord-profile iframe {
+			pointer-events: none;
+			display: block;
+			position: absolute;
+			top: 0;
+			left: 50%;
+			width: 340px;
+			max-width: none;
+			height: 80px;
+			transform-origin: top center;
+			transform: translateX(-50%);
+			border: 0;
+			border-radius: 8px;
+			color-scheme: normal;
 		}
 
 		.social-icons {
@@ -2837,11 +2980,12 @@
 			flex-wrap: wrap;
 		}
 		footer .social-icons {
-			max-width: min(100%, 336px);
-			justify-content: flex-end;
+			max-width: min(100%, 672px);
+			justify-content: center;
 			margin-left: auto;
-			margin-right: 0;
+			margin-right: auto;
 		}
+		footer .custom-tooltip { color: #171719; }
 		.social-icons.hero-socials {
 			justify-content: center;
 			flex-wrap: nowrap;
@@ -6002,6 +6146,7 @@
 
 <footer id="footer">
 	<div class="footer-inner">
+		<div class="footer-social-group">
 		<p class="footer-lead"><span class="lang-zh">歡迎透過社群平台追蹤我並與我聯絡</span><span class="lang-en">Follow and get in touch via the platforms</span></p>
 		<div class="social-icons">
 			<a href="mailto:email@aunight.pw" data-title-zh="Email" data-title-en="Email"><i class="fas fa-envelope"></i><span class="custom-tooltip"><span class="lang-zh">Email</span><span class="lang-en">Email</span></span></a>
@@ -6017,9 +6162,20 @@
 			<a href="https://www.tiktok.com/@au.night" target="_blank" data-title-zh="TikTok" data-title-en="TikTok"><i class="fab fa-tiktok"></i><span class="custom-tooltip"><span class="lang-zh">TikTok</span><span class="lang-en">TikTok</span></span></a>
 			<a href="https://www.threads.net/@aunight" target="_blank" data-title-zh="Threads" data-title-en="Threads"><i class="fa-brands fa-threads"></i><span class="custom-tooltip"><span class="lang-zh">Threads</span><span class="lang-en">Threads</span></span></a>
 		</div>
+		</div>
+		<div class="discord-profile">
+			<a href="https://discord.com/users/858897462206267433" target="_blank" rel="noopener noreferrer" class="discord-profile-heading" aria-label="在新分頁開啟 aunight 的 Discord 個人檔案" data-aria-label-zh="在新分頁開啟 aunight 的 Discord 個人檔案" data-aria-label-en="Open aunight's Discord profile in a new tab">
+				<span class="discord-invite-bubble"><span class="lang-zh">歡迎加入我的 Discord 帳號洽談</span><span class="lang-en">Add me on Discord to discuss your project</span></span>
+			</a>
+			<div class="discord-profile-viewport">
+				<iframe id="discordProfile" title="Discord user embed: aunight" tabindex="-1" aria-hidden="true" width="340" height="80" scrolling="no" loading="lazy" sandbox="allow-scripts" referrerpolicy="no-referrer" src="https://widgets.vendicated.dev/user?id=858897462206267433&amp;theme=dark&amp;banner=false&amp;full-banner=false&amp;rounded-corners=true&amp;discord-icon=false&amp;badges=false&amp;guess-nitro=false"></iframe>
+				<a href="https://discord.com/users/858897462206267433" target="_blank" rel="noopener noreferrer" class="discord-profile-open" aria-label="在新分頁開啟 aunight 的 Discord 個人檔案" data-aria-label-zh="在新分頁開啟 aunight 的 Discord 個人檔案" data-aria-label-en="Open aunight's Discord profile in a new tab"><i class="fab fa-discord" aria-hidden="true"></i></a>
+				<button type="button" class="discord-profile-copy" data-discord-copy="aunight" data-discord-toast="center" aria-label="複製 Discord ID:aunight" data-aria-label-zh="複製 Discord ID:aunight" data-aria-label-en="Copy Discord ID:aunight" title="複製帳號 aunight" data-title-zh="複製帳號 aunight" data-title-en="Copy username aunight"><i class="fas fa-copy" aria-hidden="true"></i></button>
+			</div>
+		</div>
 	</div>
 	<div class="footer-bottom">
-		<p class="footer-copy"><span class="lang-zh">© 2026秋夜.All Rights Reserved. Designed &amp; Fronted By秋夜</span><span class="lang-en">© 2026 AuNight.All Rights Reserved. Designed &amp; Fronted By AuNight</span></p>
+		<p class="footer-copy"><span class="lang-zh">© 2026 秋夜 . All Rights Reserved. Designed &amp; Fronted By 秋夜</span><span class="lang-en">© 2026 AuNight . All Rights Reserved. Designed &amp; Fronted By AuNight</span></p>
 	</div>
 </footer>
 
@@ -6604,7 +6760,7 @@
 		setupFigmaLoadingIndicators();
 
 		const setupDiscordCopyLinks = () => {
-			const links = Array.from(document.querySelectorAll('a[data-discord-copy]'));
+			const links = Array.from(document.querySelectorAll('[data-discord-copy]'));
 			if (!links.length) return;
 
 			let toastTimer = 0;
@@ -6682,6 +6838,25 @@
 		};
 
 		setupDiscordCopyLinks();
+		const discordProfile = document.getElementById('discordProfile');
+		if (discordProfile) {
+			const syncDiscordProfileTheme = () => {
+				const theme = root.dataset.theme === 'dark' ? 'dark' : 'light';
+				// The script-only sandbox gives the widget an opaque origin.
+				discordProfile.contentWindow.postMessage({ command: 'setTheme', theme }, '*');
+			};
+			const resizeDiscordProfile = () => {
+				const scale = Math.min(1, discordProfile.parentElement.clientWidth / 340);
+				discordProfile.style.transform = `translateX(-50%) scale(${scale})`;
+				discordProfile.parentElement.style.height = `${80 * scale}px`;
+			};
+			new ResizeObserver(resizeDiscordProfile).observe(discordProfile.parentElement);
+			resizeDiscordProfile();
+			discordProfile.addEventListener('load', syncDiscordProfileTheme);
+			new MutationObserver(syncDiscordProfileTheme).observe(root, {
+				attributes: true, attributeFilter: ['data-theme']
+			});
+		}
 
 		const getRootScrollPaddingTop = () => {
 			const value = window.getComputedStyle(document.documentElement).scrollPaddingTop;
