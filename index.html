@@ -2313,7 +2313,7 @@
 			align-items: baseline;
 			justify-content: center;
 			gap: 3px;
-			font-size: 0.8rem;
+			font-size: 1.15rem;
 			font-weight: 800;
 			line-height: 1;
 			letter-spacing: 0;
@@ -2321,7 +2321,7 @@
 
 		.lang-toggle-code-en {
 			font-family: var(--font-en);
-			font-size: 0.74rem;
+			font-size: 1.05rem;
 			font-weight: 800;
 		}
 
@@ -3138,6 +3138,87 @@
 
 		/* --- Mobile RWD --- */
 		@media (max-width: 768px) {
+			.container {
+				padding-left: max(10px, env(safe-area-inset-left));
+				padding-right: max(10px, env(safe-area-inset-right));
+			}
+			.glass-card {
+				padding: 28px 16px;
+			}
+			.focus-card {
+				padding-inline: 14px;
+			}
+			.about-card,
+			.bgm-track {
+				padding-inline: 12px;
+			}
+			.price-details {
+				padding-inline: 10px;
+			}
+			.container,
+			footer,
+			.entry-gate {
+				line-break: strict;
+				word-break: normal;
+				overflow-wrap: anywhere;
+			}
+			.container :is(p, li, h1, h2, h3, h4, figcaption, label),
+			.footer-lead,
+			.footer-copy {
+				min-width: 0;
+				max-width: 100%;
+				white-space: normal;
+				overflow-wrap: break-word;
+			}
+			.container :is(.grid-2, .music-grid, .focus-grid, .about-grid,
+				.integrated-benefits, .commission-input-grid) > *,
+			.about-list li > span,
+			.about-card-title > span,
+			.bgm-artist h4 a > span {
+				min-width: 0;
+			}
+			.container .action-btn,
+			.commission-select,
+			.commission-option {
+				min-width: 0;
+				max-width: 100%;
+				height: auto;
+				white-space: normal;
+				overflow-wrap: anywhere;
+			}
+			.container .action-btn > span {
+				min-width: 0;
+			}
+			.container .action-btn > i {
+				flex-shrink: 0;
+			}
+			.price-summary {
+				padding-inline: 32px;
+			}
+			.hero-creator,
+			.focus-metric-kicker,
+			.hero-highlight-label {
+				white-space: normal;
+			}
+			.parenthetical {
+				display: inline-block;
+				max-width: 100%;
+				vertical-align: top;
+			}
+			.text-phrase {
+				display: inline-block;
+				max-width: 100%;
+				vertical-align: baseline;
+				overflow-wrap: break-word;
+			}
+			.container :is(p, li, figcaption),
+			.footer-lead,
+			.footer-copy {
+				text-wrap: pretty;
+			}
+			.bgm-track figcaption {
+				overflow-wrap: break-word;
+			}
 			body {
 				padding-bottom: calc(140px + env(safe-area-inset-bottom));
 				overflow-x: hidden;
@@ -3152,7 +3233,7 @@
 			.hero {
 				flex-direction: column-reverse;
 				text-align: center;
-				padding: 40px 20px;
+				padding: 40px 16px;
 				min-height: auto;
 			}
 			.hero-content-wrapper {
@@ -3207,6 +3288,19 @@
 			}
 			.focus-card {
 				min-height: 0;
+				min-width: 0;
+			}
+			.focus-work-list {
+				min-width: 0;
+			}
+			.focus-work-pill {
+				min-width: 0;
+				max-width: 100%;
+				white-space: normal;
+			}
+			.focus-work-pill > span {
+				min-width: 0;
+				overflow-wrap: break-word;
 			}
 			.commission-input-grid {
 				grid-template-columns: 1fr;
@@ -4070,6 +4164,27 @@
 			}
 		}
 
+		html[data-theme="dark"] .hero {
+			--text-highlight: #f0edf2;
+		}
+
+		html[data-theme="dark"] .hero .skill-en,
+		html[data-theme="dark"] .hero .hero-highlight-label {
+			color: var(--text-main);
+			opacity: 1;
+		}
+
+		html[data-theme="dark"] .hero .skill-icon-core {
+			color: #d8cbd5;
+			opacity: 1;
+		}
+
+		html[data-theme="dark"] .hero .hero-highlight-value {
+			background: none;
+			color: var(--text-main);
+			-webkit-text-fill-color: currentColor;
+		}
+
 		html[data-theme="dark"] .hero-positioning {
 			color: var(--text-muted);
 		}
@@ -4638,7 +4753,7 @@
 			<article class="focus-card">
 				<span class="focus-icon" aria-hidden="true"><i class="fas fa-video"></i></span>
 				<h3><a class="focus-title-link" href="#video"><span class="lang-zh">影片剪輯</span><span class="lang-en">Video Editing</span></a></h3>
-				<p><span class="lang-zh">YouTube 長片、短影音、Podcast 與遊戲內容，重視節奏、資訊整理與留存率。</span><span class="lang-en">Long-form, shorts, podcasts and gaming edits with pacing, structure and retention in mind.</span></p>
+				<p><span class="lang-zh"><span class="text-phrase">YouTube 長片、</span><span class="text-phrase">短影音、</span><span class="text-phrase">Podcast 與遊戲內容，</span><span class="text-phrase">重視節奏、</span><span class="text-phrase">資訊整理與留存率。</span></span><span class="lang-en">Long-form, shorts, podcasts and gaming edits with pacing, structure and retention in mind.</span></p>
 				<span class="focus-work-list is-two-row">
 					<a class="focus-work-pill focus-channel-pill" href="https://www.youtube.com/@AshanKouki" target="_blank" rel="noopener">
 						<img class="focus-channel-avatar" src="https://yt3.googleusercontent.com/ytc/AIdro_mlbTKAizcENOpC_cZKLaT-KGp1EQDeNLrhs3qnXsvROqw=s900-c-k-c0x00ffffff-no-rj" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer">
@@ -4677,9 +4792,9 @@
 			<article class="focus-card">
 				<span class="focus-icon" aria-hidden="true"><i class="fas fa-pen-ruler"></i></span>
 				<h3><a class="focus-title-link" href="#uiux"><span class="lang-zh">UI/UX 設計</span><span class="lang-en">UI/UX Design</span></a></h3>
-				<p><span class="lang-zh">App、工具網站與產品介面 Redesign，兼顧視覺完成度、操作動線與品牌一致性。</span><span class="lang-en">App, tool site and product Redesigns balancing visual finish, flow and brand consistency.</span></p>
+				<p><span class="lang-zh"><span class="text-phrase">App、</span><span class="text-phrase">工具網站與產品介面 Redesign，</span><span class="text-phrase">兼顧視覺完成度、</span><span class="text-phrase">操作動線與品牌一致性。</span></span><span class="lang-en">App, tool site and product Redesigns balancing visual finish, flow and brand consistency.</span></p>
 				<span class="focus-work-list is-two-row">
-					<a class="focus-work-pill" href="https://valki.app" target="_blank" rel="noopener"><img class="focus-brand-icon" src="img/valki.svg" alt="" loading="lazy" decoding="async"><span class="lang-zh">VALKI（Valorant輔助工具）</span><span class="lang-en">VALKI (Valorant utility)</span></a>
+					<a class="focus-work-pill" href="https://valki.app" target="_blank" rel="noopener"><img class="focus-brand-icon" src="img/valki.svg" alt="" loading="lazy" decoding="async"><span class="lang-zh">VALKI<wbr><span class="parenthetical">（Valorant輔助工具）</span></span><span class="lang-en">VALKI <span class="parenthetical">(Valorant utility)</span></span></a>
 					<span class="focus-work-break" aria-hidden="true"></span>
 					<a class="focus-work-pill" href="https://www.behance.net/gallery/133125757/20-Gamercomtw-Main-Page-Redesign-20" target="_blank" rel="noopener"><img class="focus-brand-icon" src="https://i2.bahamut.com.tw/favicon.svg?v=1689129528" alt="" loading="lazy" decoding="async"><span class="lang-zh">巴哈姆特首頁重製</span><span class="lang-en">Bahamut Home Redesign</span></a>
 					<span class="focus-work-break" aria-hidden="true"></span>
@@ -4698,7 +4813,7 @@
 			<article class="focus-card">
 				<span class="focus-icon" aria-hidden="true"><i class="fas fa-code"></i></span>
 				<h3><a class="focus-title-link" href="#web"><span class="lang-zh">網頁前端</span><span class="lang-en">Frontend</span></a></h3>
-				<p><span class="lang-zh">把設計落成可瀏覽、可互動的網站，包含作品集、產品官網、織夢社 Dreamloom 企業勢官網、Lispresso 與商業文章暨商城網站。</span><span class="lang-en">Turning designs into browsable, interactive sites, including portfolios, product websites, the Dreamloom VTuber agency website, Lispresso and article commerce sites.</span></p>
+				<p><span class="lang-zh"><span class="text-phrase">把設計落成可瀏覽、</span><span class="text-phrase">可互動的網站，</span><span class="text-phrase">包含作品集、</span><span class="text-phrase">產品官網、</span><span class="text-phrase">織夢社 Dreamloom 企業勢官網、</span><span class="text-phrase">Lispresso 與商業文章暨商城網站。</span></span><span class="lang-en">Turning designs into browsable, interactive sites, including portfolios, product websites, the Dreamloom VTuber agency website, Lispresso and article commerce sites.</span></p>
 				<span class="focus-work-list">
 					<a class="focus-work-pill" href="https://game-hospital.com/" target="_blank" rel="noopener"><img class="focus-brand-icon" src="img/GameHospital.png" alt="" loading="lazy" decoding="async"><span class="lang-zh">遊戲醫院 Game Hospital 商業網站</span><span class="lang-en">Game Hospital commercial site</span></a>
 					<a class="focus-work-pill" href="#hero"><img class="focus-brand-icon" src="img/aunight-128.png" alt="" loading="lazy" decoding="async"><span class="lang-zh">個人作品集網站</span><span class="lang-en">Personal portfolio site</span></a>
@@ -4717,7 +4832,7 @@
 			<article class="focus-card">
 				<span class="focus-icon" aria-hidden="true"><i class="fas fa-music"></i></span>
 				<h3><a class="focus-title-link" href="#music"><span class="lang-zh">音樂製作</span><span class="lang-en">Music Production</span></a></h3>
-				<p><span class="lang-zh">製作原創歌曲、Cover歌曲伴奏製作、BGM製作、Cover 混音/母帶。</span><span class="lang-en">Original songs, cover instrumentals, BGM production, and cover mixing/mastering.</span></p>
+				<p><span class="lang-zh"><span class="text-phrase">製作原創歌曲、</span><span class="text-phrase">Cover歌曲伴奏製作、</span><span class="text-phrase">BGM製作、</span><span class="text-phrase">Cover 混音/母帶。</span></span><span class="lang-en">Original songs, cover instrumentals, BGM production, and cover mixing/mastering.</span></p>
 				<span class="focus-work-list">
 					<a class="focus-work-pill" href="https://www.youtube.com/watch?v=fU7yak5erqQ" target="_blank" rel="noopener"><img class="focus-brand-icon" src="https://www.youtube.com/favicon.ico" alt="" loading="lazy" decoding="async"><span class="lang-zh">VTuber原創曲</span><span class="lang-en">VTuber originals</span></a>
 					<span class="focus-work-break" aria-hidden="true"></span>
@@ -4740,24 +4855,25 @@
 
 	<section id="about" class="glass-card reveal">
 		<h2 class="section-title"><span class="lang-zh">關於我</span><span class="lang-en">About Me</span></h2>
-		<p class="about-lead"><span class="lang-zh">8 年接案經驗，整合影片、設計、音樂與網頁製作。</span><span class="lang-en">8 years of freelance work across video, design, music and web.</span></p>
+		<p class="about-lead"><span class="lang-zh"><span class="text-phrase">8 年接案經驗，</span><span class="text-phrase">整合影片、設計、</span><span class="text-phrase">音樂與網頁製作。</span></span><span class="lang-en">8 years of freelance work across video, design, music and web.</span></p>
 
 		<div class="about-grid">
 			<div class="about-card">
 				<h3 class="about-card-title"><i class="fas fa-film" aria-hidden="true"></i><span class="lang-zh">影片剪輯與後製</span><span class="lang-en">Editing &amp; VFX</span></h3>
 				<ul class="about-list">
-					<li><span class="lang-zh">合作<strong>百萬訂閱創作者</strong>：阿神、尊、放火、阿滴。</span><span class="lang-en">Worked with <strong>million-subscriber creators</strong> including 阿神, 尊, 放火 and 阿滴.</span></li>
-					<li><span class="lang-zh">為阿神剪輯的首支影片，突破<strong>百萬觀看</strong>。</span><span class="lang-en">My first edit for 阿神 reached <strong>1 million views</strong>.</span></li>
+					<li><span class="lang-zh"><span class="text-phrase">合作<strong>百萬訂閱創作者</strong>：</span><span class="text-phrase">阿神、尊、放火、阿滴。</span></span><span class="lang-en">Worked with <strong>million-subscriber creators</strong> including 阿神, 尊, 放火 and 阿滴.</span></li>
+					<li><span class="lang-zh"><span class="text-phrase">為阿神剪輯的首支影片，</span><span class="text-phrase">突破<strong>百萬觀看</strong>。</span></span><span class="lang-en">My first edit for 阿神 reached <strong>1 million views</strong>.</span></li>
 					<li><span class="lang-zh">YouTube 縮圖、平面設計與 Fusion 特效。</span><span class="lang-en">YouTube thumbnails, graphic design and Fusion VFX.</span></li>
 				</ul>
 			</div>
 
 			<div class="about-card">
-				<h3 class="about-card-title"><i class="fas fa-pen-ruler" aria-hidden="true"></i><span class="lang-zh">UI/UX與產品設計</span><span class="lang-en">UI/UX &amp; Product Design</span></h3>
+				<h3 class="about-card-title"><i class="fas fa-code" aria-hidden="true"></i><span class="lang-zh">UI/UX 與前端製作</span><span class="lang-en">UI/UX &amp; Frontend Development</span></h3>
 				<ul class="about-list">
-					<li><span class="lang-zh"><strong>VALKI</strong> 產品與官網設計，服務 <strong>10 萬+</strong> 用戶。</span><span class="lang-en"><strong>VALKI</strong> product and website design for <strong>100K+ users</strong>.</span></li>
-					<li><span class="lang-zh"><strong>VTuber 企業勢織夢社 Dreamloom</strong> 官網設計。</span><span class="lang-en">Official website design for VTuber agency <strong>Dreamloom</strong>.</span></li>
-					<li><span class="lang-zh">概念改版：巴哈姆特、台北捷運 Go、Dcard。</span><span class="lang-en">Redesign concepts for Bahamut, Taipei MRT Go and Dcard.</span></li>
+					<li><span class="lang-zh"><span class="text-phrase"><strong>VALKI</strong>：</span><span class="text-phrase">產品 UI/UX 與官網設計，</span><span class="text-phrase">產品服務 <strong>10 萬+</strong> 用戶。</span></span><span class="lang-en"><strong>VALKI</strong>: product UI/UX and official website design; the product serves <strong>100K+ users</strong>.</span></li>
+					<li><span class="lang-zh"><span class="text-phrase"><strong>織夢社 Dreamloom</strong>：</span><span class="text-phrase">VTuber 企業勢官網設計與前端製作。</span></span><span class="lang-en"><strong>Dreamloom</strong>: official website design and frontend development for the VTuber agency.</span></li>
+					<li><span class="lang-zh"><span class="text-phrase"><strong>遊戲醫院 Game Hospital</strong>：</span><span class="text-phrase">遊戲資訊與發售日網站的前端實作、</span><span class="text-phrase">介面整理。</span></span><span class="lang-en"><strong>Game Hospital</strong>: frontend implementation and interface organization for a game information and release-date website.</span></li>
+					<li><span class="lang-zh"><span class="text-phrase"><strong>概念改版設計稿</strong>：</span><span class="text-phrase">巴哈姆特、台北捷運 Go、Dcard，</span><span class="text-phrase">屬自主 UI/UX Redesign，非官方委託案。</span></span><span class="lang-en"><strong>Concept redesigns</strong>: self-initiated UI/UX design concepts for Bahamut, Taipei MRT Go and Dcard, not official commissions.</span></li>
 				</ul>
 			</div>
 
@@ -4765,7 +4881,7 @@
 				<h3 class="about-card-title"><i class="fas fa-music" aria-hidden="true"></i><span class="lang-zh">音樂製作</span><span class="lang-en">Music Production</span></h3>
 				<ul class="about-list">
 					<li><span class="lang-zh">累積 <strong>30 首+</strong> 原創歌曲與 BGM。</span><span class="lang-en"><strong>30+ original songs and BGM tracks</strong>.</span></li>
-					<li><span class="lang-zh">詞曲、編曲、混音到 PV 一手完成，作品已於 Spotify 與 Apple Music 發行。</span><span class="lang-en">Lyrics, composition, arrangement, mixing and PV production, with releases on Spotify and Apple Music.</span></li>
+					<li><span class="lang-zh"><span class="text-phrase">詞曲、編曲、</span><span class="text-phrase">混音到 PV 一手完成，</span><span class="text-phrase">作品已於 Spotify 與 Apple Music 發行。</span></span><span class="lang-en">Lyrics, composition, arrangement, mixing and PV production, with releases on Spotify and Apple Music.</span></li>
 				</ul>
 			</div>
 
@@ -4889,21 +5005,21 @@
 				<div class="price-content-inner">
 
 					<p>
-						<span class="lang-zh">1.請提供範例的影片及毛片長度以及提供的素材多寡以進行計價<br></span>
+						<span class="lang-zh"><span class="text-phrase">1.請提供範例的影片及毛片長度</span><span class="text-phrase">以及提供的素材多寡</span><span class="text-phrase">以進行計價</span><br></span>
 						<span class="lang-en" style="font-size:0.8em; opacity:0.75;">
           1. Please provide reference videos, raw footage length, and the amount of materials supplied for pricing evaluation.
         </span>
 					</p>
 
 					<p>
-						<span class="lang-zh">2.修改次數皆為兩次內，一次修改項目不超過5個<br></span>
+						<span class="lang-zh"><span class="text-phrase">2.修改次數皆為兩次內，</span><span class="text-phrase">一次修改項目不超過5個</span><br></span>
 						<span class="lang-en" style="font-size:0.8em; opacity:0.75;">
           2. Up to two rounds of revisions are included, with no more than five items per revision.
         </span>
 					</p>
 
 					<p>
-						<span class="lang-zh">3.超過次數須加錢，並依照難度調整價格<br></span>
+						<span class="lang-zh"><span class="text-phrase">3.超過次數須加錢，</span><span class="text-phrase">並依照難度調整價格</span><br></span>
 						<span class="lang-en" style="font-size:0.8em; opacity:0.75;">
           3. Additional revisions will incur extra charges, adjusted based on complexity.
         </span>
@@ -4990,7 +5106,7 @@
 			<section class="bgm-auditions" aria-labelledby="instrumental-auditions-title">
 				<h3 id="instrumental-auditions-title"><span class="lang-zh">伴奏製作作品試聽</span><span class="lang-en">Instrumental Previews</span></h3>
 				<figure class="bgm-track">
-					<figcaption id="instrumental-everything-goes-on"><span class="lang-zh">Everything Goes On（伴奏重製）</span><span class="lang-en">Everything Goes On (Instrumental Remake)</span></figcaption>
+					<figcaption id="instrumental-everything-goes-on"><span class="lang-zh">Everything Goes On<wbr><span class="parenthetical">（伴奏重製）</span></span><span class="lang-en">Everything Goes On <span class="parenthetical">(Instrumental Remake)</span></span></figcaption>
 					<div class="remix-credit">
 						<span><span class="lang-zh">伴奏製作：AuNight</span><span class="lang-en">Instrumental production by AuNight</span></span>
 						<a class="remix-original" href="https://www.youtube.com/watch?v=eEFVxI9lqjU" target="_blank" rel="noopener"><i class="fab fa-youtube" aria-hidden="true"></i><span class="lang-zh">Porter Robinson 原曲</span><span class="lang-en">Original by Porter Robinson</span><i class="fas fa-arrow-up-right-from-square" aria-hidden="true"></i></a>
@@ -5192,7 +5308,7 @@
 				<div class="price-content-inner">
 					<picture style="display:block">
 						<source srcset="img/mixing-price.webp" type="image/webp">
-							<img src="img/mixing-price.webp" alt="混音報價" width="1080" height="1350" style="width:100%; border-radius:10px;" loading="lazy" decoding="async">
+							<img src="img/mixing-price.webp" alt="混音報價" width="1080" height="1350" style="display:block; width:100%; height:auto; border-radius:10px;" loading="lazy" decoding="async">
 					</picture>
 
 					<div style="text-align: center; margin-top: 30px;">
@@ -5310,7 +5426,7 @@
 					<div class="sideproj-divider" id="sideproj">
 						<span class="sideproj-kicker">SIDE PROJECT</span>
 						<h3 class="sideproj-title"><span class="lang-zh">概念改版設計</span><span class="lang-en">Concept Redesigns</span></h3>
-						<p class="sideproj-desc"><span class="lang-zh">以下為個人side project，自主重新設計的App與網站概念稿，非官方委託案。</span><span class="lang-en">Personal side projects — self-initiated redesign concepts, not official client work.</span></p>
+						<p class="sideproj-desc"><span class="lang-zh"><span class="text-phrase">以下為個人side project，</span><span class="text-phrase">自主重新設計的App與網站概念稿，</span><span class="text-phrase">非官方委託案。</span></span><span class="lang-en">Personal side projects — self-initiated redesign concepts, not official client work.</span></p>
 						<span class="sideproj-rule" aria-hidden="true"></span>
 					</div>
 					<style>
@@ -5886,7 +6002,7 @@
 			<a href="https://game-hospital.com/" target="_blank" rel="noopener" class="action-btn">
 				<i class="fas fa-external-link-alt"></i> <span class="lang-zh">前往網站</span><span class="lang-en">Open Site</span>
 			</a>
-			<p class="lang-zh" style="margin: 10px 0 0; font-size: 0.85rem; opacity: 0.6;">遊戲資訊與發售日資料站，負責前端實作與介面整理。</p>
+			<p class="lang-zh" style="margin: 10px 0 0; font-size: 0.85rem; opacity: 0.6;"><span class="text-phrase">遊戲資訊與發售日資料站，</span><span class="text-phrase">負責前端實作與介面整理。</span></p>
 			<p class="lang-en" style="margin: 8px 0 0; font-size: 0.82rem; opacity: 0.55;">A game information and release-date site, with frontend implementation and interface organization by AuNight.</p>
 		</div>
 
@@ -5920,7 +6036,7 @@
 			<a href="https://gongliaofemalediver.ddns.net/" target="_blank" class="action-btn">
 				<i class="fas fa-external-link-alt"></i> <span class="lang-zh">前往網站</span><span class="lang-en">Open Site</span>
 			</a>
-			<p class="lang-zh" style="margin: 10px 0 0; font-size: 0.85rem; opacity: 0.6;">除彈窗委外外，網站透過模板修改，純手寫代碼，無透過AI協助</p>
+			<p class="lang-zh" style="margin: 10px 0 0; font-size: 0.85rem; opacity: 0.6;"><span class="text-phrase">除彈窗委外外，</span><span class="text-phrase">網站透過模板修改，</span><span class="text-phrase">純手寫代碼，</span><span class="text-phrase">無透過AI協助</span></p>
 			<p class="lang-en" style="margin: 8px 0 0; font-size: 0.82rem; opacity: 0.55;">Except the outsourced pop-up, the site was based on template edits and hand-coded without AI assistance.</p>
 		</div>
 
@@ -5937,7 +6053,7 @@
 		</div>
 
 		<div style="text-align: center; margin-top: 30px;">
-			<p class="lang-zh" style="margin-bottom: 10px; font-size: 0.85rem; opacity: 0.6;">（網站請直接前往原網站觀看以獲得更好的體驗）</p>
+			<p class="lang-zh" style="margin-bottom: 10px; font-size: 0.85rem; opacity: 0.6;"><span class="text-phrase">（網站請直接前往原網站觀看</span><span class="text-phrase">以獲得更好的體驗）</span></p>
 			<p class="lang-en" style="margin-bottom: 10px; font-size: 0.8rem; opacity: 0.55;">(For the best viewing experience, please visit the official website directly.)</p>
 			<p class="lang-zh" style="margin-bottom: 10px; font-size: 0.9rem; opacity: 0.7;">獲取詳細報價</p>
 			<p class="lang-en" style="margin-bottom: 10px; font-size: 0.8rem; opacity: 0.6;">Get a detailed quotation</p>
