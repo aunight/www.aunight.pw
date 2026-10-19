@@ -639,6 +639,13 @@
 			font-size: 0.9rem;
 			line-height: 1.7;
 			color: rgba(74,74,74,0.78);
+			text-wrap: pretty;
+		}
+		/* 文字以標好的短句為單位換行，不會從「前端」中間斷開或留一個字在下一行 */
+		.text-phrase {
+			display: inline-block;
+			max-width: 100%;
+			vertical-align: baseline;
 		}
 
 		.focus-card-stat {
@@ -803,6 +810,8 @@
 			max-width: 100%;
 			min-width: 0;
 			white-space: normal;
+			/* 優先在空格換行（Game Hospital／商業網站），真的放不下才拆字 */
+			word-break: keep-all;
 			overflow-wrap: anywhere;
 			text-decoration: none;
 			transition: transform 0.2s ease, background 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
@@ -4602,6 +4611,27 @@
 			box-shadow: 0 8px 20px rgba(232, 93, 117, 0.35);
 		}
 
+		/* 關於我清單裡的作品名稱直接連到網站／Behance */
+		.about-list a.about-link {
+			color: inherit;
+			text-decoration: underline;
+			text-decoration-color: rgba(232, 93, 117, 0.45);
+			text-decoration-thickness: 1.5px;
+			text-underline-offset: 3px;
+			transition: color 0.2s ease, text-decoration-color 0.2s ease;
+		}
+		.about-list a.about-link:hover,
+		.about-list a.about-link:focus-visible {
+			color: var(--text-highlight);
+			text-decoration-color: currentColor;
+		}
+		.about-link-icon {
+			font-size: 0.68em;
+			margin-left: 4px;
+			opacity: 0.6;
+			vertical-align: 0.12em;
+		}
+
 		/* --- 橫向預覽：右側浮動直欄的切換鈕（沿用主題按鈕樣式） --- */
 		.layout-toggle-floating {
 			bottom: calc(var(--fab-bottom) + var(--fab-step) * 4);
@@ -4734,7 +4764,8 @@
 		html.layout-h .container > .glass-card {
 			container: hcard / inline-size;
 		}
-		@container hcard (max-width: 1000px) {
+		/* 橫向卡片裡的重點領域固定 2x2 */
+		@container hcard (min-width: 641px) {
 			.focus-grid {
 				grid-template-columns: repeat(2, minmax(0, 1fr));
 			}
@@ -4748,6 +4779,71 @@
 			.bgm-track-list,
 			.commission-input-grid {
 				grid-template-columns: minmax(0, 1fr);
+			}
+		}
+
+		/* 橫向電腦版的重點領域 2x2：收緊間距，讓四張卡在一個畫面高度內放得下 */
+		@media (min-width: 769px) {
+			html.layout-h #focus .section-title {
+				margin-bottom: 14px;
+			}
+			html.layout-h #focus .focus-grid {
+				gap: 12px;
+			}
+			html.layout-h #focus .focus-card {
+				min-height: 0;
+				padding: 14px 16px;
+				gap: 6px 8px;
+			}
+			html.layout-h #focus .focus-card p {
+				font-size: 0.86rem;
+				line-height: 1.6;
+			}
+			html.layout-h #focus .focus-work-list {
+				gap: 5px;
+			}
+			html.layout-h #focus .focus-work-pill {
+				padding: 3px 8px;
+			}
+			html.layout-h #focus .focus-work-pill.focus-channel-pill {
+				padding: 3px 8px 3px 4px;
+			}
+			html.layout-h #focus .focus-channel-avatar {
+				width: 20px;
+				height: 20px;
+				flex-basis: 20px;
+			}
+			html.layout-h #focus {
+				padding-top: 22px;
+				padding-bottom: 20px;
+			}
+			/* 統計框改成單行：數字｜說明｜標籤 */
+			html.layout-h #focus .focus-metric {
+				grid-template-columns: auto minmax(0, 1fr) auto;
+				grid-template-rows: auto;
+				column-gap: 12px;
+				padding: 9px 12px 15px;
+			}
+			html.layout-h #focus .focus-metric-label {
+				grid-column: 2;
+				grid-row: 1;
+				min-height: 0;
+			}
+			html.layout-h #focus .focus-metric-kicker {
+				grid-column: 3;
+			}
+			html.layout-h #focus .focus-metric-bar {
+				bottom: 6px;
+				height: 4px;
+			}
+		}
+		@media (min-width: 769px) and (max-height: 800px) {
+			html.layout-h #focus {
+				padding-top: 16px;
+				padding-bottom: 14px;
+			}
+			html.layout-h #focus .section-title {
+				margin-bottom: 10px;
 			}
 		}
 
@@ -5252,10 +5348,10 @@
 			<div class="about-card">
 				<h3 class="about-card-title"><i class="fas fa-code" aria-hidden="true"></i><span class="lang-zh">UI/UX 與前端製作</span><span class="lang-en">UI/UX &amp; Frontend Development</span></h3>
 				<ul class="about-list">
-					<li><span class="lang-zh"><span class="text-phrase"><strong>VALKI</strong>：</span><span class="text-phrase">產品 UI/UX 與官網設計，</span><span class="text-phrase">產品服務 <strong>10 萬+</strong> 用戶。</span></span><span class="lang-en"><strong>VALKI</strong>: product UI/UX and official website design; the product serves <strong>100K+ users</strong>.</span></li>
-					<li><span class="lang-zh"><span class="text-phrase"><strong>織夢社 Dreamloom</strong>：</span><span class="text-phrase">VTuber 企業勢官網設計與前端製作。</span></span><span class="lang-en"><strong>Dreamloom</strong>: official website design and frontend development for the VTuber agency.</span></li>
-					<li><span class="lang-zh"><span class="text-phrase"><strong>遊戲醫院 Game Hospital</strong>：</span><span class="text-phrase">遊戲資訊與發售日網站的前端實作、</span><span class="text-phrase">介面整理。</span></span><span class="lang-en"><strong>Game Hospital</strong>: frontend implementation and interface organization for a game information and release-date website.</span></li>
-					<li><span class="lang-zh"><span class="text-phrase"><strong>概念改版設計稿</strong>：</span><span class="text-phrase">巴哈姆特、台北捷運 Go、Dcard，</span><span class="text-phrase">屬自主 UI/UX Redesign，非官方委託案。</span></span><span class="lang-en"><strong>Concept redesigns</strong>: self-initiated UI/UX design concepts for Bahamut, Taipei MRT Go and Dcard, not official commissions.</span></li>
+					<li><span class="lang-zh"><span class="text-phrase"><a class="about-link" href="https://valki.app" target="_blank" rel="noopener"><strong>VALKI</strong><i class="fas fa-arrow-up-right-from-square about-link-icon" aria-hidden="true"></i></a>：</span><span class="text-phrase">產品 UI/UX 與官網設計，</span><span class="text-phrase">產品服務 <strong>10 萬+</strong> 用戶。</span></span><span class="lang-en"><a class="about-link" href="https://valki.app" target="_blank" rel="noopener"><strong>VALKI</strong><i class="fas fa-arrow-up-right-from-square about-link-icon" aria-hidden="true"></i></a>: product UI/UX and official website design; the product serves <strong>100K+ users</strong>.</span></li>
+					<li><span class="lang-zh"><span class="text-phrase"><a class="about-link" href="https://dreamloom.tw/" target="_blank" rel="noopener"><strong>織夢社 Dreamloom</strong><i class="fas fa-arrow-up-right-from-square about-link-icon" aria-hidden="true"></i></a>：</span><span class="text-phrase">VTuber 企業勢官網設計與前端製作。</span></span><span class="lang-en"><a class="about-link" href="https://dreamloom.tw/" target="_blank" rel="noopener"><strong>Dreamloom</strong><i class="fas fa-arrow-up-right-from-square about-link-icon" aria-hidden="true"></i></a>: official website design and frontend development for the VTuber agency.</span></li>
+					<li><span class="lang-zh"><span class="text-phrase"><a class="about-link" href="https://game-hospital.com/" target="_blank" rel="noopener"><strong>遊戲醫院 Game Hospital</strong><i class="fas fa-arrow-up-right-from-square about-link-icon" aria-hidden="true"></i></a>：</span><span class="text-phrase">遊戲資訊與發售日網站的前端實作、</span><span class="text-phrase">介面整理。</span></span><span class="lang-en"><a class="about-link" href="https://game-hospital.com/" target="_blank" rel="noopener"><strong>Game Hospital</strong><i class="fas fa-arrow-up-right-from-square about-link-icon" aria-hidden="true"></i></a>: frontend implementation and interface organization for a game information and release-date website.</span></li>
+					<li><span class="lang-zh"><span class="text-phrase"><a class="about-link" href="https://www.behance.net/aunight" target="_blank" rel="noopener"><strong>概念改版設計稿</strong><i class="fas fa-arrow-up-right-from-square about-link-icon" aria-hidden="true"></i></a>：</span><span class="text-phrase">巴哈姆特、台北捷運 Go、Dcard，</span><span class="text-phrase">屬自主 UI/UX Redesign，非官方委託案。</span></span><span class="lang-en"><a class="about-link" href="https://www.behance.net/aunight" target="_blank" rel="noopener"><strong>Concept redesigns</strong><i class="fas fa-arrow-up-right-from-square about-link-icon" aria-hidden="true"></i></a>: self-initiated UI/UX design concepts for Bahamut, Taipei MRT Go and Dcard, not official commissions.</span></li>
 				</ul>
 			</div>
 
