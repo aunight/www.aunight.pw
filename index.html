@@ -65,7 +65,6 @@
 
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-	<link rel="preconnect" href="https://font.emtech.cc" crossorigin>
 	<link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
 	<link rel="dns-prefetch" href="https://www.behance.net">
 	<link rel="dns-prefetch" href="https://open.spotify.com">
@@ -74,8 +73,7 @@
 	<link rel="preload" as="image" href="img/logo.webp" type="image/webp" fetchpriority="high">
 	<link rel="preload" as="image" href="img/hero-character.webp" type="image/webp" fetchpriority="high">
 
-	<link href="https://fonts.googleapis.com/css2?family=Kosugi+Maru&family=Mochiy+Pop+One&family=Shippori+Mincho+B1&display=swap" rel="stylesheet">
-	<link href="https://font.emtech.cc/css/ChironGoRoundTC" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Chiron+GoRound+TC:wght@200..900&family=Kosugi+Maru&family=Mochiy+Pop+One&family=Shippori+Mincho+B1&display=swap" rel="stylesheet">
 
 	<link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
 	<noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"></noscript>
@@ -95,6 +93,9 @@
 			}
 			root.setAttribute('data-theme', theme);
 			if (lang === 'en' || lang === 'zh') root.setAttribute('data-lang', lang);
+			var layout = null;
+			try { layout = localStorage.getItem('aunight-pref-layout'); } catch (e) {}
+			if (layout === 'h') root.classList.add('layout-h');
 			var hash = window.location.hash;
 			if (!gateSeen && !(hash && hash.length > 1)) root.classList.add('gate-open', 'gate-lock');
 		})();
@@ -115,7 +116,7 @@
 			--hover-glow-shadow: 0 5px 15px rgba(232, 93, 117, 0.3),
 				0 12px 28px rgba(232, 93, 117, 0.45),
 				0 18px 45px rgba(232, 93, 117, 0.35);
-			--font-zh: 'ChironGoRoundTC', 'PingFang TC', 'Noto Sans TC', 'Microsoft JhengHei', sans-serif;
+			--font-zh: 'Chiron GoRound TC', 'ChironGoRoundTC', 'PingFang TC', 'Noto Sans TC', 'Microsoft JhengHei', sans-serif;
 			--font-en: 'Kosugi Maru', sans-serif;
 			--font-en-sub: 'Outfit', 'Kosugi Maru', sans-serif;
 			--page-backdrop: linear-gradient(#FFCC33 0%, #E233FF 100%);
@@ -798,7 +799,11 @@
 			font-size: 0.74rem;
 			font-weight: 700;
 			line-height: 1.2;
-			white-space: nowrap;
+			/* 欄位變窄時膠囊內換行，不撐破卡片 */
+			max-width: 100%;
+			min-width: 0;
+			white-space: normal;
+			overflow-wrap: anywhere;
 			text-decoration: none;
 			transition: transform 0.2s ease, background 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
 		}
@@ -2519,12 +2524,18 @@
 		}
 
 		/* 隱藏 checkbox */
+		/* 留在原位只是看不見：丟到 -9999px 的話，點標籤時瀏覽器會把橫向軌道捲去找它，跳回第一張 */
 		.price-toggle{
 			position: absolute !important;
-			left: -9999px !important;   /* ✅ 直接丟出畫面，比 opacity 更不怕覆蓋 */
 			width: 1px !important;
 			height: 1px !important;
+			margin: 0 !important;
+			padding: 0 !important;
+			border: 0 !important;
+			opacity: 0 !important;
 			overflow: hidden !important;
+			clip-path: inset(50%) !important;
+			pointer-events: none !important;
 		}
 
 
@@ -2817,6 +2828,13 @@
 			justify-content: center;
 			gap: 18px;
 			flex-wrap: wrap;
+		}
+
+		/* 版權列在手機和橫向（頁尾是窄卡片）從 Designed 換行 */
+		@media (min-width: 769px) {
+			html:not(.layout-h) .footer-copy-br {
+				display: none;
+			}
 		}
 
 		.footer-lead {
@@ -4583,6 +4601,353 @@
 			color: white;
 			box-shadow: 0 8px 20px rgba(232, 93, 117, 0.35);
 		}
+
+		/* --- 橫向預覽：右側浮動直欄的切換鈕（沿用主題按鈕樣式） --- */
+		.layout-toggle-floating {
+			bottom: calc(var(--fab-bottom) + var(--fab-step) * 4);
+		}
+		@media (min-width: 769px) {
+			.layout-toggle-floating {
+				top: calc(var(--fab-top) + var(--fab-step) * 3);
+				bottom: auto;
+			}
+		}
+		html.layout-h .layout-icon-to-h,
+		html:not(.layout-h) .layout-icon-to-v,
+		html.layout-h .layout-hint-to-h,
+		html:not(.layout-h) .layout-hint-to-v {
+			display: none;
+		}
+
+		/* --- 橫向預覽版面 --- */
+		html.layout-h {
+			--h-rows: 1;
+			--h-gap: 14px;
+			--h-top: calc(14px + env(safe-area-inset-top));
+			--h-bottom: calc(86px + env(safe-area-inset-bottom));
+			--h-pad: 18px;
+			--h-pad-end: 18px;
+			--h-col: calc(100vw - 2 * var(--h-pad));
+			--h-hero-col: var(--h-col);
+			--h-fade: 18px;
+			/* 左右淡出寬度由 JS 依捲動位置調整：已在最左／最右就不淡出 */
+			--h-fade-l: 0px;
+			--h-fade-r: var(--h-fade);
+			scroll-padding-top: 0;
+		}
+		@media (min-width: 769px) {
+			html.layout-h {
+				--h-gap: 20px;
+				--h-top: 88px;
+				--h-bottom: 16px;
+				--h-pad: 24px;
+				/* 軌道延伸到最右邊、浮動按鈕蓋在上面；捲到底時最後一張停在按鈕直欄左側 */
+				--h-pad-end: 100px;
+				--h-fade: 72px;
+				/* 電腦螢幕夠寬，卡片拉到約一個畫面寬，右邊露出下一張一小截提示可以往右滑 */
+				--h-col: clamp(640px, calc((100vw - 84px - 2 * var(--h-pad) - var(--h-gap)) / 1.25), 1280px);
+				--h-hero-col: clamp(390px, 29vw, 470px);
+			}
+		}
+		html.layout-h,
+		html.layout-h body {
+			height: 100%;
+			overflow: hidden;
+			overscroll-behavior: none;
+		}
+		/* 頁尾在 JS 搬進橫向軌道前先藏起來，避免閃一下 */
+		html.layout-h body > footer {
+			display: none;
+		}
+		html.layout-h .container {
+			position: fixed;
+			top: var(--h-top);
+			bottom: var(--h-bottom);
+			left: 0;
+			right: 0;
+			max-width: none;
+			margin: 0;
+			padding: 10px var(--h-pad-end) 14px var(--h-pad);
+			display: grid;
+			grid-auto-flow: column;
+			grid-template-rows: repeat(var(--h-rows), minmax(0, 1fr));
+			grid-template-columns: var(--h-hero-col);
+			grid-auto-columns: var(--h-col);
+			-webkit-mask-image: linear-gradient(to right, transparent 0, #000 var(--h-fade-l), #000 calc(100% - var(--h-fade-r)), transparent 100%);
+			mask-image: linear-gradient(to right, transparent 0, #000 var(--h-fade-l), #000 calc(100% - var(--h-fade-r)), transparent 100%);
+			gap: var(--h-gap);
+			overflow-x: auto;
+			overflow-y: hidden;
+			overscroll-behavior-x: contain;
+			scroll-padding-inline: var(--h-pad) var(--h-pad-end);
+			scrollbar-width: thin;
+			scrollbar-color: rgba(232, 93, 117, 0.55) transparent;
+		}
+		@media (max-width: 768px) {
+			html.layout-h .container {
+				scroll-snap-type: x mandatory;
+				scrollbar-width: none;
+			}
+			html.layout-h .container::-webkit-scrollbar {
+				display: none;
+			}
+		}
+		html.layout-h .container > .glass-card {
+			margin: 0;
+			min-width: 0;
+			min-height: 0;
+			height: 100%;
+			padding: 26px 24px;
+			overflow-x: hidden;
+			overflow-y: auto;
+			overscroll-behavior-y: contain;
+			scroll-snap-align: start;
+			scrollbar-width: thin;
+			scrollbar-color: rgba(232, 93, 117, 0.5) transparent;
+			content-visibility: visible;
+		}
+		html.layout-h .container > .glass-card:hover {
+			transform: none;
+		}
+		html.layout-h .container > footer {
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			text-align: center;
+		}
+		html.layout-h .container > footer .footer-inner {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			text-align: center;
+		}
+		html.layout-h .container > footer .social-icons {
+			justify-content: center;
+			margin-inline: auto;
+		}
+		html.layout-h .container > footer .footer-bottom {
+			margin-top: 18px;
+		}
+
+
+		/* 橫向卡片比原本窄：卡片內的多欄網格依卡片寬度（不是視窗寬度）收成單欄 */
+		html.layout-h .container > .glass-card {
+			container: hcard / inline-size;
+		}
+		@container hcard (max-width: 1000px) {
+			.focus-grid {
+				grid-template-columns: repeat(2, minmax(0, 1fr));
+			}
+		}
+		@container hcard (max-width: 640px) {
+			.focus-grid,
+			.about-grid,
+			.integrated-benefits,
+			.grid-2,
+			.music-grid,
+			.bgm-track-list,
+			.commission-input-grid {
+				grid-template-columns: minmax(0, 1fr);
+			}
+		}
+
+		/* 首頁卡片佔滿兩排高度，內容改成上下堆疊 */
+		html.layout-h .container > #hero {
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			padding: 28px 22px;
+			min-height: 0;
+		}
+		html.layout-h #hero .hero-content-wrapper {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			justify-content: center;
+			gap: 18px;
+			padding-right: 0;
+		}
+		html.layout-h #hero .hero-text {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			gap: 16px;
+			width: 100%;
+		}
+		html.layout-h #hero .hero-text h1 {
+			width: 100%;
+			transform: none;
+			justify-self: auto;
+		}
+		html.layout-h #hero .hero-logo {
+			height: clamp(80px, 13vh, 130px);
+		}
+		html.layout-h #hero .skills-container {
+			grid-template-columns: repeat(2, minmax(0, 1fr));
+			gap: 10px 14px;
+			width: 100%;
+			max-width: 100%;
+			padding-left: 0;
+			padding-top: 4px;
+			transform: none;
+			justify-self: auto;
+			justify-items: center;
+			text-align: center;
+			white-space: normal;
+		}
+		html.layout-h #hero .skills-container .skill-pair {
+			align-items: center;
+			white-space: normal;
+		}
+		html.layout-h #hero .skills-container .skill-zh,
+		html.layout-h #hero .skills-container .skill-en {
+			justify-content: center;
+			text-align: center;
+		}
+		html.layout-h #hero .hero-positioning {
+			max-width: min(100%, 340px);
+			white-space: normal;
+		}
+		/* 電腦：內容靠上，人物貼齊卡片右下角，圖的裁切邊剛好被卡片邊緣蓋住 */
+		@media (min-width: 769px) {
+			html.layout-h .container > #hero {
+				justify-content: flex-start;
+				padding-top: 30px;
+				overflow: hidden;
+			}
+			html.layout-h #hero .hero-content-wrapper {
+				position: static;
+			}
+			html.layout-h #hero .hero-text {
+				position: relative;
+				z-index: 2;
+				gap: 14px;
+			}
+			/* 技能兩欄依字寬排、不換行，字稍微縮小 */
+			html.layout-h #hero .skills-container {
+				--skill-main-size: 1.05rem;
+				/* 標語跨兩欄，不能用 max-content，否則會被長標語撐寬 */
+				grid-template-columns: repeat(2, minmax(0, 1fr));
+				gap: 8px 16px;
+				white-space: nowrap;
+			}
+			html.layout-h #hero .skills-container .skill-pair {
+				white-space: nowrap;
+			}
+			html.layout-h #hero .hero-img {
+				display: block;
+				position: absolute;
+				right: 0;
+				bottom: 0;
+				z-index: 1;
+				/* 依剩下的高度決定大小，避免壓到上面的技能 */
+				width: min(56%, max(0px, calc(100vh - 610px)), 260px);
+				height: auto;
+				flex: none;
+				margin: 0;
+				overflow: visible;
+				pointer-events: none;
+			}
+			html.layout-h #hero .hero-img img,
+			html.layout-h #hero .hero-img img:hover {
+				display: block;
+				width: 100%;
+				height: auto;
+				max-width: none;
+				max-height: none;
+				margin: 0 !important;
+				transform: none;
+			}
+		}
+		/* 視窗太矮，人物會壓到文字或小到不好看，直接收起來 */
+		@media (min-width: 769px) and (max-height: 770px) {
+			html.layout-h #hero .hero-img {
+				display: none;
+			}
+		}
+		/* 從導覽列跳到某張卡片時，閃一下外框標出是哪一張 */
+		html.layout-h .container > .h-target-flash {
+			animation: hTargetFlash 1.1s ease-out;
+		}
+		@keyframes hTargetFlash {
+			0% { box-shadow: 0 0 0 0 rgba(232, 93, 117, 0), 0 12px 40px rgba(0,0,0,0.14); }
+			25% { box-shadow: 0 0 0 3px rgba(232, 93, 117, 0.85), 0 12px 40px rgba(0,0,0,0.14); }
+			100% { box-shadow: 0 0 0 3px rgba(232, 93, 117, 0), 0 12px 40px rgba(0,0,0,0.14); }
+		}
+
+		/* 每張卡片右上角：回到直向並跳到這一段 */
+		.glass-card > .h-expand-btn {
+			display: none;
+		}
+		html.layout-h .glass-card > .h-expand-btn {
+			position: absolute;
+			top: 12px;
+			right: 12px;
+			z-index: 5;
+			display: inline-flex;
+			align-items: center;
+			justify-content: center;
+			width: 36px;
+			height: 36px;
+			border-radius: 999px;
+			border: 1px solid var(--glass-border-strong);
+			background: var(--glass-surface-strong);
+			-webkit-backdrop-filter: blur(12px);
+			backdrop-filter: blur(12px);
+			color: var(--text-main);
+			cursor: pointer;
+			font-size: 0.9rem;
+			transition: background-color 0.25s ease, color 0.25s ease, transform 0.25s ease;
+		}
+		html.layout-h .glass-card > .h-expand-btn:hover,
+		html.layout-h .glass-card > .h-expand-btn:focus-visible {
+			background: var(--text-highlight);
+			color: #fff;
+			transform: scale(1.08);
+		}
+		html[data-theme="dark"].layout-h .glass-card > .h-expand-btn {
+			background: rgba(52, 51, 63, 0.85);
+		}
+
+		/* 第一次進入橫向時的操作提示 */
+		.h-hint {
+			position: fixed;
+			left: 50%;
+			bottom: calc(var(--h-bottom, 20px) + 16px);
+			z-index: 1250;
+			max-width: calc(100vw - 32px);
+			padding: 10px 18px;
+			border-radius: 999px;
+			background: rgba(30, 28, 40, 0.86);
+			color: #fff;
+			font-size: 0.88rem;
+			line-height: 1.5;
+			text-align: center;
+			box-shadow: 0 12px 30px rgba(0,0,0,0.25);
+			pointer-events: none;
+			opacity: 0;
+			transform: translate(-50%, 8px);
+			transition: opacity 0.3s ease, transform 0.3s ease;
+		}
+		.h-hint.show {
+			opacity: 1;
+			transform: translate(-50%, 0);
+		}
+		.h-hint kbd {
+			font: inherit;
+			padding: 0 6px;
+			border-radius: 6px;
+			background: rgba(255,255,255,0.18);
+		}
+		@media (prefers-reduced-motion: reduce) {
+			.h-hint {
+				transition: none;
+			}
+			html.layout-h .container > .h-target-flash {
+				animation: none;
+				box-shadow: 0 0 0 3px rgba(232, 93, 117, 0.85);
+			}
+		}
 	</style>
 </head>
 <body>
@@ -4606,6 +4971,14 @@
 			<div class="entry-gate-seg" role="group" aria-labelledby="entryGateThemeLabel">
 				<button type="button" data-gate-theme="light" aria-pressed="false"><i class="fas fa-sun" aria-hidden="true"></i><span class="lang-zh">淺色</span><span class="lang-en">Light</span></button>
 				<button type="button" data-gate-theme="dark" aria-pressed="false"><i class="fas fa-moon" aria-hidden="true"></i><span class="lang-zh">深色</span><span class="lang-en">Dark</span></button>
+			</div>
+		</div>
+
+		<div class="entry-gate-row">
+			<span class="entry-gate-label" id="entryGateLayoutLabel"><i class="fas fa-table-columns" aria-hidden="true"></i><span class="lang-zh">版面</span><span class="lang-en">Layout</span></span>
+			<div class="entry-gate-seg" role="group" aria-labelledby="entryGateLayoutLabel">
+				<button type="button" data-gate-layout="v" aria-pressed="false"><i class="fas fa-grip-lines" aria-hidden="true"></i><span class="lang-zh">直向</span><span class="lang-en">Vertical</span></button>
+				<button type="button" data-gate-layout="h" aria-pressed="false"><i class="fas fa-table-columns" aria-hidden="true"></i><span class="lang-zh">橫向</span><span class="lang-en">Horizontal</span></button>
 			</div>
 		</div>
 
@@ -4671,6 +5044,15 @@
 	<span class="theme-toggle-hint" aria-hidden="true">
 		<span class="theme-hint-to-dark"><span class="lang-zh">深色模式</span><span class="lang-en">Dark Mode</span></span>
 		<span class="theme-hint-to-light"><span class="lang-zh">淺色模式</span><span class="lang-en">Light Mode</span></span>
+	</span>
+</button>
+
+<button id="layoutToggle" class="theme-toggle-floating layout-toggle-floating" type="button" data-layout-toggle aria-pressed="false" aria-label="橫向預覽" data-aria-label-zh="橫向預覽" data-aria-label-en="Horizontal view">
+	<i class="fas fa-table-columns layout-icon-to-h" aria-hidden="true"></i>
+	<i class="fas fa-grip-lines layout-icon-to-v" aria-hidden="true"></i>
+	<span class="theme-toggle-hint" aria-hidden="true">
+		<span class="layout-hint-to-h"><span class="lang-zh">橫向預覽</span><span class="lang-en">Horizontal</span></span>
+		<span class="layout-hint-to-v"><span class="lang-zh">直向瀏覽</span><span class="lang-en">Vertical</span></span>
 	</span>
 </button>
 
@@ -6291,7 +6673,7 @@
 		</div>
 	</div>
 	<div class="footer-bottom">
-		<p class="footer-copy"><span class="lang-zh">© 2026 秋夜 . All Rights Reserved. Designed &amp; Fronted By 秋夜</span><span class="lang-en">© 2026 AuNight . All Rights Reserved. Designed &amp; Fronted By AuNight</span></p>
+		<p class="footer-copy"><span class="lang-zh">© 2026 秋夜 . All Rights Reserved.<br class="footer-copy-br"> Designed &amp; Fronted By 秋夜</span><span class="lang-en">© 2026 AuNight . All Rights Reserved.<br class="footer-copy-br"> Designed &amp; Fronted By AuNight</span></p>
 	</div>
 </footer>
 
@@ -6513,6 +6895,10 @@
 			}
 		}
 
+		// 橫向預覽：模組在後面才建立，先留好掛勾給錨點／入口畫面使用
+		const isHLayout = () => root.classList.contains('layout-h');
+		const layoutHooks = { scrollToTarget: null, set: null, navState: null };
+
 		// 無法解碼的 hash（例如 #%E0）視為沒有對應元素，避免整段初始化中斷
 		const decodeHashId = (value) => {
 			try { return decodeURIComponent(value); } catch (e) { return ''; }
@@ -6552,6 +6938,13 @@
 			};
 			syncGateLang();
 			syncThemeControls();
+			const syncGateLayout = () => {
+				const mode = isHLayout() ? 'h' : 'v';
+				gateEl.querySelectorAll('[data-gate-layout]').forEach((btn) => {
+					btn.setAttribute('aria-pressed', btn.dataset.gateLayout === mode ? 'true' : 'false');
+				});
+			};
+			syncGateLayout();
 
 			const getFocusable = () => Array.from(gateEl.querySelectorAll('button, a[href]'))
 				.filter((el) => !el.disabled && el.offsetParent !== null);
@@ -6612,6 +7005,13 @@
 
 			gateEl.querySelectorAll('[data-gate-theme]').forEach((btn) => {
 				btn.addEventListener('click', () => applyTheme(btn.dataset.gateTheme, true));
+			});
+
+			gateEl.querySelectorAll('[data-gate-layout]').forEach((btn) => {
+				btn.addEventListener('click', () => {
+					if (layoutHooks.set) layoutHooks.set(btn.dataset.gateLayout === 'h' ? 'h' : 'v', true, { hint: false });
+					syncGateLayout();
+				});
 			});
 
 			// 跳轉連結交給全域錨點處理（平滑捲動 + pushState），這裡只負責關閉
@@ -7102,6 +7502,10 @@
 			const target = document.getElementById(id);
 			if (!target) return false;
 
+			if (isHLayout()) {
+				return layoutHooks.scrollToTarget ? layoutHooks.scrollToTarget(target, 'auto') : false;
+			}
+
 			if (target.classList.contains('reveal') && !target.classList.contains('active')) {
 				target.classList.add('active');
 			}
@@ -7113,7 +7517,7 @@
 
 		let settleHashScrollToken = 0;
 		const settleHashScroll = () => {
-			if (!window.location.hash) return;
+			if (!window.location.hash || isHLayout()) return;
 
 			const token = ++settleHashScrollToken;
 			let attempts = 0;
@@ -7184,6 +7588,11 @@
 			const id = decodeHashId(href.slice(1));
 			const target = document.getElementById(id);
 			if (!target) return;
+
+			if (isHLayout() && layoutHooks.scrollToTarget) {
+				layoutHooks.scrollToTarget(target, 'smooth');
+				return;
+			}
 
 			const prefersReducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 			const top = getScrollTopForTarget(target);
@@ -7564,6 +7973,10 @@
 				}
 
 				const hero = document.getElementById('hero');
+				if (isHLayout() && layoutHooks.scrollToTarget) {
+					if (hero) layoutHooks.scrollToTarget(hero, 'smooth', { flash: false });
+					return;
+				}
 				const top = hero ? getScrollTopForTarget(hero) : 0;
 				const prefersReducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
@@ -7581,6 +7994,10 @@
 		}
 
 			const updateNavState = () => {
+				if (isHLayout()) {
+					if (layoutHooks.navState) layoutHooks.navState();
+					return;
+				}
 				const y = window.pageYOffset;
 				let current = '';
 				for (let i = 0; i < sections.length; i++) {
@@ -7649,6 +8066,370 @@
 			const currentLink = currentActiveHref ? navLinkByHref.get(currentActiveHref) : document.querySelector('nav a.active');
 			if (currentLink) syncMobileNavScroll(currentLink);
 		}, { passive: true });
+
+		// 4. 橫向預覽：卡片改成左右排列（電腦兩排、手機一排），滾輪／手指左右移動
+		const LAYOUT_PREF_KEY = 'aunight-pref-layout';
+		const HINT_SEEN_KEY = 'aunight-h-hint-seen';
+		const track = document.querySelector('.container');
+		const footerEl = document.getElementById('footer');
+		const footerHome = footerEl ? { parent: footerEl.parentNode, next: footerEl.nextSibling } : null;
+		const layoutToggleBtn = document.getElementById('layoutToggle');
+		const reduceMotion = () => window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+		const isZh = () => root.dataset.lang !== 'en';
+
+		// 最近一次用導覽跳到的卡片；同一欄上下兩張時，導覽列以它為準
+		let hPreferredId = null;
+		let hWheelTarget = null;
+		let hWheelRaf = 0;
+		let hFlashTimer = 0;
+
+		const hCards = () => Array.from(track.children).filter((el) => el.matches('section.glass-card, footer'));
+		const hCardOf = (el) => {
+			let node = el;
+			while (node && node.parentElement !== track) node = node.parentElement;
+			return node || null;
+		};
+		const hPadStart = () => parseFloat(window.getComputedStyle(track).paddingLeft) || 0;
+		const hMaxX = () => Math.max(0, track.scrollWidth - track.clientWidth);
+		const clampX = (x) => Math.min(Math.max(x, 0), hMaxX());
+
+		const stopWheelAnim = () => {
+			if (hWheelRaf) window.cancelAnimationFrame(hWheelRaf);
+			hWheelRaf = 0;
+			hWheelTarget = null;
+		};
+
+		const hScrollToTarget = (target, behavior, opts) => {
+			const card = hCardOf(target);
+			if (!card) return false;
+			const flash = opts && typeof opts.flash === 'boolean' ? opts.flash : behavior === 'smooth';
+			stopWheelAnim();
+			if (card.classList.contains('reveal')) card.classList.add('active');
+			hPreferredId = card.id || null;
+
+			const left = clampX(card.offsetLeft - hPadStart());
+			const smooth = behavior === 'smooth' && !reduceMotion();
+			track.scrollTo({ left, behavior: smooth ? 'smooth' : 'auto' });
+
+			// 目標在卡片內部時，卡片本身也捲到那個位置；跳到整張卡片就回到卡片頂端
+			const innerTop = target === card ? 0
+				: Math.max(0, target.getBoundingClientRect().top - card.getBoundingClientRect().top + card.scrollTop - 16);
+			card.scrollTo({ top: innerTop, behavior: smooth ? 'smooth' : 'auto' });
+
+			if (flash) {
+				hCards().forEach((el) => el.classList.remove('h-target-flash'));
+				void card.offsetWidth;
+				card.classList.add('h-target-flash');
+				window.clearTimeout(hFlashTimer);
+				hFlashTimer = window.setTimeout(() => card.classList.remove('h-target-flash'), 1200);
+			}
+			updateNavState();
+			return true;
+		};
+
+		const setActiveHref = (targetHref) => {
+			if (targetHref === currentActiveHref) return;
+			const prev = currentActiveHref ? navLinkByHref.get(currentActiveHref) : null;
+			const next = navLinkByHref.get(targetHref) || null;
+			if (prev) prev.classList.remove('active');
+			if (next) next.classList.add('active');
+			currentActiveHref = targetHref;
+			if (next) syncMobileNavScroll(next);
+		};
+
+		// 左右淡出：還有內容的那一側才淡出，越接近盡頭淡出越窄
+		const updateHFade = () => {
+			const fade = parseFloat(window.getComputedStyle(root).getPropertyValue('--h-fade')) || 0;
+			// 左側只在卡片外的留白淡出，對齊左邊的那張卡片不會被吃掉
+			const fadeStart = hPadStart();
+			const x = track.scrollLeft;
+			track.style.setProperty('--h-fade-l', `${Math.min(fadeStart, Math.max(0, x))}px`);
+			track.style.setProperty('--h-fade-r', `${Math.min(fade, Math.max(0, hMaxX() - x))}px`);
+		};
+
+		const updateHNavState = () => {
+			updateHFade();
+			const cards = hCards();
+			if (!cards.length) return;
+			const trackRect = track.getBoundingClientRect();
+			const viewLeft = trackRect.left + hPadStart();
+			const viewRight = trackRect.right;
+
+			let current = null;
+			const preferred = hPreferredId ? document.getElementById(hPreferredId) : null;
+			if (preferred && hCardOf(preferred) === preferred) {
+				const r = preferred.getBoundingClientRect();
+				if (r.left >= viewLeft - 4 && r.right <= viewRight + 4) current = preferred;
+			}
+			if (!current) {
+				const lineX = viewLeft + 40;
+				current = cards.find((el) => {
+					const r = el.getBoundingClientRect();
+					return r.left <= lineX && r.right > lineX;
+				}) || cards[0];
+			}
+
+			const isCommission = current.id === 'commission' || current === footerEl;
+			const mobile = isMobileNav();
+			if (nav) nav.classList.toggle('is-commission-mode', mobile && isCommission);
+			if (mobile && isCommission) {
+				navLinks.forEach((link) => link.classList.remove('active'));
+				currentActiveHref = '#commission';
+			} else {
+				// 頁尾沒有自己的導覽項目，算在「委託入口」
+				const href = current === footerEl ? '#commission' : `#${current.id}`;
+				if (navLinkByHref.has(href)) setActiveHref(href);
+			}
+			if (contactFloatingBtn) contactFloatingBtn.classList.toggle('is-commission-active', mobile && isCommission);
+
+			if (scrollTopBtn) {
+				const threshold = track.clientWidth * 0.8;
+				const shouldShow = track.scrollLeft > threshold;
+				if (shouldShow !== scrollTopVisible) {
+					scrollTopBtn.classList.toggle('show', shouldShow);
+					scrollTopVisible = shouldShow;
+				}
+			}
+		};
+
+		// 卡片右上角的「直向完整檢視」按鈕
+		const expandLabelZh = '以直向完整檢視這一段';
+		const expandLabelEn = 'Open this section in vertical view';
+		const ensureExpandButtons = () => {
+			track.querySelectorAll(':scope > section.glass-card[id]').forEach((section) => {
+				if (section.querySelector(':scope > .h-expand-btn')) return;
+				const btn = document.createElement('button');
+				btn.type = 'button';
+				btn.className = 'h-expand-btn';
+				btn.dataset.ariaLabelZh = expandLabelZh;
+				btn.dataset.ariaLabelEn = expandLabelEn;
+				btn.dataset.titleZh = expandLabelZh;
+				btn.dataset.titleEn = expandLabelEn;
+				btn.setAttribute('aria-label', isZh() ? expandLabelZh : expandLabelEn);
+				btn.setAttribute('title', isZh() ? expandLabelZh : expandLabelEn);
+				btn.innerHTML = '<i class="fas fa-up-right-and-down-left-from-center" aria-hidden="true"></i>';
+				btn.addEventListener('click', () => setLayout('v', true, { anchorId: section.id }));
+				section.prepend(btn);
+			});
+		};
+
+		let hintTimer = 0;
+		const showHint = () => {
+			let seen = false;
+			try { seen = sessionStorage.getItem(HINT_SEEN_KEY) === '1'; } catch (e) {}
+			if (seen) return;
+			try { sessionStorage.setItem(HINT_SEEN_KEY, '1'); } catch (e) {}
+
+			let hint = document.querySelector('.h-hint');
+			if (!hint) {
+				hint = document.createElement('div');
+				hint.className = 'h-hint';
+				hint.setAttribute('role', 'status');
+				document.body.appendChild(hint);
+			}
+			hint.innerHTML = isMobileNav()
+				? (isZh() ? '左右滑動切換卡片，上下滑動看卡片內容' : 'Swipe sideways between cards, up and down inside one')
+				: (isZh() ? '滾輪左右移動・<kbd>Shift</kbd> + 滾輪捲動卡片內容' : 'Wheel moves sideways · <kbd>Shift</kbd> + wheel scrolls inside a card');
+			window.requestAnimationFrame(() => hint.classList.add('show'));
+			window.clearTimeout(hintTimer);
+			hintTimer = window.setTimeout(() => hint.classList.remove('show'), 4200);
+		};
+
+		const syncLayoutControls = () => {
+			const h = isHLayout();
+			if (layoutToggleBtn) layoutToggleBtn.setAttribute('aria-pressed', h ? 'true' : 'false');
+			document.querySelectorAll('[data-gate-layout]').forEach((btn) => {
+				btn.setAttribute('aria-pressed', btn.dataset.gateLayout === (h ? 'h' : 'v') ? 'true' : 'false');
+			});
+		};
+
+		const enterH = () => {
+			if (footerEl && footerEl.parentElement !== track) {
+				track.appendChild(footerEl);
+				footerEl.classList.add('glass-card');
+			}
+			// 首頁和頁尾內容少，用窄欄；中間的作品卡片用寬欄
+			const count = hCards().length;
+			track.style.gridTemplateColumns = count > 2
+				? `var(--h-hero-col) repeat(${count - 2}, var(--h-col)) var(--h-hero-col)`
+				: '';
+			ensureExpandButtons();
+		};
+		const exitH = () => {
+			if (footerEl && footerHome && footerEl.parentElement === track) {
+				footerEl.classList.remove('glass-card');
+				const next = footerHome.next && footerHome.next.parentNode === footerHome.parent ? footerHome.next : null;
+				footerHome.parent.insertBefore(footerEl, next);
+			}
+			hCards().forEach((el) => {
+				el.classList.remove('h-target-flash');
+				el.scrollTop = 0;
+			});
+			track.style.removeProperty('--h-fade-l');
+			track.style.removeProperty('--h-fade-r');
+			track.style.removeProperty('grid-template-columns');
+		};
+
+		const setLayout = (mode, persist, opts) => {
+			const toH = mode === 'h';
+			const options = opts || {};
+			if (persist) {
+				try { localStorage.setItem(LAYOUT_PREF_KEY, toH ? 'h' : 'v'); } catch (e) {}
+			}
+			if (toH === isHLayout()) {
+				syncLayoutControls();
+				return;
+			}
+
+			const anchorId = options.anchorId || (currentActiveHref ? currentActiveHref.slice(1) : null);
+			const anchor = anchorId ? document.getElementById(anchorId) : null;
+			stopWheelAnim();
+
+			if (toH) {
+				root.classList.add('layout-h');
+				enterH();
+				if (anchor && anchor.id !== 'hero') hScrollToTarget(anchor, 'auto', { flash: false });
+				else {
+					track.scrollLeft = 0;
+					hPreferredId = null;
+				}
+				if (options.hint !== false) showHint();
+			} else {
+				exitH();
+				root.classList.remove('layout-h');
+				track.scrollLeft = 0;
+				hPreferredId = null;
+				recomputeOffsets();
+				const prev = root.style.scrollBehavior;
+				root.style.scrollBehavior = 'auto';
+				if (anchor) {
+					if (anchor.classList.contains('reveal')) anchor.classList.add('active');
+					window.scrollTo({ top: getScrollTopForTarget(anchor), behavior: 'auto' });
+				} else {
+					window.scrollTo({ top: 0, behavior: 'auto' });
+				}
+				root.style.scrollBehavior = prev;
+			}
+			syncLayoutControls();
+			updateNavState();
+		};
+
+		layoutHooks.scrollToTarget = hScrollToTarget;
+		layoutHooks.set = setLayout;
+		layoutHooks.navState = updateHNavState;
+
+		if (layoutToggleBtn) {
+			layoutToggleBtn.addEventListener('click', () => setLayout(isHLayout() ? 'v' : 'h', true));
+		}
+
+		// 電腦：直向滾輪轉成左右移動；Shift + 滾輪改捲卡片內容；觸控板左右滑交給瀏覽器
+		const wheelStep = () => {
+			if (hWheelTarget === null) {
+				hWheelRaf = 0;
+				return;
+			}
+			const cur = track.scrollLeft;
+			const delta = hWheelTarget - cur;
+			if (Math.abs(delta) < 1) {
+				track.scrollLeft = hWheelTarget;
+				hWheelRaf = 0;
+				hWheelTarget = null;
+				return;
+			}
+			const move = delta * 0.2;
+			track.scrollLeft = cur + (Math.abs(move) < 1 ? Math.sign(delta) : move);
+			hWheelRaf = window.requestAnimationFrame(wheelStep);
+		};
+
+		track.addEventListener('wheel', (event) => {
+			if (!isHLayout() || event.ctrlKey) return;
+			const unit = event.deltaMode === 1 ? 40 : (event.deltaMode === 2 ? track.clientWidth : 1);
+			const dx = event.deltaX * unit;
+			const dy = event.deltaY * unit;
+
+			if (event.shiftKey) {
+				const card = hCardOf(event.target);
+				if (!card) return;
+				event.preventDefault();
+				card.scrollBy({ top: dy || dx, behavior: 'auto' });
+				return;
+			}
+
+			if (Math.abs(dx) > Math.abs(dy)) {
+				hPreferredId = null;
+				stopWheelAnim();
+				return;
+			}
+			if (!dy) return;
+			event.preventDefault();
+			hPreferredId = null;
+			if (reduceMotion()) {
+				track.scrollLeft = clampX(track.scrollLeft + dy);
+				return;
+			}
+			const base = hWheelTarget === null ? track.scrollLeft : hWheelTarget;
+			hWheelTarget = clampX(base + dy);
+			if (!hWheelRaf) hWheelRaf = window.requestAnimationFrame(wheelStep);
+		}, { passive: false });
+
+		// 手指／拖曳捲軸時，停掉滾輪動畫，導覽列改跟著實際位置
+		const onTrackPointer = () => {
+			if (!isHLayout()) return;
+			hPreferredId = null;
+			stopWheelAnim();
+		};
+		track.addEventListener('pointerdown', onTrackPointer, { passive: true });
+		track.addEventListener('touchstart', onTrackPointer, { passive: true });
+
+		let hScrollRaf = 0;
+		track.addEventListener('scroll', () => {
+			if (!isHLayout()) return;
+			root.classList.add('is-scrolling');
+			window.clearTimeout(scrollIdleTimer);
+			scrollIdleTimer = window.setTimeout(() => root.classList.remove('is-scrolling'), 360);
+			window.cancelAnimationFrame(hScrollRaf);
+			hScrollRaf = window.requestAnimationFrame(updateHNavState);
+		}, { passive: true });
+
+		// 鍵盤左右鍵：一次移動一欄
+		document.addEventListener('keydown', (event) => {
+			if (!isHLayout() || event.altKey || event.ctrlKey || event.metaKey) return;
+			if (event.key !== 'ArrowLeft' && event.key !== 'ArrowRight') return;
+			const active = document.activeElement;
+			if (active && active.closest && active.closest('input, textarea, select, [contenteditable="true"], [role="tablist"], [role="slider"], iframe, .entry-gate, .lb-overlay')) return;
+			event.preventDefault();
+			hPreferredId = null;
+			const first = hCards()[0];
+			const gap = parseFloat(window.getComputedStyle(track).columnGap) || 0;
+			const step = (first ? first.offsetWidth + gap : track.clientWidth) * (event.key === 'ArrowRight' ? 1 : -1);
+			stopWheelAnim();
+			track.scrollTo({ left: clampX(track.scrollLeft + step), behavior: reduceMotion() ? 'auto' : 'smooth' });
+		});
+
+		// 跨過手機／電腦斷點時欄寬會變，把目前那張卡片重新對齊
+		let hResizeTimer = 0;
+		window.addEventListener('resize', () => {
+			if (!isHLayout()) return;
+			window.clearTimeout(hResizeTimer);
+			hResizeTimer = window.setTimeout(() => {
+				const id = hPreferredId || (currentActiveHref ? currentActiveHref.slice(1) : null);
+				const el = id ? document.getElementById(id) : null;
+				if (el && hCardOf(el)) hScrollToTarget(el, 'auto', { flash: false });
+				else updateHNavState();
+			}, 160);
+		}, { passive: true });
+
+		// 頁面載入時就是橫向（上次選過）：把頁尾搬進來，深層連結直接對到卡片
+		if (isHLayout()) {
+			enterH();
+			const hash = window.location.hash;
+			const id = hash && hash.length > 1 ? decodeHashId(hash.slice(1)) : '';
+			const target = id ? document.getElementById(id) : null;
+			if (target) hScrollToTarget(target, 'auto', { flash: false });
+			else updateHNavState();
+			showHint();
+		}
+		syncLayoutControls();
 	});
 
 
