@@ -4632,6 +4632,51 @@
 			vertical-align: 0.12em;
 		}
 
+		/* --- 手機：頁尾社群圖示 4x3、右側浮動按鈕縮小 --- */
+		@media (max-width: 768px) {
+			footer .social-icons {
+				display: grid;
+				grid-template-columns: repeat(4, 44px);
+				justify-content: center;
+				gap: 12px 18px;
+			}
+			:root {
+				--fab-right: calc(12px + env(safe-area-inset-right));
+				--fab-step: 50px;
+			}
+			html .lang-toggle-floating,
+			html .lang-toggle-floating:hover,
+			html .contact-btn-floating,
+			html .contact-btn-floating:hover,
+			html .contact-btn-floating-wrapper:hover .contact-btn-floating,
+			html .theme-toggle-floating,
+			html .theme-toggle-floating:hover,
+			html .scroll-top-btn,
+			html .scroll-top-btn:hover {
+				width: 42px;
+				height: 42px;
+			}
+			html .contact-btn-floating i,
+			html .theme-toggle-floating i,
+			html .scroll-top-btn i {
+				font-size: 1rem;
+			}
+			html .lang-toggle-code {
+				font-size: 1rem;
+			}
+			html .lang-toggle-code-en {
+				font-size: 0.92rem;
+			}
+		}
+
+		/* 橫向時「回到最上方」其實是回到第一張卡片，箭頭改朝左 */
+		.scroll-top-btn i {
+			transition: transform 0.3s ease;
+		}
+		html.layout-h .scroll-top-btn i {
+			transform: rotate(-90deg);
+		}
+
 		/* --- 橫向預覽：右側浮動直欄的切換鈕（沿用主題按鈕樣式） --- */
 		.layout-toggle-floating {
 			bottom: calc(var(--fab-bottom) + var(--fab-step) * 4);
@@ -5351,7 +5396,7 @@
 					<li><span class="lang-zh"><span class="text-phrase"><a class="about-link" href="https://valki.app" target="_blank" rel="noopener"><strong>VALKI</strong><i class="fas fa-arrow-up-right-from-square about-link-icon" aria-hidden="true"></i></a>：</span><span class="text-phrase">產品 UI/UX 與官網設計，</span><span class="text-phrase">產品服務 <strong>10 萬+</strong> 用戶。</span></span><span class="lang-en"><a class="about-link" href="https://valki.app" target="_blank" rel="noopener"><strong>VALKI</strong><i class="fas fa-arrow-up-right-from-square about-link-icon" aria-hidden="true"></i></a>: product UI/UX and official website design; the product serves <strong>100K+ users</strong>.</span></li>
 					<li><span class="lang-zh"><span class="text-phrase"><a class="about-link" href="https://dreamloom.tw/" target="_blank" rel="noopener"><strong>織夢社 Dreamloom</strong><i class="fas fa-arrow-up-right-from-square about-link-icon" aria-hidden="true"></i></a>：</span><span class="text-phrase">VTuber 企業勢官網設計與前端製作。</span></span><span class="lang-en"><a class="about-link" href="https://dreamloom.tw/" target="_blank" rel="noopener"><strong>Dreamloom</strong><i class="fas fa-arrow-up-right-from-square about-link-icon" aria-hidden="true"></i></a>: official website design and frontend development for the VTuber agency.</span></li>
 					<li><span class="lang-zh"><span class="text-phrase"><a class="about-link" href="https://game-hospital.com/" target="_blank" rel="noopener"><strong>遊戲醫院 Game Hospital</strong><i class="fas fa-arrow-up-right-from-square about-link-icon" aria-hidden="true"></i></a>：</span><span class="text-phrase">遊戲資訊與發售日網站的前端實作、</span><span class="text-phrase">介面整理。</span></span><span class="lang-en"><a class="about-link" href="https://game-hospital.com/" target="_blank" rel="noopener"><strong>Game Hospital</strong><i class="fas fa-arrow-up-right-from-square about-link-icon" aria-hidden="true"></i></a>: frontend implementation and interface organization for a game information and release-date website.</span></li>
-					<li><span class="lang-zh"><span class="text-phrase"><a class="about-link" href="https://www.behance.net/aunight" target="_blank" rel="noopener"><strong>概念改版設計稿</strong><i class="fas fa-arrow-up-right-from-square about-link-icon" aria-hidden="true"></i></a>：</span><span class="text-phrase">巴哈姆特、台北捷運 Go、Dcard，</span><span class="text-phrase">屬自主 UI/UX Redesign，非官方委託案。</span></span><span class="lang-en"><a class="about-link" href="https://www.behance.net/aunight" target="_blank" rel="noopener"><strong>Concept redesigns</strong><i class="fas fa-arrow-up-right-from-square about-link-icon" aria-hidden="true"></i></a>: self-initiated UI/UX design concepts for Bahamut, Taipei MRT Go and Dcard, not official commissions.</span></li>
+					<li><span class="lang-zh"><span class="text-phrase"><strong>概念改版設計稿</strong>：</span><span class="text-phrase"><a class="about-link" href="https://www.behance.net/gallery/133125757/20-Gamercomtw-Main-Page-Redesign-20" target="_blank" rel="noopener">巴哈姆特<i class="fas fa-arrow-up-right-from-square about-link-icon" aria-hidden="true"></i></a>、<a class="about-link" href="https://www.behance.net/gallery/166426097/Taipei-MRT-GO-App-Redesign" target="_blank" rel="noopener">台北捷運 Go<i class="fas fa-arrow-up-right-from-square about-link-icon" aria-hidden="true"></i></a>、<a class="about-link" href="https://www.behance.net/gallery/140733047/Dcard-App-Redesign-20" target="_blank" rel="noopener">Dcard<i class="fas fa-arrow-up-right-from-square about-link-icon" aria-hidden="true"></i></a>，</span><span class="text-phrase">屬自主 UI/UX Redesign，非官方委託案。</span></span><span class="lang-en"><strong>Concept redesigns</strong>: self-initiated UI/UX design concepts for <a class="about-link" href="https://www.behance.net/gallery/133125757/20-Gamercomtw-Main-Page-Redesign-20" target="_blank" rel="noopener">Bahamut<i class="fas fa-arrow-up-right-from-square about-link-icon" aria-hidden="true"></i></a>, <a class="about-link" href="https://www.behance.net/gallery/166426097/Taipei-MRT-GO-App-Redesign" target="_blank" rel="noopener">Taipei MRT Go<i class="fas fa-arrow-up-right-from-square about-link-icon" aria-hidden="true"></i></a> and <a class="about-link" href="https://www.behance.net/gallery/140733047/Dcard-App-Redesign-20" target="_blank" rel="noopener">Dcard<i class="fas fa-arrow-up-right-from-square about-link-icon" aria-hidden="true"></i></a>, not official commissions.</span></li>
 				</ul>
 			</div>
 
@@ -8334,6 +8379,16 @@
 		const syncLayoutControls = () => {
 			const h = isHLayout();
 			if (layoutToggleBtn) layoutToggleBtn.setAttribute('aria-pressed', h ? 'true' : 'false');
+			if (scrollTopBtn) {
+				const zh = h ? '回到第一張' : '回到最上方';
+				const en = h ? 'Back to first card' : 'Back to top';
+				scrollTopBtn.dataset.ariaLabelZh = zh;
+				scrollTopBtn.dataset.ariaLabelEn = en;
+				scrollTopBtn.dataset.titleZh = zh;
+				scrollTopBtn.dataset.titleEn = en;
+				scrollTopBtn.setAttribute('aria-label', isZh() ? zh : en);
+				scrollTopBtn.setAttribute('title', isZh() ? zh : en);
+			}
 			document.querySelectorAll('[data-gate-layout]').forEach((btn) => {
 				btn.setAttribute('aria-pressed', btn.dataset.gateLayout === (h ? 'h' : 'v') ? 'true' : 'false');
 			});
