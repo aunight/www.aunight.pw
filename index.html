@@ -1905,7 +1905,7 @@
 			}
 
 			.tab-container > .tabs:not(:has(.tab-btn:nth-child(3))) {
-				justify-content: center;
+				justify-content: safe center;
 			}
 
 			.tab-container > .tabs .tab-btn {
@@ -4632,8 +4632,86 @@
 			vertical-align: 0.12em;
 		}
 
-		/* --- 手機：頁尾社群圖示 4x3、右側浮動按鈕縮小 --- */
+		/* --- 手機：頁尾社群圖示 4x3、工具鍵獨立底列 --- */
+		.mobile-tools {
+			display: none;
+		}
 		@media (max-width: 768px) {
+			:root {
+				--mobile-dock-space: calc(156px + env(safe-area-inset-bottom));
+			}
+			html {
+				scroll-padding-bottom: var(--mobile-dock-space);
+			}
+			body {
+				padding-bottom: var(--mobile-dock-space);
+			}
+			/* 底部保留不透字的操作區，捲動中的文字不會出現在按鈕下方。 */
+			body::after {
+				content: "";
+				position: fixed;
+				inset: auto 0 0;
+				height: var(--mobile-dock-space);
+				z-index: 999;
+				border-radius: 24px 24px 0 0;
+				background: #f4d5ed;
+				pointer-events: none;
+			}
+			html[data-theme="dark"] body::after {
+				background: #262431;
+			}
+			/* 工具鍵集中在導覽上方，內容可以捲到完整露出的位置。 */
+			.mobile-tools {
+				position: fixed;
+				left: 50%;
+				bottom: calc(88px + env(safe-area-inset-bottom));
+				transform: translateX(-50%);
+				z-index: 1301;
+				display: flex;
+				align-items: center;
+				justify-content: space-evenly;
+				width: min(94vw, 560px);
+				height: 56px;
+				padding: 6px 10px;
+				border: 1px solid var(--glass-border-strong);
+				border-radius: 32px;
+				background: var(--glass-surface-strong);
+				backdrop-filter: blur(var(--glass-blur)) saturate(180%);
+				-webkit-backdrop-filter: blur(var(--glass-blur)) saturate(180%);
+				box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+			}
+			.mobile-tools > .lang-toggle-floating,
+			.mobile-tools > .theme-toggle-floating,
+			.mobile-tools > .contact-btn-floating-wrapper,
+			.mobile-tools > .scroll-top-btn {
+				position: relative;
+				inset: auto;
+				flex: 0 0 42px;
+				transform: none;
+			}
+			.mobile-tools > .contact-btn-floating-wrapper {
+				height: 42px;
+			}
+			/* 分類列原本沿用桌機的 -40px，會把 375px 的版面撐成 388px。 */
+			.tab-container > .tabs {
+				margin-inline: 0;
+				width: 100%;
+				max-width: 100%;
+				padding-inline: 4px;
+				scroll-padding-inline: 4px;
+			}
+			:root.layout-h {
+				--h-bottom: var(--mobile-dock-space);
+			}
+			html.layout-h .container > .glass-card {
+				scroll-padding-block: 16px;
+			}
+			html.layout-h .container > footer#footer {
+				justify-content: safe center;
+			}
+			html.layout-h .container > footer > * {
+				flex-shrink: 0;
+			}
 			footer .social-icons {
 				display: grid;
 				grid-template-columns: repeat(4, 44px);
@@ -8580,6 +8658,36 @@
 			else updateHNavState();
 			showHint();
 		}
+		// 手機工具鍵使用獨立底列；回到桌機時還原節點，保留原本的事件與浮動位置。
+		const mobileToolsQuery = window.matchMedia('(max-width: 768px)');
+		const mobileToolNodes = [
+			layoutToggleBtn,
+			document.querySelector('.contact-btn-floating-wrapper'),
+			langToggleBtn,
+			themeToggleBtn,
+			scrollTopBtn
+		].filter(Boolean).map((element) => {
+			const marker = document.createComment('floating control');
+			element.before(marker);
+			return { element, marker };
+		});
+		const mobileTools = document.createElement('div');
+		mobileTools.className = 'mobile-tools';
+		mobileTools.setAttribute('role', 'group');
+		mobileTools.dataset.ariaLabelZh = '網站工具';
+		mobileTools.dataset.ariaLabelEn = 'Site controls';
+		mobileTools.setAttribute('aria-label', isZh() ? '網站工具' : 'Site controls');
+		const syncMobileTools = () => {
+			if (mobileToolsQuery.matches) {
+				if (!mobileTools.isConnected) document.body.appendChild(mobileTools);
+				mobileToolNodes.forEach(({ element }) => mobileTools.appendChild(element));
+			} else {
+				mobileToolNodes.forEach(({ element, marker }) => marker.after(element));
+				mobileTools.remove();
+			}
+		};
+		mobileToolsQuery.addEventListener('change', syncMobileTools);
+		syncMobileTools();
 		syncLayoutControls();
 	});
 
